@@ -43,7 +43,7 @@ uniform vec3      ToonRampTinting:    source_color;
 
 group_uniforms Texture;
 #if (USE_SMOOTH_PIXELART || !USE_PIXELART)
-	uniform sampler2D Texture:            source_color, filter_linear_mipmap_anisotropic;
+	uniform vec4 Color: source_color = vec4(1.0);
 #else
 	uniform sampler2D Texture:            source_color, filter_nearest_mipmap_anisotropic;
 #endif
@@ -76,13 +76,13 @@ group_uniforms Texture;
 void fragment() {
 	vec4 textureColor;
 
-	#if USE_SMOOTH_PIXELART
-		vec2 tex_size = 1.0f / vec2(textureSize(Texture, 0));
-		textureColor = texture_point_smooth(Texture, UV, tex_size);
-	#else
-		textureColor = texture(Texture, UV);
-	#endif
-		ALBEDO = textureColor.rgb;
+	//#if USE_SMOOTH_PIXELART
+		//vec2 tex_size = 1.0f / vec2(textureSize(Texture, 0));
+		//textureColor = texture_point_smooth(Texture, UV, tex_size);
+	//#else
+		//textureColor = texture(Texture, UV);
+	//#endif
+	ALBEDO = Color.rgb;
 
 	#if USE_ALPHA
 		ALPHA = textureColor.a;

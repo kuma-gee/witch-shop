@@ -6,7 +6,9 @@ signal accepted()
 @export var run_speed := 8
 @export var speed := 5
 @export var acceleration := 50
+@export var color := Color.WHITE
 
+@export var player_input: PlayerInput
 @export var animation: AnimationPlayer
 @export var phyiscal_bone_simulator: PhysicalBoneSimulator3D
 @export var throw_charge: Chargeable
@@ -21,11 +23,16 @@ signal accepted()
 @onready var hold_point = $Pivot/HoldPoint
 @onready var hand_3d = $Pivot/Hand3D
 @onready var run_particles: GPUParticles3D = $Pivot/RunParticles
-@onready var player_input: PlayerInput = $PlayerInput
+
+@onready var cube: MeshInstance3D = $Pivot/base_blob/Armature/Skeleton3D/Cube
 
 var walk_vel: Vector3
 
 func _ready() -> void:
+	var mat = cube.material_override.duplicate() as ShaderMaterial
+	mat.set_shader_parameter("Color", color)
+	cube.material_override = mat
+	
 	_update_hand_items()
 	#phyiscal_bone_simulator.physical_bones_start_simulation()
 

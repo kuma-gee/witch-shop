@@ -38,10 +38,12 @@ cashier = NodePath("NavigationRegion3D/Cashier")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
 money_label = NodePath("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
 
-[node name="PlayerSpawner" type="Marker3D" parent="." node_paths=PackedStringArray("grid")]
+[node name="PlayerSpawner" type="Marker3D" parent="." node_paths=PackedStringArray("grid", "root")]
 script = ExtResource("2_2l0l7")
 player = ExtResource("3_5awe5")
 grid = NodePath("../NavigationRegion3D/GridMap")
+root = NodePath("..")
+colors = Array[Color]([Color(1, 0.28, 0.28, 1), Color(0.325, 1, 0.25, 1), Color(0, 0.65, 1, 1), Color(1, 0.95, 0, 1)])
 
 [node name="CustomerSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.889, 0, -5.14688)

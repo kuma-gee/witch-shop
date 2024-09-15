@@ -39,11 +39,21 @@ func _get_simplified_device(raw_name: String) -> String:
 	
 	return Device.STEAM_DECK
 
+func set_for_event(event: InputEvent):
+	joypad = is_joypad_event(event)
+	device_id = event.device
+
+func get_vector(left: String, right: String, up: String, down: String):
+	return Vector2(
+		get_action_strength(right) - get_action_strength(left),
+		get_action_strength(down) - get_action_strength(up),
+	)
+
 func is_player_event(event: InputEvent) -> bool:
-	return joypad == _is_joypad_event(event) and device_id == event.device
+	return joypad == is_joypad_event(event) and device_id == event.device
 
 
-func _is_joypad_event(event: InputEvent) -> bool:
+static func is_joypad_event(event: InputEvent) -> bool:
 	return event is InputEventJoypadButton or event is InputEventJoypadMotion
 
 
@@ -56,3 +66,4 @@ func handle_input(event: InputEvent) -> void:
 		return
 
 	super.handle_input(event)
+	get_viewport().set_input_as_handled()
