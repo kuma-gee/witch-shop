@@ -6,14 +6,7 @@ static func override_key_inputs(inputs: Dictionary):
 		InputMap.erase_action(action)
 
 	for action in inputs:
-		InputMap.add_action(action)
-		
-		var value = inputs[action]
-		if not value is Array:
-			value = [inputs[action]]
-
-		for k in value:
-			InputMap.action_add_event(action, input_to_event(k))
+		add_input(action, inputs[action])
 	
 static func input_to_event(k: Variant):
 	if k is InputEvent:
@@ -23,9 +16,16 @@ static func input_to_event(k: Variant):
 	else:
 		return key(k)
 
-static func add_input(action: String, input: Variant):
+static func add_input(action: String, inputs: Variant):
 	InputMap.add_action(action)
-	InputMap.action_add_event(action, input_to_event(input))
+		
+	var value = inputs
+	if not value is Array:
+		value = [inputs]
+
+	for k in value:
+		InputMap.action_add_event(action, input_to_event(k))
+		InputMap.action_set_deadzone(action, 0.5)
 
 static func mouse(k: int) -> InputEventMouseButton:
 	var ev = InputEventMouseButton.new()

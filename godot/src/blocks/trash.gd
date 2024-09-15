@@ -15,5 +15,5 @@ func interact(hand: Hand3D):
 		print("Can only throw away potion items")
 		return
 	
+	print("Throwing away %s" % hand.item.get_name())
 	hand.take_item()
-	print("Throwing away %s" % hand.item)

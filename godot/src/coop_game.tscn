@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=25 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" path="res://src/coop/player_spawner.gd" id="2_2l0l7"]
@@ -17,7 +17,10 @@
 [ext_resource type="Theme" uid="uid://dsxq24xebl0ij" path="res://src/coop_theme.tres" id="15_5s8e5"]
 [ext_resource type="Script" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="16_58ut5"]
+[ext_resource type="Script" path="res://src/ui/ready_container.gd" id="18_027cq"]
 [ext_resource type="MeshLibrary" uid="uid://vgjr746otf71" path="res://assets/Prototype Textures/prototypes.tres" id="18_qcp5f"]
+[ext_resource type="Texture2D" uid="uid://cicpjsrxlm7hb" path="res://assets/inputs/Xbox Series/XboxSeriesX_A.png" id="19_cva0b"]
+[ext_resource type="Script" path="res://src/ui/slide_effect.gd" id="19_ruurj"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_47riw"]
 vertices = PackedVector3Array(-10.95, 0.3, -4.15, -10.5, 0.3, -4.3, -10.5, 0.3, -4.6, -10.95, 0.3, -4.75, -10.95, 0.3, -7.15, -20.7, 0.3, -12.7, -10.65, 0.3, 14.75, -10.65, 0.3, 9.35, -10.95, 0.3, 9.2, -20.7, 0.3, 14.75, -10.65, 0.3, -7.3, -10.65, 0.3, -12.7, -10.2, 0.3, -7.3, 9.15, 0.3, -7.3, 9.75, 0.3, -7.3, 9.75, 0.3, -12.7, -10.05, 0.3, -7, 9, 0.3, -7, 10.05, 0.3, 9.2, 9.75, 0.3, 9.35, 9.75, 0.3, 14.75, 19.65, 0.3, 14.75, 10.05, 0.3, -7.15, 19.65, 0.3, -12.7, -10.05, 0.3, -4.75, -10.05, 0.3, -4.15, -3.3, 0.3, -4.15, -3.3, 0.3, -4.75, -10.05, 0.3, 8, -3.3, 0.3, 8, -2.4, 0.3, -4.3, -2.4, 0.3, -4.6, -3.3, 0.3, -5.95, -10.05, 0.3, -5.95, -1.65, 0.3, -4.75, -1.65, 0.3, -4.15, 9, 0.3, -5.95, -1.65, 0.3, 8, 9, 0.3, 8, -1.65, 0.3, -5.95, -2.7, 1.2, -5.8, -2.7, 1.2, -5.2, -2.25, 1.2, -5.2, -2.25, 1.2, -5.8, -2.7, 1.2, -3.7, -2.7, 1.2, 7.7, -2.25, 1.2, 7.7, -2.25, 1.2, -3.7, -10.2, 0.3, 9.35, 9.15, 0.3, 9.35, -10.05, 0.3, 9.05, 9, 0.3, 9.05)
@@ -38,11 +41,20 @@ cashier = NodePath("NavigationRegion3D/Cashier")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
 money_label = NodePath("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
 
-[node name="PlayerSpawner" type="Marker3D" parent="." node_paths=PackedStringArray("grid", "root")]
+[node name="ShopTimeEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
+script = ExtResource("19_ruurj")
+control = NodePath("../CanvasLayer/Control/ShopOpenTime")
+
+[node name="ReadyEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
+script = ExtResource("19_ruurj")
+control = NodePath("../CanvasLayer/Control/ReadyContainer")
+
+[node name="PlayerSpawner" type="Marker3D" parent="." node_paths=PackedStringArray("grid", "root", "ready_container")]
 script = ExtResource("2_2l0l7")
 player = ExtResource("3_5awe5")
 grid = NodePath("../NavigationRegion3D/GridMap")
 root = NodePath("..")
+ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 colors = Array[Color]([Color(1, 0.28, 0.28, 1), Color(0.325, 1, 0.25, 1), Color(0, 0.65, 1, 1), Color(1, 0.95, 0, 1)])
 
 [node name="CustomerSpawner" type="Node3D" parent="."]
@@ -93,12 +105,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.16849)
 
 [node name="Material" parent="NavigationRegion3D" instance=ExtResource("6_wmb2j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83975, 0, 0)
+type = 7
 
 [node name="Material2" parent="NavigationRegion3D" instance=ExtResource("6_wmb2j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83975, 0, 2.9167)
+type = 8
 
 [node name="Material3" parent="NavigationRegion3D" instance=ExtResource("6_wmb2j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83975, 0, 5.45835)
+type = 9
 
 [node name="Cauldron" parent="NavigationRegion3D" instance=ExtResource("5_0kpkd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.19567)
@@ -109,8 +124,9 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("12_b7ujl")
 
-[node name="ActionIcon" parent="NavigationRegion3D/Cashier" instance=ExtResource("13_g4xs1")]
+[node name="ActionIcon" parent="NavigationRegion3D/Cashier" node_paths=PackedStringArray("chargeable") instance=ExtResource("13_g4xs1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+chargeable = NodePath("../Chargeable")
 
 [node name="Chargeable" type="Node" parent="NavigationRegion3D/Cashier"]
 script = ExtResource("14_ulyhj")
@@ -156,6 +172,39 @@ size_flags_horizontal = 4
 step = 0.1
 script = ExtResource("15_qjup0")
 timer = NodePath("../../../../ShopOpenTimer")
+
+[node name="ReadyContainer" type="MarginContainer" parent="CanvasLayer/Control" node_paths=PackedStringArray("player_container", "key_container")]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 15
+script = ExtResource("18_027cq")
+player_container = NodePath("VBoxContainer/HBoxContainer")
+key_container = NodePath("VBoxContainer/HBoxContainer2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ReadyContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/ReadyContainer/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/ReadyContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/ReadyContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("19_cva0b")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 0

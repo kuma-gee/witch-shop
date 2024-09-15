@@ -12,19 +12,14 @@ var shop_open := false:
 			print("Opening Shop")
 			customer_spawner.start_timer()
 			shop_open_timer.start()
-			
-			shop_ui_tween = _create_tw(shop_ui_tween)
-			shop_ui_tween.tween_property(shop_open_time, "position", Vector2.ZERO, 0.5).from(shop_open_time.size * Vector2.UP)
-			shop_open_time.show()
+			shop_time_effect.do_show()
+			ready_effect.do_hide()
 		else:
 			print("Closing Shop")
-			
-			shop_ui_tween = _create_tw(shop_ui_tween)
-			shop_ui_tween.tween_property(shop_open_time, "position", shop_open_time.size * Vector2.UP, 0.5)
-			shop_open_time.hide()
-			reset_ready_state()
+			shop_time_effect.do_hide()
+			ready_effect.do_show()
+			player_spawner.shop_closed()
 
-var ready_players := {}
 var money := 0:
 	set(v):
 		money = v
@@ -34,16 +29,13 @@ var money := 0:
 @export var shop_open_time: Control
 @export var money_label: Label
 
+@onready var player_spawner: PlayerSpawner = $PlayerSpawner
 @onready var customer_spawner: CustomerSpawner = $CustomerSpawner
 @onready var shop_open_timer: Timer = $ShopOpenTimer
 @onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
 @onready var grid_map: ShopGridMap = $NavigationRegion3D/GridMap
-
-func _create_tw(prev_tw: Tween):
-	if prev_tw and prev_tw.is_running():
-		prev_tw.kill()
-	
-	return create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+@onready var shop_time_effect: SlideEffect = $ShopTimeEffect
+@onready var ready_effect: SlideEffect = $ReadyEffect
 
 func _ready() -> void:
 	InputMapper.override_key_inputs({
@@ -71,22 +63,7 @@ func _ready() -> void:
 	)
 	cashier.money_received.connect(func(m): money += m)
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
-	
-	for player in get_tree().get_nodes_in_group("player"):
-		ready_players[player] = false
-		player.accepted.connect(func():
-			ready_players[player] = not ready_players[player]
-			print("Ready players: %s" % ready_players.values())
-			if is_everyone_ready():
-				start_game()
-		)
-
-func is_everyone_ready():
-	return ready_players.values().filter(func(x): return not x).is_empty()
-
-func reset_ready_state():
-	for x in ready_players:
-		ready_players[x] = false
+	player_spawner.start_game.connect(func(): start_game())
 
 func start_game():
 	shop_open = true

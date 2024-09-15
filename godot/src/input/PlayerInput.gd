@@ -49,6 +49,9 @@ func get_vector(left: String, right: String, up: String, down: String):
 		get_action_strength(down) - get_action_strength(up),
 	)
 
+func get_id():
+	return "%s-%s" % [device_id, joypad]
+
 func is_player_event(event: InputEvent) -> bool:
 	return joypad == is_joypad_event(event) and device_id == event.device
 

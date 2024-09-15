@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3l1sb3cu34np"]
+[gd_scene load_steps=6 format=3 uid="uid://b3l1sb3cu34np"]
 
 [ext_resource type="Script" path="res://src/coop/throwing_item.gd" id="1_ixvvj"]
 [ext_resource type="Script" path="res://src/coop/Interactable3D.gd" id="2_dwyu7"]
@@ -8,6 +8,9 @@ size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sen8"]
 size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2gs7w"]
+radius = 0.7
 
 [node name="ThrowingItem" type="CharacterBody3D"]
 collision_layer = 0
@@ -24,3 +27,8 @@ script = ExtResource("2_dwyu7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0485259, 0)
 shape = SubResource("BoxShape3D_5sen8")
+
+[node name="PotionEffect" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PotionEffect"]
+shape = SubResource("SphereShape3D_2gs7w")
