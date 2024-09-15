@@ -6,7 +6,7 @@
 # butler: for itchio
 # steamcmd: for steam
 
-GAME="##VAR_GAME_NAME"
+GAME="witch-shop"
 VERSION="$1"
 PLATFORM="$2"
 STEAM_USER="$3"

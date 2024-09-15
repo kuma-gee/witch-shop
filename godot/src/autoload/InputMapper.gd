@@ -15,7 +15,7 @@ static func override_key_inputs(inputs: Dictionary):
 		for k in value:
 			InputMap.action_add_event(action, input_to_event(k))
 	
-static func input_to_event(input: Variant):
+static func input_to_event(k: Variant):
 	if k is InputEvent:
 		return k;
 	elif k >= MOUSE_BUTTON_LEFT and k <= MOUSE_BUTTON_XBUTTON2:
