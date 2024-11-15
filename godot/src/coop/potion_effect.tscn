@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b15vyasbr55i2"]
+
+[ext_resource type="Script" path="res://src/coop/potion_effect.gd" id="1_ddrt6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rxqln"]
+radius = 2.0
+
+[node name="PotionEffect" type="Area3D"]
+collision_layer = 0
+collision_mask = 34
+script = ExtResource("1_ddrt6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_rxqln")
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true

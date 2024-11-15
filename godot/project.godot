@@ -35,10 +35,6 @@ window/size/height=1080
 
 export/convert_text_resources_to_binary=false
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [importer_defaults]
 
 texture={
@@ -81,15 +77,24 @@ move_right={
 [layer_names]
 
 2d_physics/layer_1="static"
+3d_physics/layer_1="static"
 2d_physics/layer_2="player"
+3d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
+3d_physics/layer_3="interactable"
 2d_physics/layer_4="player_hurtbox"
+3d_physics/layer_4="bones"
 2d_physics/layer_5="enemy_hurtbox"
+3d_physics/layer_6="customer"
 
 [locale]
 
 translations=PackedStringArray()
 locale_filter=[0, []]
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 

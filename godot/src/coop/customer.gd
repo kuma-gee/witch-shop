@@ -11,6 +11,7 @@ signal has_left()
 var return_pos: Vector3
 var ordering_item: PotionItem.Type = -1
 var leaving := false
+var is_frozen := false
 
 func move_to(pos: Vector3):
 	navigation_agent_3d.target_position = pos
@@ -30,6 +31,9 @@ func _physics_process(delta):
 	_on_velocity_computed(new_velocity)
 	
 func _on_velocity_computed(safe_velocity):
+	if is_frozen:
+		return
+		
 	velocity = safe_velocity
 	move_and_slide()
 
@@ -39,3 +43,8 @@ func set_order(item: PotionItem.Type):
 func leave():
 	move_to(return_pos)
 	leaving = true
+
+### Effects ###
+
+func freeze():
+	is_frozen = true

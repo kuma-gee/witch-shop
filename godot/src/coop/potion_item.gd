@@ -74,3 +74,6 @@ static func contains_all(items: Array, types: Array):
 		if not x.type in types:
 			return false
 	return true
+
+static func is_potion(type: Type):
+	return type >= Type.POTION_RED

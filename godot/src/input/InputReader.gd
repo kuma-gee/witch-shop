@@ -60,6 +60,8 @@ func is_pressed_any(keys: Array) -> bool:
 
 func is_pressed(key: String) -> bool:
 	return inputs.has(key)
+func is_action_pressed(key: String) -> bool:
+	return inputs.has(key)
 
 
 func get_action_strength(key: String) -> float:

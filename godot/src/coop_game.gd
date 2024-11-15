@@ -47,6 +47,7 @@ func _ready() -> void:
 		"action": [KEY_SPACE, InputMapper.joy_btn(JOY_BUTTON_X)],
 		"sprint": [KEY_SHIFT, InputMapper.joy_btn(JOY_BUTTON_B)],
 		"accept": [KEY_CTRL, InputMapper.joy_btn(JOY_BUTTON_Y)],
+		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
 	
 	shop_open = false

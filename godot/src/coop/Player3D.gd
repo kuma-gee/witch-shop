@@ -1,16 +1,19 @@
 class_name Player3D
 extends CharacterBody3D
 
+const ARM_BONES = ["UpperArm.L", "LowerArm.L", "UpperArm.R", "LowerArm.R"]
+
 signal accepted()
 
 @export var run_speed := 8
 @export var speed := 5
 @export var acceleration := 50
+@export var friction := 80
+@export var push_force := 20
 @export var color := Color.WHITE
 
 @export var player_input: PlayerInput
 @export var animation: AnimationPlayer
-@export var phyiscal_bone_simulator: PhysicalBoneSimulator3D
 @export var throw_charge: Chargeable
 @export var grid: ShopGridMap
 
@@ -26,15 +29,35 @@ signal accepted()
 
 @onready var cube: MeshInstance3D = $Pivot/base_blob/Armature/Skeleton3D/Cube
 
+# Effects
+@export_category("Effects")
+@export var phyiscal_bone_simulator: PhysicalBoneSimulator3D
+@export var body_bone: PhysicalBone3D
+@onready var freeze_timer: Timer = $FreezeTimer
+@onready var explosion_timer: Timer = $ExplosionTimer
+
+var gravity := 0.9
 var walk_vel: Vector3
+
+var is_frozen := false
+var knockback := Vector3.ZERO
 
 func _ready() -> void:
 	var mat = cube.material_override.duplicate() as ShaderMaterial
 	mat.set_shader_parameter("Color", color)
 	cube.material_override = mat
 	
+	freeze_timer.timeout.connect(func(): is_frozen = false)
+	explosion_timer.timeout.connect(func():
+		phyiscal_bone_simulator.active = false
+		phyiscal_bone_simulator.physical_bones_stop_simulation()
+	)
+	
+	for c in phyiscal_bone_simulator.get_children():
+		if c is PhysicalBone3D:
+			add_collision_exception_with(c)
+	
 	_update_hand_items()
-	#phyiscal_bone_simulator.physical_bones_start_simulation()
 
 	hand_3d.picked_up_at.connect(func(pos: Vector3):
 		var p = grid.local_to_map(pos)
@@ -76,6 +99,7 @@ func _ready() -> void:
 				
 				var throwing_item = throw_item.instantiate()
 				throwing_item.add_child(node.duplicate())
+				throwing_item.item = hand_3d.item
 				get_tree().current_scene.add_child(throwing_item)
 				throwing_item.global_position = item_nodes.global_position
 				
@@ -103,14 +127,35 @@ func _update_hand_items():
 		item_nodes.hide_all()
 
 func _physics_process(delta: float) -> void:
-	var move_2d = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var move_dir = Vector3(move_2d.x, 0, move_2d.y).normalized()
-	if move_dir:
-		pivot.basis = Basis.looking_at(move_dir)
+	if is_frozen or phyiscal_bone_simulator.active:
+		animation.stop()
+		return
 	
-	animation.play("Walk" if move_2d else "Idle")
-	velocity = gravity_3d.apply_gravity(self, delta) + _walk(move_dir, delta)
+	var move_dir := Vector3.ZERO
+	if knockback:
+		velocity = knockback
+		knockback = knockback.move_toward(Vector3.ZERO, delta * friction)
+	else:
+		var move_2d = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
+		move_dir = Vector3(move_2d.x, 0, move_2d.y).normalized()
+		if move_dir:
+			pivot.basis = Basis.looking_at(move_dir)
+		
+		#animation.play("Walk" if move_2d else "Idle")
+		var walk_dir = _walk(move_dir, delta)
+		velocity.x = walk_dir.x
+		velocity.z = walk_dir.z
+	
+	if not is_on_floor():
+		velocity.y -= gravity
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		var bone = c.get_collider() as PhysicalBone3D
+		if bone:
+			bone.apply_central_impulse(-c.get_normal() * push_force)
+			
 
 func _walk_dir(move_dir: Vector3):
 	var _forward: Vector3 = global_transform.basis * move_dir
@@ -125,3 +170,18 @@ func _walk(move_dir: Vector3, delta: float) -> Vector3:
 	
 	walk_vel = walk_vel.move_toward(walk_dir * actual_speed * move_dir.length(), acceleration * delta)
 	return walk_vel
+
+### Effects ###
+
+func freeze():
+	is_frozen = true
+	freeze_timer.start()
+
+func explode(from: Vector3):
+	var dir = from.direction_to(global_position)
+	phyiscal_bone_simulator.physical_bones_start_simulation()
+	body_bone.apply_central_impulse(dir * 200)
+	explosion_timer.start()
+
+func levitate():
+	pass

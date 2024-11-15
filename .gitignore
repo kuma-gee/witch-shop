@@ -3,3 +3,7 @@ build/
 _sprites/
 .godot/
 node_modules
+
+godot/assets/**/*.*
+!godot/assets/**/*.import
+!godot/assets/*.zip
