@@ -106,7 +106,7 @@ jobs:
       
       - run: |
           mkdir -p build/windows
-          godot --verbose --headless --path godot --export-release windows build/windows/main.exe
+          godot --verbose --headless --path test --export-release windows build/windows/main.exe
 
       # - uses: kuma-gee/action-godot/godot-build@main
       #   with:
