@@ -90,7 +90,7 @@ jobs:
         if: env.ASSETS_PASSWORD
         uses: kuma-gee/action-protect-assets@v1
         with:
-          path: ${{ inputs.project-path }}/${{ inputs.assets-path }}
+          path: godot/assets
           password: ${{ secrets.ASSETS_PASSWORD }}
         env:
           ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
@@ -98,11 +98,11 @@ jobs:
       - name: Setup Templates
         uses: kuma-gee/action-godot-template/setup@v1
         with:
-          version: ${{ inputs.godot-version }}
-          channel: ${{ matrix.channel }}
+          version: 4.3
+          channel: windows
           encryption-key: ${{ secrets.ENCRYPTION_KEY }}
-          game-folder: ${{ inputs.project-path }}
-          repo: ${{ inputs.template-repo }}
+          game-folder: godot
+          repo: kuma-gee/action-godot-template
       
       - run: |
           mkdir -p build/windows
@@ -118,7 +118,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: release-${{ matrix.channel }}
+          name: release-windows
           path: build/*.zip
 
   # release-itch:
