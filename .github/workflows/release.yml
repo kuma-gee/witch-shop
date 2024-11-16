@@ -86,23 +86,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
     
-      - name: Unpack protected assets
-        if: env.ASSETS_PASSWORD
-        uses: kuma-gee/action-protect-assets@v1
-        with:
-          path: godot/assets
-          password: ${{ secrets.ASSETS_PASSWORD }}
-        env:
-          ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
+      # - name: Unpack protected assets
+      #   if: env.ASSETS_PASSWORD
+      #   uses: kuma-gee/action-protect-assets@v1
+      #   with:
+      #     path: godot/assets
+      #     password: ${{ secrets.ASSETS_PASSWORD }}
+      #   env:
+      #     ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
 
-      - name: Setup Templates
-        uses: kuma-gee/action-godot-template/setup@v1
-        with:
-          version: 4.3
-          channel: windows
-          encryption-key: ${{ secrets.ENCRYPTION_KEY }}
-          game-folder: godot
-          repo: kuma-gee/action-godot-template
+      # - name: Setup Templates
+      #   uses: kuma-gee/action-godot-template/setup@v1
+      #   with:
+      #     version: 4.3
+      #     channel: windows
+      #     encryption-key: ${{ secrets.ENCRYPTION_KEY }}
+      #     game-folder: godot
+      #     repo: kuma-gee/action-godot-template
       
       - run: |
           mkdir -p build/windows
