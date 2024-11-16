@@ -64,47 +64,102 @@ jobs:
           RELEASE_STEAM: ${{ inputs.release-steam }}
           RELEASE_GITHUB: ${{ inputs.release-github }}
   
-  build-godot:
-    uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
-    needs: build-info
-    if: ${{ needs.build-info.outputs.channels != '[]' }}
-    with:
-      channels: ${{ needs.build-info.outputs.channels }}
-      steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
-      godot-version: 4.3
-      project-path: godot
-    secrets: inherit
+  # build-godot:
+  #   uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
+  #   needs: build-info
+  #   if: ${{ needs.build-info.outputs.channels != '[]' }}
+  #   with:
+  #     channels: ${{ needs.build-info.outputs.channels }}
+  #     steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
+  #     godot-version: 4.3
+  #     project-path: godot
+  #   secrets: inherit
 
-  release-itch:
-    uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
-    needs: build-godot
-    if: ${{ inputs.release-itch }}
-    with:
-      channels: '["web"]'
-      game: ${{ needs.build-godot.outputs.game }}
-      itch-user: kuma-gee
-    secrets:
-      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-      PASSWORD: ${{ needs.build-godot.outputs.password }}
+  build-game:
+    runs-on: ubuntu-latest
+    needs: generate-password
+    container: barichello/godot-ci:${{ inputs.godot-version }}
+    # strategy:
+    #   matrix:
+    #     channel: ${{ fromJson(inputs.channels) }}
+    outputs:
+      game: ${{ steps.build.outputs.game }}
+    steps:
+      - uses: actions/checkout@v4
+    
+      - name: Unpack protected assets
+        if: env.ASSETS_PASSWORD
+        uses: kuma-gee/action-protect-assets@v1
+        with:
+          path: ${{ inputs.project-path }}/${{ inputs.assets-path }}
+          password: ${{ secrets.ASSETS_PASSWORD }}
+        env:
+          ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
+      
+      - name: Create Godot Environment File
+        uses: kuma-gee/action-godot/godot-env@main
+        with:
+          output: ${{ inputs.project-path }}/${{ inputs.env-build-file }}
+          code: ${{ secrets.GAME_CODE }}
+          version: ${{ github.ref_name }}
+          steam-app: ${{ inputs.steam-app }}
+
+      - name: Setup Templates
+        uses: kuma-gee/action-godot-template/setup@v1
+        with:
+          version: ${{ inputs.godot-version }}
+          channel: ${{ matrix.channel }}
+          encryption-key: ${{ secrets.ENCRYPTION_KEY }}
+          game-folder: ${{ inputs.project-path }}
+          repo: ${{ inputs.template-repo }}
+      
+      - run: |
+          mkdir -p build/windows
+          godot --verbose --headless --path godot --export-release windows build/windows/main.exe
+
+      # - uses: kuma-gee/action-godot/godot-build@main
+      #   with:
+      #     channel: ${{ matrix.channel }}
+      #     output: build
+      #     game-folder: ${{ inputs.project-path }}
+      #     password: ${{ needs.generate-password.outputs.password }}
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.channel }}
+          path: build/*.zip
+
+  # release-itch:
+  #   uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
+  #   needs: build-godot
+  #   if: ${{ inputs.release-itch }}
+  #   with:
+  #     channels: '["web"]'
+  #     game: ${{ needs.build-godot.outputs.game }}
+  #     itch-user: kuma-gee
+  #   secrets:
+  #     BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+  #     PASSWORD: ${{ needs.build-godot.outputs.password }}
   
-  release-steam:
-    uses: kuma-gee/actions/.github/workflows/steam-release.yml@main
-    needs: [build-godot, build-info]
-    if: ${{ inputs.release-steam }}
-    with:
-      steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
-      branch: beta
-    secrets:
-      STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
-      STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
-      PASSWORD: ${{ needs.build-godot.outputs.password }}
+  # release-steam:
+  #   uses: kuma-gee/actions/.github/workflows/steam-release.yml@main
+  #   needs: [build-godot, build-info]
+  #   if: ${{ inputs.release-steam }}
+  #   with:
+  #     steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
+  #     branch: beta
+  #   secrets:
+  #     STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+  #     STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
+  #     PASSWORD: ${{ needs.build-godot.outputs.password }}
 
-  release-github:
-    uses: kuma-gee/actions/.github/workflows/github-release.yml@main
-    needs: build-godot
-    if: ${{ inputs.release-github }}
-    with:
-      demo: ${{ inputs.demo }}
-    secrets:
-      discord-webhook: ${{ secrets.DISCORD_RELEASE_HOOK }}
-      password: ${{ needs.build-godot.outputs.password }}
+  # release-github:
+  #   uses: kuma-gee/actions/.github/workflows/github-release.yml@main
+  #   needs: build-godot
+  #   if: ${{ inputs.release-github }}
+  #   with:
+  #     demo: ${{ inputs.demo }}
+  #   secrets:
+  #     discord-webhook: ${{ secrets.DISCORD_RELEASE_HOOK }}
+  #     password: ${{ needs.build-godot.outputs.password }}
