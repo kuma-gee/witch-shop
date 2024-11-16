@@ -94,14 +94,6 @@ jobs:
           password: ${{ secrets.ASSETS_PASSWORD }}
         env:
           ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
-      
-      - name: Create Godot Environment File
-        uses: kuma-gee/action-godot/godot-env@main
-        with:
-          output: ${{ inputs.project-path }}/${{ inputs.env-build-file }}
-          code: ${{ secrets.GAME_CODE }}
-          version: ${{ github.ref_name }}
-          steam-app: ${{ inputs.steam-app }}
 
       - name: Setup Templates
         uses: kuma-gee/action-godot-template/setup@v1
