@@ -77,7 +77,7 @@ jobs:
 
   build-game:
     runs-on: ubuntu-latest
-    container: barichello/godot-ci:${{ inputs.godot-version }}
+    container: barichello/godot-ci:4.3
     # strategy:
     #   matrix:
     #     channel: ${{ fromJson(inputs.channels) }}
