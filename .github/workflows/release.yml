@@ -64,62 +64,16 @@ jobs:
           RELEASE_STEAM: ${{ inputs.release-steam }}
           RELEASE_GITHUB: ${{ inputs.release-github }}
   
-  # build-godot:
-  #   uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
-  #   needs: build-info
-  #   if: ${{ needs.build-info.outputs.channels != '[]' }}
-  #   with:
-  #     channels: ${{ needs.build-info.outputs.channels }}
-  #     steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
-  #     godot-version: 4.3
-  #     project-path: godot
-  #   secrets: inherit
-
-  build-game:
-    runs-on: ubuntu-latest
-    container: barichello/godot-ci:4.3
-    # strategy:
-    #   matrix:
-    #     channel: ${{ fromJson(inputs.channels) }}
-    outputs:
-      game: ${{ steps.build.outputs.game }}
-    steps:
-      - uses: actions/checkout@v4
-    
-      # - name: Unpack protected assets
-      #   if: env.ASSETS_PASSWORD
-      #   uses: kuma-gee/action-protect-assets@v1
-      #   with:
-      #     path: godot/assets
-      #     password: ${{ secrets.ASSETS_PASSWORD }}
-      #   env:
-      #     ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
-
-      - name: Setup Templates
-        uses: kuma-gee/action-godot-template/setup@v1
-        with:
-          version: 4.3
-          channel: windows
-          encryption-key: ${{ secrets.ENCRYPTION_KEY }}
-          game-folder: godot
-          repo: kuma-gee/action-godot-template
-      
-      - run: |
-          mkdir -p build/windows
-          godot --verbose --headless --path test --export-release windows ../build/windows/main.exe
-
-      # - uses: kuma-gee/action-godot/godot-build@main
-      #   with:
-      #     channel: ${{ matrix.channel }}
-      #     output: build
-      #     game-folder: ${{ inputs.project-path }}
-      #     password: ${{ needs.generate-password.outputs.password }}
-      
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-windows
-          path: build/*.zip
+  build-godot:
+    uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
+    needs: build-info
+    if: ${{ needs.build-info.outputs.channels != '[]' }}
+    with:
+      channels: ${{ needs.build-info.outputs.channels }}
+      steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
+      godot-version: 4.3
+      project-path: test
+    secrets: inherit
 
   # release-itch:
   #   uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
