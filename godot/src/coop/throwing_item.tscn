@@ -13,7 +13,7 @@ size = Vector3(0.3, 0.3, 0.3)
 radius = 0.290074
 
 [node name="ThrowingItem" type="CharacterBody3D"]
-collision_layer = 0
+collision_layer = 16
 script = ExtResource("1_ixvvj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

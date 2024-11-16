@@ -1,3 +1,4 @@
+class_name ThrowableItem
 extends CharacterBody3D
 
 const POTION_EFFECT = preload("res://src/coop/potion_effect.tscn")
@@ -10,15 +11,15 @@ var gravity := 0.9
 var item: PotionItem
 
 func _ready() -> void:
-	interactable_3d.interacted.connect(func(hand: Hand3D):
-		hand.hold_item(item)
-		queue_free()
-	)
-	
+	interactable_3d.interacted.connect(func(hand: Hand3D): pick_up(hand))
 	hit_area.body_entered.connect(func(_b):
 		print(_b)
 		_on_collision()
 	)
+
+func pick_up(hand: Hand3D):
+	hand.hold_item(item)
+	queue_free()
 
 func throw_at(throw_dir: Vector3):
 	velocity = throw_dir

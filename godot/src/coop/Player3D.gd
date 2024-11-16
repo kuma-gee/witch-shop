@@ -13,7 +13,7 @@ signal accepted()
 @export var color := Color.WHITE
 
 @export var player_input: PlayerInput
-@export var animation: AnimationPlayer
+@export var animation: PlayerAnimation
 @export var throw_charge: Chargeable
 @export var grid: ShopGridMap
 
@@ -24,7 +24,7 @@ signal accepted()
 @onready var gravity_3d = $Gravity3D
 @onready var pivot = $Pivot
 @onready var hold_point = $Pivot/HoldPoint
-@onready var hand_3d = $Pivot/Hand3D
+@onready var hand_3d: Hand3D = $Pivot/Hand3D
 @onready var run_particles: GPUParticles3D = $Pivot/RunParticles
 
 @onready var cube: MeshInstance3D = $Pivot/base_blob/Armature/Skeleton3D/Cube
@@ -42,6 +42,8 @@ var walk_vel: Vector3
 var is_frozen := false
 var knockback := Vector3.ZERO
 
+var is_hold_pressed := false
+
 func _ready() -> void:
 	var mat = cube.material_override.duplicate() as ShaderMaterial
 	mat.set_shader_parameter("Color", color)
@@ -51,6 +53,12 @@ func _ready() -> void:
 	explosion_timer.timeout.connect(func():
 		phyiscal_bone_simulator.active = false
 		phyiscal_bone_simulator.physical_bones_stop_simulation()
+	)
+	
+	hand_3d.body_entered.connect(func(item):
+		if item is ThrowableItem and is_hold_pressed:
+			item.pick_up(hand_3d)
+			_update_hand_items()
 	)
 	
 	for c in phyiscal_bone_simulator.get_children():
@@ -79,7 +87,7 @@ func _ready() -> void:
 				return
 			
 			if not hand_3d.is_holding_item():
-				print("Not holding any items to throw")
+				is_hold_pressed = true
 				return
 				
 			if not hand_3d.item is PotionItem:
@@ -114,6 +122,8 @@ func _ready() -> void:
 				_update_hand_items()
 			else:
 				hand_3d.action(false)
+			
+			is_hold_pressed = false
 	)
 
 func _get_face_dir():
@@ -128,9 +138,10 @@ func _update_hand_items():
 
 func _physics_process(delta: float) -> void:
 	if is_frozen or phyiscal_bone_simulator.active:
-		animation.stop()
+		animation.active = false
 		return
 	
+	animation.active = true
 	var move_dir := Vector3.ZERO
 	if knockback:
 		velocity = knockback
@@ -155,6 +166,8 @@ func _physics_process(delta: float) -> void:
 		var bone = c.get_collider() as PhysicalBone3D
 		if bone:
 			bone.apply_central_impulse(-c.get_normal() * push_force)
+			
+	animation.update(self)
 			
 
 func _walk_dir(move_dir: Vector3):
