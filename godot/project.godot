@@ -84,16 +84,13 @@ move_right={
 2d_physics/layer_4="player_hurtbox"
 3d_physics/layer_4="bones"
 2d_physics/layer_5="enemy_hurtbox"
+3d_physics/layer_5="throwable"
 3d_physics/layer_6="customer"
 
 [locale]
 
 translations=PackedStringArray()
 locale_filter=[0, []]
-
-[physics]
-
-3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 
