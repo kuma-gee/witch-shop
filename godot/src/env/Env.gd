@@ -1,6 +1,6 @@
 extends Node
 
-const UNLOCK_HASH = "06da2286fd35308a48d6c0e2f512dc82005f17f2a19cd73b4a5a1c0dc259289c"
+const UNLOCK_HASH = "4ef67bc32a3403ec24b4dfe1c515e3f283c1413ade36a37194f810fdb35226f0"
 
 var log_level := Logger.Level.DEBUG
 var version := "dev"
