@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0bc23gx30dqg"]
+[gd_scene load_steps=7 format=3 uid="uid://c0bc23gx30dqg"]
 
 [ext_resource type="Script" path="res://src/coop/customer.gd" id="1_7x41g"]
 [ext_resource type="PackedScene" uid="uid://dm63pvby76jke" path="res://assets/models/base_blob.glb" id="1_s06h4"]
 [ext_resource type="Shader" path="res://src/shaders/toon.gdshader" id="3_w3fq1"]
+[ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="4_wy0hi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogfih"]
 size = Vector3(0.656494, 2.07614, 0.560547)
@@ -46,5 +47,11 @@ target_desired_distance = 0.5
 avoidance_enabled = true
 radius = 1.0
 debug_enabled = true
+
+[node name="Order" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.44617, 0)
+modulate = Color(1, 0, 0, 1)
+billboard = 1
+texture = ExtResource("4_wy0hi")
 
 [editable path="Pivot/base_blob"]

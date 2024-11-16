@@ -7,11 +7,15 @@ signal has_left()
 
 @onready var navigation_agent_3d = $NavigationAgent3D
 @onready var pivot: Node3D = $Pivot
+@onready var order: Sprite3D = $Order
 
 var return_pos: Vector3
 var ordering_item: PotionItem.Type = -1
 var leaving := false
 var is_frozen := false
+
+func _ready() -> void:
+	order.hide()
 
 func move_to(pos: Vector3):
 	navigation_agent_3d.target_position = pos
@@ -39,8 +43,11 @@ func _on_velocity_computed(safe_velocity):
 
 func set_order(item: PotionItem.Type):
 	ordering_item = item
+	order.modulate = PotionItem.get_color(item)
+	order.show()
 
 func leave():
+	order.hide()
 	move_to(return_pos)
 	leaving = true
 

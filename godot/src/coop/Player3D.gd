@@ -42,7 +42,11 @@ var walk_vel: Vector3
 var is_frozen := false
 var knockback := Vector3.ZERO
 
-var is_hold_pressed := false
+var is_hold_pressed := false:
+	set(v):
+		is_hold_pressed = v
+		if is_hold_pressed:
+			animation.prepare_catch()
 
 func _ready() -> void:
 	var mat = cube.material_override.duplicate() as ShaderMaterial
@@ -84,6 +88,7 @@ func _ready() -> void:
 				_update_hand_items()
 		elif event.is_action_pressed("action"):
 			if hand_3d.action(true):
+				animation.start_work()
 				return
 			
 			if not hand_3d.is_holding_item():
@@ -142,6 +147,8 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	animation.active = true
+	if is_hold_pressed: return
+	
 	var move_dir := Vector3.ZERO
 	if knockback:
 		velocity = knockback

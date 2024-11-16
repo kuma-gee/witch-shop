@@ -24,6 +24,12 @@ const PRICES = {
 	Type.POTION_GREEN: 30,
 }
 
+const COLOR = {
+	Type.POTION_RED: Color.RED,
+	Type.POTION_BLUE: Color.BLUE,
+	Type.POTION_GREEN: Color.GREEN,
+}
+
 enum Process {
 	CUTTING,
 	DISTILL,
@@ -77,3 +83,6 @@ static func contains_all(items: Array, types: Array):
 
 static func is_potion(type: Type):
 	return type >= Type.POTION_RED
+
+static func get_color(type: Type):
+	return COLOR[type] if type in COLOR else Color.WHITE

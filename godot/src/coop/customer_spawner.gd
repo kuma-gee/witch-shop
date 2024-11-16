@@ -27,4 +27,3 @@ func spawn():
 	var target = cashier.add_to_queue(customer)
 	customer.move_to(target)
 	customer.return_pos = global_position
-	
