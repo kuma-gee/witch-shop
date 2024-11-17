@@ -8,7 +8,7 @@ signal money_received(money: int)
 @onready var chargeable: Chargeable = $Chargeable
 
 var queue := []
-var menu := [PotionItem.Type.POTION_RED, PotionItem.Type.POTION_BLUE, PotionItem.Type.POTION_GREEN]
+var menu := [PotionItem.Type.POTION_RED]
 
 func _ready() -> void:
 	action_icon.hide()

@@ -13,15 +13,15 @@ const PROCESSES = {
 }
 
 const RECIPIES = {
-	Type.POTION_RED: [Type.FEATHER, Type.STARLIGHT_DUST_COMBUST],
+	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTED],
 	Type.POTION_BLUE: [Type.STARLIGHT_DUST, Type.FEATHER, Type.FEATHER],
 	Type.POTION_GREEN: [Type.HERB_CUTTED, Type.HERB_CUTTED, Type.FEATHER],
 }
 
 const PRICES = {
-	Type.POTION_RED: 10,
-	Type.POTION_BLUE: 20,
-	Type.POTION_GREEN: 30,
+	Type.POTION_RED: 5,
+	Type.POTION_BLUE: 5,
+	Type.POTION_GREEN: 10,
 }
 
 const COLOR = {
@@ -45,9 +45,11 @@ enum Type {
 	STARLIGHT_DUST,
 	STARLIGHT_DUST_COMBUST,
 	
-	POTION_RED,
-	POTION_BLUE,
-	POTION_GREEN,
+	POTION_RED, # Explosion/Fire
+	POTION_BLUE, # Freeze
+	POTION_GREEN, # Goo
+	POTION_YELLOW, # Booze
+	POTION_WHITE, # Clear?
 }
 
 var type: Type
@@ -64,6 +66,11 @@ func get_name():
 func get_price():
 	if not type in PRICES: return 0
 	return PRICES[type]
+
+static func get_process_item(process: Process, type: Type):
+	if type in PROCESSES[process]:
+		return PROCESSES[process][type]
+	return null
 
 static func find_recipe(items: Array):
 	for key in RECIPIES.keys():

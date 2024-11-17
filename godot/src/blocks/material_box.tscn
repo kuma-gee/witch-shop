@@ -26,5 +26,11 @@ shape = SubResource("BoxShape3D_2jmb1")
 
 [node name="Decal" type="Decal" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.900549, 0)
+visible = false
 size = Vector3(0.5, 0.5, 0.5)
 texture_albedo = ExtResource("3_63dwh")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0)
+billboard = 1
+text = "Test"

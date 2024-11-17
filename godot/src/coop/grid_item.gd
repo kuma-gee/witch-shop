@@ -5,6 +5,11 @@ enum Type {
 	MATERIAL,
 	TRASH,
 	PREP_AREA,
+	TABLE,
+	WALL,
+	
+	PLAYER_SPAWN,
+	CUSTOMER_SPAWN,
 }
 
 var type: Type = -1

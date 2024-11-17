@@ -2,11 +2,15 @@ class_name Ingredient
 extends Interactable3D
 
 @export var type := PotionItem.Type.FEATHER
+
 @onready var decal: Decal = $Decal
+@onready var label_3d: Label3D = $Label3D
 
 func _ready() -> void:
 	if PotionItem.is_potion(type):
 		decal.modulate = PotionItem.get_color(type)
+	
+	label_3d.text = PotionItem.Type.keys()[type]
 
 func interact(hand: Hand3D):
 	if pickupable:

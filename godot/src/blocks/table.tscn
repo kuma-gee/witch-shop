@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1q27pvsto6xi"]
+
+[ext_resource type="Script" path="res://src/coop/Interactable3D.gd" id="1_f532x"]
+[ext_resource type="Texture2D" uid="uid://u0l07jqmesco" path="res://assets/Prototype Textures/PNG/Dark/texture_13.png" id="2_prdim"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6ant"]
+albedo_texture = ExtResource("2_prdim")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkkye"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Table" type="Area3D"]
+script = ExtResource("1_f532x")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_u6ant")
+use_collision = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_pkkye")

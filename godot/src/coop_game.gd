@@ -20,17 +20,18 @@ var shop_open := false:
 			ready_effect.do_show()
 			player_spawner.shop_closed()
 
+var player_spawner: PlayerSpawner
+var customer_spawner: CustomerSpawner
+
 var money := 0:
 	set(v):
 		money = v
 		money_label.text = "%s" % money
 
-@export var cashier: Cashier
+#@export var cashier: Cashier
 @export var shop_open_time: Control
 @export var money_label: Label
 
-@onready var player_spawner: PlayerSpawner = $PlayerSpawner
-@onready var customer_spawner: CustomerSpawner = $CustomerSpawner
 @onready var shop_open_timer: Timer = $ShopOpenTimer
 @onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
 @onready var grid_map: ShopGridMap = $NavigationRegion3D/GridMap
@@ -50,21 +51,26 @@ func _ready() -> void:
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
 	
-	shop_open = false
-	money = 0
+	grid_map.setup_finished.connect(func():
+		player_spawner = get_tree().get_first_node_in_group("player_spawn")
+		customer_spawner = get_tree().get_first_node_in_group("customer_spawn")
+		shop_open = false
+		money = 0
+		
+		customer_spawner.customer_left.connect(func(c):
+			if customer_spawner.is_stopped():
+				_check_all_customers_left(c)
+		)
+		player_spawner.start_game.connect(func(): start_game())
+	)
 	
 	shop_open_timer.timeout.connect(func():
 		customer_spawner.stop_timer()
 		_check_all_customers_left()
 		print("Closing hours")
 	)
-	customer_spawner.customer_left.connect(func(c):
-		if customer_spawner.is_stopped():
-			_check_all_customers_left(c)
-	)
-	cashier.money_received.connect(func(m): money += m)
+	#cashier.money_received.connect(func(m): money += m)
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
-	player_spawner.start_game.connect(func(): start_game())
 
 func start_game():
 	shop_open = true

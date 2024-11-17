@@ -2,7 +2,9 @@ class_name PrepArea3D
 extends Interactable3D
 
 @export var type := PotionItem.Process.CUTTING
+
 @export var default_process_time := 1.0
+@export var automatic := false
 @export var item_node: ItemNodes
 @export var icon: ActionIcon
 
@@ -25,7 +27,7 @@ func reset():
 	item = null
 
 func _process(delta: float) -> void:
-	if item and is_preparing:
+	if item and (is_preparing or automatic):
 		item.processed += delta
 		icon.set_fill(item.processed / default_process_time)
 		
@@ -37,18 +39,18 @@ func processed_item():
 		print("No item to process")
 		return
 		
-	if not item.type in PotionItem.PROCESSES[type]:
+	if not can_prepare(item):
 		print("Cannot process %s" % item.get_name())
 		return
 
 	stop_process()
 	
 	print("Item processed: %s" % item.get_name())
-	var new_type = PotionItem.PROCESSES[type][item.type]
+	var new_type = PotionItem.get_process_item(type, item.type)
 	item = PotionItem.new(new_type)
 
 func can_prepare(item):
-	return item is PotionItem and item.type in PotionItem.PROCESSES[type]
+	return item is PotionItem and PotionItem.get_process_item(type, item.type) != null
 
 func interact(hand: Hand3D):
 	if pickupable:
@@ -91,6 +93,10 @@ func start_process():
 	if item == null:
 		print("No item to process")
 		return
+		
+	if automatic:
+		print("Items are automatically processed")
+		return
 	
 	if item.process_type < 0:
 		item.process_type = type
@@ -108,6 +114,10 @@ func stop_process():
 	
 	if item.process_type == null:
 		print("Item has not started processing")
+		return
+		
+	if automatic:
+		print("Items are automatically processed")
 		return
 	
 	print("Stop processing %s: %s" % [item.get_name(), item.processed])

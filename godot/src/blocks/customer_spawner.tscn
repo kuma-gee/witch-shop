@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtysqsseit3yw"]
+
+[ext_resource type="Script" path="res://src/coop/customer_spawner.gd" id="1_q64ky"]
+[ext_resource type="PackedScene" uid="uid://c0bc23gx30dqg" path="res://src/coop/customer.tscn" id="2_a8pnk"]
+[ext_resource type="Script" path="res://src/util/RandomTimer.gd" id="3_ds2tk"]
+
+[node name="CustomerSpawner" type="Node3D" groups=["customer_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.889, 0, -5.14688)
+script = ExtResource("1_q64ky")
+scene = ExtResource("2_a8pnk")
+
+[node name="RandomTimer" type="Timer" parent="."]
+wait_time = 3.0
+script = ExtResource("3_ds2tk")
+min_time = 2.0
+max_time = 5.0
