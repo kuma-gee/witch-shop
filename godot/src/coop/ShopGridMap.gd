@@ -5,55 +5,30 @@ signal setup_finished()
 signal object_placed()
 
 const TEMPLATE = [
-	[GridItem.Type.WALL, Vector3.BACK, [
-		Vector2i(0, 0),
-		Vector2i(1, 0),
-		Vector2i(2, 0),
-		Vector2i(3, 0),
-		Vector2i(4, 0),
-		Vector2i(5, 0),
-		Vector2i(6, 0),
-		Vector2i(7, 0),
-		Vector2i(8, 0),
-		Vector2i(9, 0),
-		Vector2i(10, 0),
-	]],
-	[GridItem.Type.WALL, Vector3.LEFT, [
-		Vector2i(10, 1),
-		Vector2i(10, 2),
-		Vector2i(10, 3),
-		Vector2i(10, 4),
-		Vector2i(10, 5),
-		Vector2i(10, 6),
-	]],
+	[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(0, 0), Vector2i(15, 0)]]],
+	[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(15, 1), Vector2i(15, 10)]]],
 	[GridItem.Type.WALL, Vector3.RIGHT, [
 		Vector2i(0, 1),
-		Vector2i(0, 2),
-		Vector2i(0, 3),
-		Vector2i(0, 4),
-		Vector2i(0, 5),
-		Vector2i(0, 6),
+		[Vector2i(0, 3), Vector2i(0, 10)],
 	]],
-	[GridItem.Type.WALL, Vector3.FORWARD, [
-		Vector2i(0, 7),
-		Vector2i(1, 7),
-		Vector2i(2, 7),
-		Vector2i(3, 7),
-		Vector2i(4, 7),
-		Vector2i(5, 7),
-		Vector2i(6, 7),
-		Vector2i(7, 7),
-		Vector2i(8, 7),
-		Vector2i(9, 7),
-		Vector2i(10, 7),
+	[GridItem.Type.WALL, Vector3.FORWARD, [[Vector2i(0, 11), Vector2i(15, 11)]]],
+
+	[GridItem.Type.TABLE, Vector3.BACK, [
+		[Vector2i(6, 1), Vector2i(6, 7)],
+		Vector2i(6, 9),
+		Vector2i(6, 10),
 	]],
 
-	[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(5, 5)],
+	[GridItem.Type.FLOOR_CUSTOMER, Vector3.RIGHT, [[Vector2i(1, 1), Vector2i(5, 9)]]],
+	[GridItem.Type.FLOOR_PLAYER, Vector3.RIGHT, [[Vector2i(7, 1), Vector2i(14, 9)]]],
+	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(0, 0), Vector2i(15, 11)]]],
+
+	[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(3, 1)],
 	[GridItem.Type.CUSTOMER_SPAWN, Vector3.BACK, Vector2i(-5, 1)],
 
-	[GridItem.Type.CAULDRON, Vector3.BACK, Vector2i(3, 3)],
-	[GridItem.Type.MATERIAL, Vector3.RIGHT, Vector2i(2, 3)],
-	[GridItem.Type.TRASH, Vector3.RIGHT, Vector2i(2, 2)],
+	[GridItem.Type.CAULDRON, Vector3.BACK, Vector2i(8, 3)],
+	[GridItem.Type.MATERIAL, Vector3.RIGHT, Vector2i(9, 3)],
+	[GridItem.Type.TRASH, Vector3.RIGHT, Vector2i(10, 3)],
 ]
 
 const CAULDRON = preload("res://src/blocks/cauldron.tscn")
@@ -64,18 +39,30 @@ const TABLE = preload("res://src/blocks/table.tscn")
 const PLAYER_SPAWNER = preload("res://src/blocks/player_spawner.tscn")
 const CUSTOMER_SPAWNER = preload("res://src/blocks/customer_spawner.tscn")
 
-const ITEM_MAP = {
+const ITEM_MAP := {
 	GridItem.Type.CAULDRON: CAULDRON,
 	GridItem.Type.MATERIAL: MATERIAL_BOX,
 	GridItem.Type.PREP_AREA: PREP_AREA,
 	GridItem.Type.TRASH: TRASH,
+	GridItem.Type.TABLE: TABLE,
 	GridItem.Type.WALL: 2,
+	GridItem.Type.FLOOR_CUSTOMER: 1,
+	GridItem.Type.FLOOR_PLAYER: 1,
+	GridItem.Type.FLOOR_FILL: 1,
 }
 
-@export var camera: Camera3D
+const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, GridItem.Type.FLOOR_FILL]
+
 @export var default_layer := 1
+@export var floor_layer := 0
+
+@export var camera: Camera3D
 @export var root: NavigationRegion3D
 @export var ready_container: ReadyContainer
+
+@export var run := false:
+	set(v):
+		setup(TEMPLATE)
 
 var data = {}
 
@@ -83,13 +70,14 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	setup(TEMPLATE)
 
-func _get_coord(pos: Vector2i):
-	return Vector3i(pos.x, default_layer, pos.y)
+func _get_coord(pos: Vector2i, y: int):
+	return Vector3i(pos.x, y, pos.y)
 
 func setup(data: Array):
 	for c in get_children():
 		c.queue_free()
 	
+	self.data = {}
 	for pos in get_used_cells():
 		if pos.y == default_layer:
 			set_cell_item(pos, -1)
@@ -99,8 +87,19 @@ func setup(data: Array):
 		var positions = line[2]
 		if typeof(positions) != TYPE_ARRAY:
 			positions = [positions]
+
+		var grid_item = GridItem.new(line[0], item_data)
 		for pos in positions:
-			place(pos, GridItem.new(line[0], item_data))
+			if typeof(pos) == TYPE_ARRAY:
+				var start = pos[0]
+				var end = pos[1]
+
+				for x in range(start.x, end.x + 1):
+					for z in range(start.y, end.y + 1):
+						place(Vector2i(x, z), grid_item)
+
+			else:
+				place(pos, grid_item)
 	
 	var cells = get_used_cells()
 	var min_pos = null
@@ -127,10 +126,12 @@ func setup(data: Array):
 	camera.position = center_pos + Vector3.BACK * 15 + Vector3.UP * 15
 	camera.look_at(center_pos)
 	
+	root.bake_navigation_mesh()
 	setup_finished.emit()
 
 func place(pos: Vector2i, item: GridItem) -> bool:
-	var v = _get_coord(pos)
+	var layer = floor_layer if item.type in FLOOR_TYPES else default_layer
+	var v = _get_coord(pos, layer)
 	if v in data:
 		print("Already an object at %s" % v)
 		return false
@@ -149,8 +150,9 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 		return true
 		
 	var item_obj = ITEM_MAP[item.type]
+	
 	if typeof(item_obj) == TYPE_INT:
-		var dir = Basis.looking_at(item.data).rotated(Vector3.UP, PI/2)
+		var dir = Basis.looking_at(item.data).rotated(Vector3.UP, PI / 2) if not item.data is Dictionary else Basis.IDENTITY
 		set_cell_item(v, item_obj, get_orthogonal_index_from_basis(dir))
 		return true
 	
@@ -170,7 +172,7 @@ func _create_node(pos: Vector3i, scene: PackedScene):
 	return node
 
 func remove(pos: Vector2i):
-	var v = _get_coord(pos)
+	var v = _get_coord(pos, default_layer)
 	if not v in data:
 		print("Nothing to remove at %s" % v)
 		return

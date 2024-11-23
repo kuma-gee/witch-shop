@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1q27pvsto6xi"]
+[gd_scene load_steps=6 format=3 uid="uid://b1q27pvsto6xi"]
 
-[ext_resource type="Script" path="res://src/coop/Interactable3D.gd" id="1_f532x"]
+[ext_resource type="Script" path="res://src/blocks/table.gd" id="1_p5v4o"]
 [ext_resource type="Texture2D" uid="uid://u0l07jqmesco" path="res://assets/Prototype Textures/PNG/Dark/texture_13.png" id="2_prdim"]
+[ext_resource type="PackedScene" uid="uid://bh085bw7niar2" path="res://src/coop/item_nodes.tscn" id="3_gi4j2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6ant"]
 albedo_texture = ExtResource("2_prdim")
@@ -9,8 +10,9 @@ albedo_texture = ExtResource("2_prdim")
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkkye"]
 size = Vector3(1.5, 1.5, 1.5)
 
-[node name="Table" type="Area3D"]
-script = ExtResource("1_f532x")
+[node name="Table" type="Area3D" node_paths=PackedStringArray("item_node") groups=["moveable"]]
+script = ExtResource("1_p5v4o")
+item_node = NodePath("ItemNodes")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -20,3 +22,6 @@ use_collision = true
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("BoxShape3D_pkkye")
+
+[node name="ItemNodes" parent="." instance=ExtResource("3_gi4j2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
