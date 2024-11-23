@@ -5,7 +5,7 @@ const ARM_BONES = ["UpperArm.L", "LowerArm.L", "UpperArm.R", "LowerArm.R"]
 
 signal accepted()
 
-@export var run_speed := 8
+@export var dash_speed := 20
 @export var speed := 5
 @export var acceleration := 50
 @export var friction := 80
@@ -102,6 +102,10 @@ func _ready() -> void:
 			throw_charge.start()
 		elif event.is_action_pressed("accept"):
 			accepted.emit()
+		elif event.is_action_pressed("dash"):
+			var b = pivot.basis as Basis
+			knockback = Vector3.FORWARD * dash_speed * b.get_rotation_quaternion().inverse()
+			print(knockback)
 	)
 	
 	player_input.just_released.connect(func(event: InputEvent):
@@ -184,11 +188,7 @@ func _walk_dir(move_dir: Vector3):
 
 func _walk(move_dir: Vector3, delta: float) -> Vector3:
 	var walk_dir = _walk_dir(move_dir)
-	var is_running = player_input.is_pressed("sprint")
-	var actual_speed = run_speed if is_running else speed
-	run_particles.emitting = is_running and walk_dir
-	
-	walk_vel = walk_vel.move_toward(walk_dir * actual_speed * move_dir.length(), acceleration * delta)
+	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
 	return walk_vel
 
 ### Effects ###
