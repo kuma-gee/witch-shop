@@ -26,7 +26,7 @@ func _create_player(event: InputEvent):
 	player_node.grid = grid
 	player_node.color = colors[get_child_count()] if get_child_count() < colors.size() else Color.WHITE
 	player_node.position = position
-	grid.root.add_child(player_node)
+	grid.spawn_root.add_child(player_node)
 	
 	ready_players[player_id] = false
 	

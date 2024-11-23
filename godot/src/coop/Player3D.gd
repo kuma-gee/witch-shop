@@ -105,7 +105,6 @@ func _ready() -> void:
 		elif event.is_action_pressed("dash"):
 			var b = pivot.basis as Basis
 			knockback = Vector3.FORWARD * dash_speed * b.get_rotation_quaternion().inverse()
-			print(knockback)
 	)
 	
 	player_input.just_released.connect(func(event: InputEvent):

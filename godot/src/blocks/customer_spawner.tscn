@@ -7,10 +7,11 @@
 [node name="CustomerSpawner" type="Node3D" groups=["customer_spawn"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.889, 0, -5.14688)
 script = ExtResource("1_q64ky")
+spawn_margin = 0.5
 scene = ExtResource("2_a8pnk")
 
 [node name="RandomTimer" type="Timer" parent="."]
 wait_time = 3.0
 script = ExtResource("3_ds2tk")
 min_time = 2.0
-max_time = 5.0
+max_time = 4.0

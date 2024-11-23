@@ -1,3 +1,4 @@
+class_name CoopGame
 extends Node3D
 
 var shop_ui_tween: Tween
@@ -23,12 +24,6 @@ var shop_open := false:
 var player_spawner: PlayerSpawner
 var customer_spawner: CustomerSpawner
 
-var money := 0:
-	set(v):
-		money = v
-		money_label.text = "%s" % money
-
-#@export var cashier: Cashier
 @export var shop_open_time: Control
 @export var money_label: Label
 
@@ -39,6 +34,8 @@ var money := 0:
 @onready var ready_effect: SlideEffect = $ReadyEffect
 
 func _ready() -> void:
+	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
+	
 	InputMapper.override_key_inputs({
 		"move_left": [KEY_A, InputMapper.joy_stick_x(-1)],
 		"move_right": [KEY_D, InputMapper.joy_stick_x(1)],
@@ -55,7 +52,6 @@ func _ready() -> void:
 		player_spawner = get_tree().get_first_node_in_group("player_spawn")
 		customer_spawner = get_tree().get_first_node_in_group("customer_spawn")
 		shop_open = false
-		money = 0
 		
 		customer_spawner.customer_left.connect(func(c):
 			if customer_spawner.is_stopped():
@@ -63,13 +59,11 @@ func _ready() -> void:
 		)
 		player_spawner.start_game.connect(func(): start_game())
 	)
-	
 	shop_open_timer.timeout.connect(func():
 		customer_spawner.stop_timer()
 		_check_all_customers_left()
 		print("Closing hours")
 	)
-	#cashier.money_received.connect(func(m): money += m)
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
 
 func start_game():

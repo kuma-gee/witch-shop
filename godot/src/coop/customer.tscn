@@ -1,12 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0bc23gx30dqg"]
+[gd_scene load_steps=11 format=3 uid="uid://c0bc23gx30dqg"]
 
 [ext_resource type="Script" path="res://src/coop/customer.gd" id="1_7x41g"]
 [ext_resource type="PackedScene" uid="uid://dm63pvby76jke" path="res://assets/models/base_blob.glb" id="1_s06h4"]
 [ext_resource type="Shader" path="res://src/shaders/toon.gdshader" id="3_w3fq1"]
 [ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="4_wy0hi"]
+[ext_resource type="Script" path="res://src/coop/CustomerInteract.gd" id="5_raoe7"]
+[ext_resource type="Script" path="res://src/coop/chargeable.gd" id="6_ku1vv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogfih"]
-size = Vector3(0.656494, 2.07614, 0.560547)
+size = Vector3(0.376953, 1.91063, 0.310791)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_stha2"]
 render_priority = 0
@@ -25,13 +27,18 @@ shader_parameter/SubSurfCutoff = 0.5
 shader_parameter/SubSurfSmoothness = 0.05
 shader_parameter/Color = Color(1, 1, 1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0eab0"]
+size = Vector3(1.5, 2, 1.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_11lyf"]
+radius = 1.13823
+
 [node name="Customer" type="CharacterBody3D" groups=["customer"]]
 collision_layer = 32
-collision_mask = 33
 script = ExtResource("1_7x41g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03798, 0.0266953)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.955224, 0.0266953)
 shape = SubResource("BoxShape3D_ogfih")
 
 [node name="Pivot" type="Node3D" parent="."]
@@ -42,16 +49,33 @@ shape = SubResource("BoxShape3D_ogfih")
 material_override = SubResource("ShaderMaterial_stha2")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
 avoidance_enabled = true
 radius = 1.0
 debug_enabled = true
 
 [node name="Order" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.44617, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.84925, 0)
 modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture = ExtResource("4_wy0hi")
+
+[node name="OrderChargeable" type="Node" parent="."]
+script = ExtResource("6_ku1vv")
+activate_on_charged = true
+
+[node name="Interactable3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("5_raoe7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09923, 0)
+shape = SubResource("BoxShape3D_0eab0")
+
+[node name="CustomerDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CustomerDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09923, 0)
+shape = SubResource("SphereShape3D_11lyf")
 
 [editable path="Pivot/base_blob"]

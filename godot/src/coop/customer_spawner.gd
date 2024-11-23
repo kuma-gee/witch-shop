@@ -3,6 +3,8 @@ extends Node3D
 
 signal customer_left(c)
 
+@export var spawn_margin := 1.0
+@export var grid: ShopGridMap
 @export var scene: PackedScene
 @onready var random_timer: RandomTimer = $RandomTimer
 
@@ -23,7 +25,19 @@ func spawn():
 	add_child(customer)
 	customer.has_left.connect(func(): customer_left.emit(customer))
 	
-	var cashier = get_tree().get_first_node_in_group("cashier")
-	var target = cashier.add_to_queue(customer)
+	var tile = grid.get_random_customer_tile(get_customer_tiles())
+	var target = grid.map_to_local(tile)
 	customer.move_to(target)
+	customer.tile = tile
 	customer.return_pos = global_position
+
+func get_customer_tiles():
+	return get_tree().get_nodes_in_group("customer").map(func(x): return x.tile)
+
+# func random_customer_position():
+# 	var area = grid.customer_area
+# 	var start = area.position + Vector2(1, 1) * spawn_margin
+# 	var end = area.end - Vector2(1, 1) * spawn_margin
+# 	var size = end - start
+# 	var pos = start + Vector2(randf_range(0, size.x), randf_range(0, size.y))
+# 	return Vector3(pos.x, 0, pos.y)
