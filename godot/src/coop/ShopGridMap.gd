@@ -26,9 +26,11 @@ const TEMPLATE = [
 	[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(3, 1)],
 	[GridItem.Type.CUSTOMER_SPAWN, Vector3.BACK, Vector2i(-5, 1)],
 
-	[GridItem.Type.CAULDRON, Vector3.BACK, Vector2i(8, 3)],
-	[GridItem.Type.MATERIAL, Vector3.RIGHT, Vector2i(9, 3)],
-	[GridItem.Type.TRASH, Vector3.RIGHT, Vector2i(10, 3)],
+	[GridItem.Type.CAULDRON, {}, Vector2i(10, 7)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(8, 1)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(10, 1)],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(12, 1)],
+	[GridItem.Type.TRASH, {}, Vector2i(14, 1)],
 ]
 
 const CAULDRON = preload("res://src/blocks/cauldron.tscn")
@@ -167,8 +169,9 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 	var node = _create_node(v, item_obj)
 	data[v] = node
 	
-	for prop in item.data:
-		node.set(prop, item.data[prop])
+	if item.data is Dictionary:
+		for prop in item.data:
+			node.set(prop, item.data[prop])
 
 	object_placed.emit()
 	return true

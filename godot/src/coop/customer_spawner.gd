@@ -33,11 +33,3 @@ func spawn():
 
 func get_customer_tiles():
 	return get_tree().get_nodes_in_group("customer").map(func(x): return x.tile)
-
-# func random_customer_position():
-# 	var area = grid.customer_area
-# 	var start = area.position + Vector2(1, 1) * spawn_margin
-# 	var end = area.end - Vector2(1, 1) * spawn_margin
-# 	var size = end - start
-# 	var pos = start + Vector2(randf_range(0, size.x), randf_range(0, size.y))
-# 	return Vector3(pos.x, 0, pos.y)
