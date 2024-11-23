@@ -12,7 +12,11 @@ func interact(hand: Hand3D):
 		return
 	
 	if not hand.item is PotionItem:
-		print("Can only throw away potion items")
+		if hand.item is GridItem and hand.item.type == GridItem.Type.CAULDRON:
+			hand.item.data.items = []
+			print("Cleared cauldron")
+		else:
+			print("Can only throw away potion items or clear cauldrons")
 		return
 	
 	print("Throwing away %s" % hand.item.get_name())

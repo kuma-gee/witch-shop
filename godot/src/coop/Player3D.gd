@@ -74,6 +74,7 @@ func _ready() -> void:
 	hand_3d.picked_up_at.connect(func(pos: Vector3):
 		var p = grid.local_to_map(pos)
 		grid.remove(Vector2i(p.x, p.z))
+		_update_hand_items()
 	)
 	
 	player_input.just_pressed.connect(func(event: InputEvent):
@@ -84,6 +85,8 @@ func _ready() -> void:
 				if await grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
 					hand_3d.take_item()
 					_update_hand_items()
+				else:
+					hand_3d.interact()
 			elif hand_3d.interact():
 				_update_hand_items()
 		elif event.is_action_pressed("action"):

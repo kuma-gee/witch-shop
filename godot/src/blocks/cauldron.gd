@@ -6,7 +6,10 @@ extends Interactable3D
 @export var ingredients: Sprite3D
 @export var label: Label
 
-var items := []
+var items := []:
+	set(v):
+		items = v
+		_update_ingredients()
 var last_hand: Hand3D
 
 func _ready():
@@ -41,8 +44,7 @@ func interact(hand: Hand3D):
 		if hand.is_holding_item():
 			print("Player is holding an item, but shouldn't be possible")
 
-		hand.hold_item(GridItem.new(GridItem.Type.CAULDRON, {"items": items}), global_position)
-		queue_free()
+		pick_up(hand)
 		return
 	
 	if is_someone_else_working(hand):
@@ -50,12 +52,16 @@ func interact(hand: Hand3D):
 		return
 	
 	if not hand.is_holding_item():
-		print("No items in hand")
+		pick_up(hand)
 		return
 	
 	items.append(hand.take_item())
 	_update_ingredients()
 	print("Items inside: %s" % [items.map(func(x): return x.get_name())])
+
+func pick_up(hand: Hand3D):
+	hand.hold_item(GridItem.new(GridItem.Type.CAULDRON, {"items": items}), global_position)
+	queue_free()
 
 func _update_ingredients():
 	label.text = "%sx" % items.size()

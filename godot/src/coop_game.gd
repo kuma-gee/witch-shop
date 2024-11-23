@@ -41,8 +41,8 @@ func _ready() -> void:
 		"move_right": [KEY_D, InputMapper.joy_stick_x(1)],
 		"move_up": [KEY_W, InputMapper.joy_stick_y(-1)],
 		"move_down": [KEY_S, InputMapper.joy_stick_y(1)],
-		"interact": [KEY_E, InputMapper.joy_btn(JOY_BUTTON_A)],
-		"action": [KEY_SPACE, InputMapper.joy_btn(JOY_BUTTON_X)],
+		"interact": [KEY_SPACE, InputMapper.joy_btn(JOY_BUTTON_A)],
+		"action": [KEY_E, InputMapper.joy_btn(JOY_BUTTON_X)],
 		"dash": [KEY_SHIFT, InputMapper.joy_btn(JOY_BUTTON_B)],
 		"accept": [KEY_CTRL, InputMapper.joy_btn(JOY_BUTTON_Y)],
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
