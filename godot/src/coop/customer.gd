@@ -72,3 +72,6 @@ func leave():
 
 func freeze():
 	is_frozen = true
+
+func explode(pos: Vector3):
+	pass

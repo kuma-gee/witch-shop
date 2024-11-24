@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" path="res://src/coop/ShopGridMap.gd" id="5_gi45j"]
-[ext_resource type="Theme" uid="uid://dsxq24xebl0ij" path="res://src/coop_theme.tres" id="15_5s8e5"]
+[ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="Script" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="16_58ut5"]
 [ext_resource type="Script" path="res://src/ui/ready_container.gd" id="18_027cq"]
@@ -71,7 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("15_5s8e5")
+theme = ExtResource("5_m6sqb")
 
 [node name="ShopOpenTime" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
