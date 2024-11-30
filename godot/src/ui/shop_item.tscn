@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfpgm0g4budde"]
+
+[ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="1_a8wnk"]
+[ext_resource type="Script" path="res://src/ui/shop_item.gd" id="1_ovwrd"]
+
+[node name="ShopItem" type="TextureButton" node_paths=PackedStringArray("label")]
+size_flags_horizontal = 3
+stretch_mode = 5
+script = ExtResource("1_ovwrd")
+label = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_a8wnk")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Robe"
+horizontal_alignment = 1

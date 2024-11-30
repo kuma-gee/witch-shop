@@ -3,12 +3,21 @@ extends CharacterBody3D
 
 const POTION_EFFECT = preload("res://src/coop/potion_effect.tscn")
 
+const EXPLOSION_VFX = preload("res://src/vfx/explosion_vfx.tscn")
+const ICE_VFX = preload("res://src/vfx/ice_vfx.tscn")
+
+const EFFECT = {
+	PotionItem.Type.POTION_BLUE: ICE_VFX,
+	PotionItem.Type.POTION_RED: EXPLOSION_VFX,
+}
+
 @export var friction := 5.
 @onready var interactable_3d: Interactable3D = $Interactable3D
 @onready var hit_area: Area3D = $HitArea
 
 var gravity := 0.9
 var item: PotionItem
+var collided := false
 
 func _ready() -> void:
 	interactable_3d.interacted.connect(func(hand: Hand3D): pick_up(hand))
@@ -34,17 +43,24 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y -= gravity
 	
-	if move_and_slide() and is_potion():
+	if move_and_slide() and is_potion() and not collided:
+		collided = true
 		_on_collision()
 
 func is_potion():
 	return PotionItem.is_potion(item.type)
 
 func _on_collision():
-	if is_potion():
-		var eff = POTION_EFFECT.instantiate()
-		eff.type = item.type
-		eff.global_position = global_position
-		get_tree().current_scene.add_child(eff)
+	if not is_potion(): return
 		
-		queue_free()
+	#var eff = POTION_EFFECT.instantiate()
+	#eff.type = item.type
+	#eff.position = global_position
+	#get_tree().current_scene.add_child(eff)
+	
+	if item.type in EFFECT:
+		var node = EFFECT[item.type].instantiate()
+		node.position = global_position
+		get_tree().current_scene.call_deferred("add_child", node)
+	
+	queue_free()

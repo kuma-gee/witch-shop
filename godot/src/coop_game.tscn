@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=13 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" path="res://src/coop/ShopGridMap.gd" id="5_gi45j"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
+[ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
 [ext_resource type="Script" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="16_58ut5"]
 [ext_resource type="Script" path="res://src/ui/ready_container.gd" id="18_027cq"]
@@ -16,10 +17,11 @@ vertices = PackedVector3Array(-19.5, 0.4, -18.5, -19.5, 0.4, 20.5, 32.5, 0.4, 20
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_radius = 0.7
 
-[node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label")]
+[node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop")]
 script = ExtResource("1_t8gqi")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
 money_label = NodePath("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
+shop = NodePath("CanvasLayer/Control/Shop")
 
 [node name="ShopTimeEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
 script = ExtResource("19_ruurj")
@@ -145,8 +147,7 @@ stretch_mode = 5
 layout_mode = 2
 text = "123123"
 
-[node name="Shop" type="PanelContainer" parent="CanvasLayer/Control"]
-visible = false
+[node name="Shop" type="PanelContainer" parent="CanvasLayer/Control" node_paths=PackedStringArray("container")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -159,7 +160,10 @@ offset_right = 400.0
 offset_bottom = 231.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 script = ExtResource("22_dp0hm")
+container = NodePath("MarginContainer/HBoxContainer")
+item_scene = ExtResource("11_arh2m")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Shop"]
 layout_mode = 2
@@ -167,25 +171,5 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Shop/MarginContainer"]
 layout_mode = 2
 
-[node name="ShopItem" type="TextureButton" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer"]
+[node name="ShopItem" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer" instance=ExtResource("11_arh2m")]
 layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer/ShopItem"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer/ShopItem/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("16_58ut5")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer/ShopItem/VBoxContainer"]
-layout_mode = 2
-text = "Robe"
-horizontal_alignment = 1

@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://dpryhci7cb4sn"]
+[gd_scene load_steps=24 format=3 uid="uid://dpryhci7cb4sn"]
 
 [ext_resource type="Shader" uid="uid://dg53kkr3au48b" path="res://src/vfx/ice_vfx.tres" id="1_3dh1j"]
+[ext_resource type="Script" path="res://src/vfx/ice_vfx.gd" id="1_5o81f"]
 [ext_resource type="Shader" uid="uid://c5fqyui0lci4g" path="res://src/vfx/blackhole_sphere.tres" id="2_5bosj"]
 [ext_resource type="Script" path="res://src/vfx/particle_rotate.gd" id="3_5jlvb"]
 
@@ -20,7 +21,7 @@ render_priority = 0
 shader = ExtResource("1_3dh1j")
 shader_parameter/ColorParameter = Color(0, 1, 1.2, 1)
 shader_parameter/IceLayerDissolve = 0.0
-shader_parameter/Mix = 0.5
+shader_parameter/Mix = 0.608
 shader_parameter/SphereTexture = SubResource("NoiseTexture2D_boro6")
 
 [sub_resource type="SphereMesh" id="SphereMesh_o1qju"]
@@ -73,9 +74,114 @@ scale_curve = SubResource("CurveTexture_qqi0c")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_k4s2q"]
 
-[node name="IceVFX" type="Node3D"]
+[sub_resource type="Animation" id="Animation_vwfhw"]
+resource_name = "start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(5.2, 5.2, 5.2), Vector3(5, 5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/IceLayerDissolve")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.6, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_mp0ou"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/IceLayerDissolve")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0cvd8"]
+_data = {
+"RESET": SubResource("Animation_mp0ou"),
+"start": SubResource("Animation_vwfhw")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_30o7c"]
+
+[node name="IceVFX" type="Area3D"]
+collision_layer = 0
+collision_mask = 34
+script = ExtResource("1_5o81f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_44lvr")
 mesh = SubResource("SphereMesh_o1qju")
 
@@ -103,4 +209,14 @@ draw_pass_1 = SubResource("RibbonTrailMesh_ehhlf")
 script = ExtResource("3_5jlvb")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("PlaneMesh_k4s2q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0cvd8")
+}
+autoplay = "start"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_30o7c")

@@ -30,6 +30,7 @@ const TEMPLATE = [
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(8, 1)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(10, 1)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_RED}, Vector2i(10, 3)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_BLUE}, Vector2i(10, 4)],
 	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(12, 1)],
 	[GridItem.Type.TRASH, {}, Vector2i(14, 1)],
 ]

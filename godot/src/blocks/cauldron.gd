@@ -6,6 +6,8 @@ extends Interactable3D
 @export var ingredients: Sprite3D
 @export var label: Label
 
+@onready var smoke: GPUParticles3D = $Smoke
+
 var items := []:
 	set(v):
 		items = v
@@ -22,6 +24,7 @@ func _ready():
 		
 		if not potion:
 			print("Failed to mix potion")
+			smoke.emitting = true
 			return
 			
 		if last_hand == null:

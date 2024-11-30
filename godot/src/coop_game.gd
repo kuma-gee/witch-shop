@@ -2,6 +2,8 @@ class_name CoopGame
 extends Node3D
 
 var shop_ui_tween: Tween
+
+var was_open := false
 var shop_open := false:
 	set(v):
 		shop_open = v
@@ -9,6 +11,7 @@ var shop_open := false:
 		
 		if shop_open:
 			navigation_region_3d.bake_navigation_mesh()
+			was_open = true
 			
 			print("Opening Shop")
 			customer_spawner.start_timer()
@@ -20,12 +23,17 @@ var shop_open := false:
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
+			
+			if was_open:
+				shop.open_shop()
+				was_open = false
 
 var player_spawner: PlayerSpawner
 var customer_spawner: CustomerSpawner
 
 @export var shop_open_time: Control
 @export var money_label: Label
+@export var shop: Shop
 
 @onready var shop_open_timer: Timer = $ShopOpenTimer
 @onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
@@ -35,6 +43,7 @@ var customer_spawner: CustomerSpawner
 
 func _ready() -> void:
 	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
+	money_label.text = "%s" % GameManager.money
 	
 	InputMapper.override_key_inputs({
 		"move_left": [KEY_A, InputMapper.joy_stick_x(-1)],
