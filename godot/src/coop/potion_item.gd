@@ -63,6 +63,9 @@ func _init(item: Type):
 func get_name():
 	return Type.keys()[type]
 
+static func get_process_name(x: Process):
+	return Process.keys()[x]
+
 func get_price():
 	if not type in PRICES: return 0
 	return PRICES[type]

@@ -1,12 +1,18 @@
 class_name PrepArea3D
 extends Interactable3D
 
-@export var type := PotionItem.Process.CUTTING
+@export var type_label: Label3D
+@export var type := PotionItem.Process.CUTTING:
+	set(v):
+		type = v
+		if type_label:
+			type_label.text = PotionItem.get_process_name(v)
 
 @export var default_process_time := 1.0
 @export var automatic := false
 @export var item_node: ItemNodes
 @export var icon: ActionIcon
+@export var label_3d: Label3D
 
 var item: PotionItem:
 	set(v):
@@ -14,9 +20,12 @@ var item: PotionItem:
 		if item == null:
 			icon.hide()
 			item_node.hide_all()
+			label_3d.hide()
 		else:
 			icon.visible = can_prepare(item)
 			item_node.show_item(item)
+			label_3d.show()
+			label_3d.text = item.get_name()
 
 var is_preparing := false
 
@@ -54,8 +63,7 @@ func can_prepare(item):
 
 func interact(hand: Hand3D):
 	if pickupable:
-		hand.hold_item(GridItem.new(GridItem.Type.PREP_AREA, {"item": item}), global_position)
-		queue_free()
+		try_pickup(hand, GridItem.Type.PREP_AREA, {"item": item})
 		return
 	
 	if item == null:

@@ -1,8 +1,6 @@
 class_name PlayerSpawner
 extends Marker3D
 
-signal start_game()
-
 @export var player: PackedScene
 @export var grid: ShopGridMap
 
@@ -37,7 +35,8 @@ func _create_player(event: InputEvent):
 		grid.ready_container.set_ready(player_id, ready_players[player_id])
 		
 		if is_everyone_ready():
-			start_game.emit()
+			print("Start game")
+			grid.start_game.emit() # Signals in here don't work?
 			started = true
 			reset_ready_state()
 	)

@@ -14,3 +14,15 @@ func action(hand: Hand3D, pressed: bool):
 
 func reset():
 	pass
+
+func try_pickup(hand: Hand3D, type: GridItem.Type, data = {}):
+	if not pickupable:
+		return false
+		
+	if hand.is_holding_item():
+		print("Player is holding an item, but shouldn't be possible")
+		return false
+
+	hand.hold_item(GridItem.new(type, data), global_position)
+	queue_free()
+	return true

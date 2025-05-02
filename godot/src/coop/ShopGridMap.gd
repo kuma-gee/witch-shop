@@ -1,6 +1,8 @@
+@tool
 class_name ShopGridMap
 extends GridMap
 
+signal start_game()
 signal setup_finished()
 signal object_placed()
 
@@ -21,17 +23,18 @@ const TEMPLATE = [
 
 	[GridItem.Type.FLOOR_CUSTOMER, Vector3.RIGHT, [[Vector2i(1, 1), Vector2i(5, 9)]]],
 	[GridItem.Type.FLOOR_PLAYER, Vector3.RIGHT, [[Vector2i(7, 1), Vector2i(14, 9)]]],
-	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(0, 0), Vector2i(15, 11)]]],
+	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-10, -10), Vector2i(30, 25)]]],
 
-	[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(3, 1)],
-	[GridItem.Type.CUSTOMER_SPAWN, Vector3.BACK, Vector2i(-5, 1)],
+	#[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(3, 1)],
+	#[GridItem.Type.CUSTOMER_SPAWN, Vector3.BACK, Vector2i(-5, 1)],
 
 	[GridItem.Type.CAULDRON, {}, Vector2i(10, 7)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(8, 1)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(10, 1)],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_RED}, Vector2i(10, 3)],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_BLUE}, Vector2i(10, 4)],
+	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_RED}, Vector2i(10, 3)],
+	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_BLUE}, Vector2i(10, 4)],
 	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(12, 1)],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.COMBUST}, Vector2i(14, 3)],
 	[GridItem.Type.TRASH, {}, Vector2i(14, 1)],
 ]
 
@@ -57,6 +60,10 @@ const ITEM_MAP := {
 
 const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, GridItem.Type.FLOOR_FILL]
 
+@export var run := false:
+	set(v):
+		setup(TEMPLATE)
+
 @export var default_layer := 1
 @export var floor_layer := 0
 
@@ -64,6 +71,9 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 @export var camera: Camera3D
 @export var root: NavigationRegion3D
 @export var ready_container: ReadyContainer
+
+var player_spawn: PlayerSpawner
+var customer_spawn: CustomerSpawner
 
 var data = {}
 var customer_tiles = []
@@ -151,15 +161,17 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 		print("Already a tile at %s" % v)
 		return false
 		
-	if item.type == GridItem.Type.PLAYER_SPAWN:
-		var node = _create_node(v, PLAYER_SPAWNER)
-		node.grid = self
-		return true
-		
-	if item.type == GridItem.Type.CUSTOMER_SPAWN:
-		var node = _create_node(v, CUSTOMER_SPAWNER)
-		node.grid = self
-		return true
+	#if item.type == GridItem.Type.PLAYER_SPAWN:
+		#var node = _create_node(v, PLAYER_SPAWNER)
+		#node.grid = self
+		#player_spawn = node
+		#return true
+		#
+	#if item.type == GridItem.Type.CUSTOMER_SPAWN:
+		#var node = _create_node(v, CUSTOMER_SPAWNER)
+		#node.grid = self
+		#customer_spawn = node
+		#return true
 		
 	var item_obj = ITEM_MAP[item.type]
 	
@@ -180,8 +192,9 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 
 func _create_node(pos: Vector3i, scene: PackedScene):
 	var node = scene.instantiate()
-	root.add_child(node)
+	add_child(node)
 	node.global_position = map_to_local(pos) + Vector3(0, -cell_size.y, 0)
+	node.owner = owner
 	return node
 
 func remove(pos: Vector2i):
@@ -191,5 +204,5 @@ func remove(pos: Vector2i):
 		return
 		
 	var obj = data[v]
-	root.remove_child(obj)
+	remove_child(obj)
 	data.erase(v)

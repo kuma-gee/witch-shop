@@ -3,8 +3,7 @@ extends Interactable3D
 
 func interact(hand: Hand3D):
 	if pickupable:
-		hand.hold_item(GridItem.new(GridItem.Type.TRASH), global_position)
-		queue_free()
+		try_pickup(hand, GridItem.Type.TRASH)
 		return
 	
 	if not hand.is_holding_item():

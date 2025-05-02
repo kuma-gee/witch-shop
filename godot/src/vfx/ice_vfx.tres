@@ -48,9 +48,9 @@ code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 ColorParameter : source_color;
-uniform float IceLayerDissolve : hint_range(0, 1);
+uniform float IceLayerDissolve : hint_range(0.0, 1.0);
 uniform sampler2D SphereTexture;
-uniform float Mix : hint_range(0, 1);
+uniform float Mix : hint_range(0.0, 1.0);
 uniform sampler2D depth_tex_frg_5 : hint_depth_texture;
 
 

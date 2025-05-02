@@ -2,7 +2,16 @@ class_name Hand3D extends Area3D
 
 signal picked_up_at(pos: Vector3)
 
-var item
+@export var label: Label3D
+
+var item:
+	set(v):
+		item = v
+	
+		if item and item.has_method("get_name"):
+			label.text = item.get_name()
+		else:
+			label.text = ""
 
 func interact():
 	var interactable = get_interactable()
@@ -27,7 +36,10 @@ func get_interactable() -> Interactable3D:
 	return null
 
 func hold_item(i, pos = Vector3.ZERO):
+	if item: return
+	
 	item = i
+	
 	picked_up_at.emit(pos)
 	print("Holding item %s" % i.get_name())
 

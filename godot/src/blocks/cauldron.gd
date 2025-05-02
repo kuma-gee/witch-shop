@@ -5,6 +5,7 @@ extends Interactable3D
 @export var icon: ActionIcon
 @export var ingredients: Sprite3D
 @export var label: Label
+@export var label_3d: Label3D
 
 @onready var smoke: GPUParticles3D = $Smoke
 
@@ -44,10 +45,7 @@ func _ready():
 
 func interact(hand: Hand3D):
 	if pickupable:
-		if hand.is_holding_item():
-			print("Player is holding an item, but shouldn't be possible")
-
-		pick_up(hand)
+		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items})
 		return
 	
 	if is_someone_else_working(hand):
@@ -69,6 +67,8 @@ func pick_up(hand: Hand3D):
 func _update_ingredients():
 	label.text = "%sx" % items.size()
 	ingredients.show()
+	
+	label_3d.text = ", ".join(items.map(func(x): return x.get_name()))
 
 func is_someone_else_working(hand: Hand3D):
 	return last_hand != null and last_hand != hand

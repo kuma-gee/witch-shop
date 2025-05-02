@@ -1,13 +1,13 @@
 class_name Ingredient
 extends Interactable3D
 
+@export var label_3d: Label3D
 @export var type := PotionItem.Type.FEATHER:
 	set(v):
 		type = v
 		_update_text()
 
 @onready var decal: Decal = $Decal
-@onready var label_3d: Label3D = $Label3D
 
 func _ready() -> void:
 	if PotionItem.is_potion(type):
@@ -20,8 +20,7 @@ func _update_text():
 
 func interact(hand: Hand3D):
 	if pickupable:
-		hand.hold_item(GridItem.new(GridItem.Type.MATERIAL, {"type": type}), global_position)
-		queue_free()
+		try_pickup(hand, GridItem.Type.MATERIAL, {"type": type})
 		return
 	
 	var item = PotionItem.Type.keys()[type]

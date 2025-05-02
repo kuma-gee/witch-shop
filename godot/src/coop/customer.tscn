@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://c0bc23gx30dqg"]
 
-[ext_resource type="Script" path="res://src/coop/customer.gd" id="1_7x41g"]
+[ext_resource type="Script" uid="uid://5m7ouk60kiji" path="res://src/coop/customer.gd" id="1_7x41g"]
 [ext_resource type="PackedScene" uid="uid://dm63pvby76jke" path="res://assets/models/base_blob.glb" id="1_s06h4"]
-[ext_resource type="Shader" path="res://src/shaders/toon.gdshader" id="3_w3fq1"]
+[ext_resource type="Shader" uid="uid://c37bgr1ocf8hr" path="res://src/shaders/toon.gdshader" id="3_w3fq1"]
 [ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="4_wy0hi"]
-[ext_resource type="Script" path="res://src/coop/CustomerInteract.gd" id="5_raoe7"]
-[ext_resource type="Script" path="res://src/coop/chargeable.gd" id="6_ku1vv"]
+[ext_resource type="Script" uid="uid://ddd1co2wnad6l" path="res://src/coop/CustomerInteract.gd" id="5_raoe7"]
+[ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="6_ku1vv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogfih"]
 size = Vector3(0.376953, 1.91063, 0.310791)
@@ -15,13 +15,13 @@ render_priority = 0
 shader = ExtResource("3_w3fq1")
 shader_parameter/ToonRampOffset = 0.5
 shader_parameter/ToonRampSmoothness = 0.05
-shader_parameter/ToonRampTinting = null
+shader_parameter/ToonRampTinting = Color(0, 0, 0, 1)
 shader_parameter/RimPower = 1.0
 shader_parameter/RimCutOff = 0.5
 shader_parameter/RimSmoothness = 0.05
 shader_parameter/RimLightBrightness = 20.0
 shader_parameter/SubSurfDistortion = 1.0
-shader_parameter/SubSurfTint = null
+shader_parameter/SubSurfTint = Color(0, 0, 0, 1)
 shader_parameter/SubSurfBrightness = 3.0
 shader_parameter/SubSurfCutoff = 0.5
 shader_parameter/SubSurfSmoothness = 0.05

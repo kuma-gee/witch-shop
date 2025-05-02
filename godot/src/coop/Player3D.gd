@@ -16,6 +16,7 @@ signal accepted()
 @export var animation: PlayerAnimation
 @export var throw_charge: Chargeable
 @export var grid: ShopGridMap
+@export var preview_item: Node3D
 
 @export var item_nodes: ItemNodes
 @export var throw_item: PackedScene
@@ -47,6 +48,12 @@ var is_hold_pressed := false:
 		is_hold_pressed = v
 		if is_hold_pressed:
 			animation.prepare_catch()
+
+func _process(delta: float) -> void:
+	if preview_item.visible:
+		var face_dir = _get_face_dir() * grid.cell_size
+		var player_pos = grid.local_to_map(global_transform.origin + face_dir)
+		preview_item.global_position = grid.map_to_local(Vector3i(player_pos.x, grid.floor_layer, player_pos.z))
 
 func _ready() -> void:
 	var mat = cube.material_override.duplicate() as ShaderMaterial
@@ -144,8 +151,10 @@ func _get_face_dir():
 func _update_hand_items():
 	if hand_3d.is_holding_item():
 		item_nodes.show_item(hand_3d.item)
+		preview_item.show()
 	else:
 		item_nodes.hide_all()
+		preview_item.hide()
 
 func _physics_process(delta: float) -> void:
 	if is_frozen or phyiscal_bone_simulator.active:

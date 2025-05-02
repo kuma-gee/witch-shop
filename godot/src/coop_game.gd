@@ -28,12 +28,14 @@ var shop_open := false:
 				shop.open_shop()
 				was_open = false
 
-var player_spawner: PlayerSpawner
-var customer_spawner: CustomerSpawner
+#var player_spawner: PlayerSpawner
+#var customer_spawner: CustomerSpawner
 
 @export var shop_open_time: Control
 @export var money_label: Label
 @export var shop: Shop
+@export var customer_spawner: CustomerSpawner
+@export var player_spawner: PlayerSpawner
 
 @onready var shop_open_timer: Timer = $ShopOpenTimer
 @onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
@@ -50,30 +52,36 @@ func _ready() -> void:
 		"move_right": [KEY_D, InputMapper.joy_stick_x(1)],
 		"move_up": [KEY_W, InputMapper.joy_stick_y(-1)],
 		"move_down": [KEY_S, InputMapper.joy_stick_y(1)],
-		"interact": [KEY_SPACE, InputMapper.joy_btn(JOY_BUTTON_A)],
-		"action": [KEY_E, InputMapper.joy_btn(JOY_BUTTON_X)],
+		"interact": [MOUSE_BUTTON_LEFT, InputMapper.joy_btn(JOY_BUTTON_A)],
+		"action": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_X)],
 		"dash": [KEY_SHIFT, InputMapper.joy_btn(JOY_BUTTON_B)],
 		"accept": [KEY_CTRL, InputMapper.joy_btn(JOY_BUTTON_Y)],
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
 	
-	grid_map.setup_finished.connect(func():
-		player_spawner = get_tree().get_first_node_in_group("player_spawn")
-		customer_spawner = get_tree().get_first_node_in_group("customer_spawn")
-		shop_open = false
-		
-		customer_spawner.customer_left.connect(func(c):
-			if customer_spawner.is_stopped():
-				_check_all_customers_left(c)
-		)
-		player_spawner.start_game.connect(func(): start_game())
+	#grid_map.setup_finished.connect(func():
+		#player_spawner = get_tree().get_first_node_in_group("player_spawn")
+		#customer_spawner = get_tree().get_first_node_in_group("customer_spawn")
+		#print(customer_spawner)
+		#shop_open = false
+		#
+		#customer_spawner.customer_left.connect(func(c):
+			#if customer_spawner.is_stopped():
+				#_check_all_customers_left(c)
+		#)
+	#)
+	
+	shop_open = false
+	customer_spawner.customer_left.connect(func(c):
+		if customer_spawner.is_stopped():
+			_check_all_customers_left(c)
 	)
+	grid_map.object_placed.connect(func(): _update_moveable_objects())
+	grid_map.start_game.connect(func(): start_game())
 	shop_open_timer.timeout.connect(func():
 		customer_spawner.stop_timer()
 		_check_all_customers_left()
-		print("Closing hours")
 	)
-	grid_map.object_placed.connect(func(): _update_moveable_objects())
 
 func start_game():
 	shop_open = true
