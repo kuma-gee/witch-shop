@@ -1,6 +1,8 @@
 class_name PrepArea3D
 extends Interactable3D
 
+const AUTOMATIC_PROCESS = [PotionItem.Process.COMBUST, PotionItem.Process.DISTILL]
+
 @export var type_label: Label3D
 @export var type := PotionItem.Process.CUTTING:
 	set(v):
@@ -9,7 +11,6 @@ extends Interactable3D
 			type_label.text = PotionItem.get_process_name(v)
 
 @export var default_process_time := 1.0
-@export var automatic := false
 @export var item_node: ItemNodes
 @export var icon: ActionIcon
 @export var label_3d: Label3D
@@ -22,7 +23,8 @@ var item: PotionItem:
 			item_node.hide_all()
 			label_3d.hide()
 		else:
-			icon.visible = can_prepare(item)
+			icon.show()
+			icon.modulate = Color.WHITE if can_prepare(item) else Color.RED
 			item_node.show_item(item)
 			label_3d.show()
 			label_3d.text = item.get_name()
@@ -35,8 +37,11 @@ func _ready():
 func reset():
 	item = null
 
+func _is_automatic():
+	return type in AUTOMATIC_PROCESS
+
 func _process(delta: float) -> void:
-	if item and (is_preparing or automatic):
+	if can_prepare(item) and (is_preparing or _is_automatic()):
 		item.processed += delta
 		icon.set_fill(item.processed / default_process_time)
 		
@@ -102,7 +107,7 @@ func start_process():
 		print("No item to process")
 		return
 		
-	if automatic:
+	if _is_automatic():
 		print("Items are automatically processed")
 		return
 	
@@ -124,7 +129,7 @@ func stop_process():
 		print("Item has not started processing")
 		return
 		
-	if automatic:
+	if _is_automatic():
 		print("Items are automatically processed")
 		return
 	

@@ -25,6 +25,8 @@
 [ext_resource type="Script" uid="uid://lhla87ebfps0" path="res://src/ui/shop.gd" id="22_dp0hm"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_47riw"]
+vertices = PackedVector3Array(-0.25, 0.5, -0.5, 1.25, 0.5, -0.5, 1, 0.5, -9.25, -9.25, 0.5, 0.5, -0.75, 0.5, 0.5, -9.25, 0.5, -9.25, 15, 0.5, -0.5, 15.25, 0.5, -9.25, 16.5, 0.5, -0.5, 30.25, 0.5, -0.5, 30.25, 0.5, -9.25, 17, 0.5, 1, 16.5, 0.5, 1.25, 16.5, 0.5, 10.75, 17, 0.5, 11, 30.25, 0.5, 12.5, 17, 0.5, 12, 17, 0.5, 0, 16.5, 0.5, 12.5, -0.5, 0.5, 3.75, 0.5, 0.5, 3.25, 0.5, 0.5, 3, -0.5, 0.5, 2.5, -9.25, 0.5, 11.5, -0.75, 0.5, 11.5, 1.5, 0.5, 2.5, 1.5, 0.5, 3.75, 14.5, 0.5, 1.5, 1.5, 0.5, 10.5, 14.5, 0.5, 10.5, 1.5, 0.5, 1.5, -0.25, 0.5, 12.5, -9.25, 0.5, 25.25, 1, 0.5, 25.25, 1.25, 0.5, 12.5, 15.25, 0.5, 25.25, 15, 0.5, 12.5, 30.25, 0.5, 25.25)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 0), PackedInt32Array(0, 3, 5), PackedInt32Array(0, 5, 2), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(8, 6, 7), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 7), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 9), PackedInt32Array(14, 9, 15), PackedInt32Array(15, 16, 14), PackedInt32Array(17, 8, 9), PackedInt32Array(15, 18, 16), PackedInt32Array(11, 17, 9), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 22), PackedInt32Array(22, 19, 4), PackedInt32Array(4, 19, 3), PackedInt32Array(3, 19, 24), PackedInt32Array(3, 24, 23), PackedInt32Array(21, 25, 20), PackedInt32Array(20, 25, 26), PackedInt32Array(26, 25, 27), PackedInt32Array(28, 26, 29), PackedInt32Array(29, 26, 27), PackedInt32Array(25, 30, 27), PackedInt32Array(24, 31, 23), PackedInt32Array(23, 31, 32), PackedInt32Array(32, 31, 33), PackedInt32Array(31, 34, 33), PackedInt32Array(34, 36, 33), PackedInt32Array(33, 36, 35), PackedInt32Array(35, 36, 18), PackedInt32Array(15, 37, 18), PackedInt32Array(18, 37, 35)]
 agent_radius = 0.7
 
 [node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "customer_spawner", "player_spawner")]
@@ -125,13 +127,21 @@ Vector3i(10, 1, 7): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_ow
 ,"label_3d":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
 )
 ,
-Vector3i(12, 1, 1): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 1.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("18_v6g7c"),"type_label":null,"type":0,"default_process_time":1.0,"automatic":false,"item_node":Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":Resource("res://src/coop/item_nodes.gd"),"item_node":Object(CSGBox3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(0.999996, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 0.999996, 0, 0.1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":1,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"operation":0,"calculate_tangents":true,"use_collision":false,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"flip_faces":false,"size":Vector3(0.2, 0.2, 0.2),"material":null,"script":null)
+Vector3i(12, 1, 1): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 1.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("18_v6g7c"),"type_label":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51782, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+,"type":0,"default_process_time":1.0,"item_node":Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":Resource("res://src/coop/item_nodes.gd"),"item_node":Object(CSGBox3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(0.999996, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 0.999996, 0, 0.1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":1,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"operation":0,"calculate_tangents":true,"use_collision":false,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"flip_faces":false,"size":Vector3(0.2, 0.2, 0.2),"material":null,"script":null)
 )
 ,"icon":Object(Sprite3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"modulate":Color(1, 1, 1, 1),"pixel_size":0.01,"axis":2,"billboard":1,"transparent":true,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"texture":ExtResource("16_58ut5"),"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"script":Resource("res://src/coop/action_icon.gd"),"chargeable":null)
 ,"label_3d":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
 )
 ,
 Vector3i(14, 1, 1): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 1.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("20_xfrh0"))
+,
+Vector3i(14, 1, 3): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 3.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("18_v6g7c"),"type_label":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51782, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+,"type":2,"default_process_time":1.0,"item_node":Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":Resource("res://src/coop/item_nodes.gd"),"item_node":Object(CSGBox3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(0.999996, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 0.999996, 0, 0.1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":1,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"operation":0,"calculate_tangents":true,"use_collision":false,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"flip_faces":false,"size":Vector3(0.2, 0.2, 0.2),"material":null,"script":null)
+)
+,"icon":Object(Sprite3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"modulate":Color(1, 1, 1, 1),"pixel_size":0.01,"axis":2,"billboard":1,"transparent":true,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"texture":ExtResource("16_58ut5"),"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"script":Resource("res://src/coop/action_icon.gd"),"chargeable":null)
+,"label_3d":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+)
 
 }
 script = ExtResource("5_gi45j")
@@ -141,70 +151,70 @@ root = NodePath("..")
 ready_container = NodePath("../../CanvasLayer/Control/ReadyContainer")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Table" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22165" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 1.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21966" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22166" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 2.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21967" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22167" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 3.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21968" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22168" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21969" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22169" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 5.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21970" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22170" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 6.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21971" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22171" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 7.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21972" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22172" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 9.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="@Area3D@21973" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
+[node name="@Area3D@22173" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node") groups=["moveable"] instance=ExtResource("5_v411l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 10.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_088cm")
 item_node = NodePath("ItemNodes")
 
-[node name="Cauldron" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
+[node name="@Area3D@22174" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 7.5)
 collision_layer = 4
 collision_mask = 0
@@ -215,14 +225,14 @@ ingredients = NodePath("Ingredients")
 label = NodePath("SubViewport/CanvasLayer/CenterContainer/Label")
 label_3d = NodePath("Label3D")
 
-[node name="Material" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("label_3d") groups=["moveable"] instance=ExtResource("15_lj7cd")]
+[node name="@Area3D@22175" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("label_3d") groups=["moveable"] instance=ExtResource("15_lj7cd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 1.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("16_sgadg")
 label_3d = NodePath("Label3D")
 
-[node name="@Area3D@21974" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("label_3d") groups=["moveable"] instance=ExtResource("15_lj7cd")]
+[node name="@Area3D@22176" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("label_3d") groups=["moveable"] instance=ExtResource("15_lj7cd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 1.5)
 collision_layer = 4
 collision_mask = 0
@@ -230,16 +240,28 @@ script = ExtResource("16_sgadg")
 label_3d = NodePath("Label3D")
 type = 1
 
-[node name="PrepArea" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("item_node", "icon", "label_3d") groups=["moveable"] instance=ExtResource("17_swewt")]
+[node name="@Area3D@22177" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("type_label", "item_node", "icon", "label_3d") groups=["moveable"] instance=ExtResource("17_swewt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 1.5)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("18_v6g7c")
+type_label = NodePath("TypeLabel")
 item_node = NodePath("ItemNodes")
 icon = NodePath("ActionIcon")
 label_3d = NodePath("Label3D")
 
-[node name="Trash" type="Area3D" parent="NavigationRegion3D/GridMap" groups=["moveable"] instance=ExtResource("19_12q0v")]
+[node name="@Area3D@22178" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("type_label", "item_node", "icon", "label_3d") groups=["moveable"] instance=ExtResource("17_swewt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 3.5)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("18_v6g7c")
+type_label = NodePath("TypeLabel")
+type = 2
+item_node = NodePath("ItemNodes")
+icon = NodePath("ActionIcon")
+label_3d = NodePath("Label3D")
+
+[node name="@Area3D@22179" type="Area3D" parent="NavigationRegion3D/GridMap" groups=["moveable"] instance=ExtResource("19_12q0v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 1.5)
 collision_layer = 4
 collision_mask = 0

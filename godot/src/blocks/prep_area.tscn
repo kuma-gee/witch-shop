@@ -20,10 +20,10 @@ item_node = NodePath("ItemNodes")
 icon = NodePath("ActionIcon")
 label_3d = NodePath("Label3D")
 
-[node name="ActionIcon" parent="." instance=ExtResource("2_d3olx")]
-
 [node name="ItemNodes" parent="." instance=ExtResource("5_cp404")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ActionIcon" parent="." instance=ExtResource("2_d3olx")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

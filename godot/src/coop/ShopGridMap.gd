@@ -7,21 +7,21 @@ signal setup_finished()
 signal object_placed()
 
 const TEMPLATE = [
-	[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(0, 0), Vector2i(15, 0)]]],
-	[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(15, 1), Vector2i(15, 10)]]],
-	[GridItem.Type.WALL, Vector3.RIGHT, [
-		Vector2i(0, 1),
-		[Vector2i(0, 4), Vector2i(0, 10)],
-	]],
-	[GridItem.Type.WALL, Vector3.FORWARD, [[Vector2i(0, 11), Vector2i(15, 11)]]],
-
-	[GridItem.Type.TABLE, Vector3.BACK, [
-		[Vector2i(6, 1), Vector2i(6, 7)],
-		Vector2i(6, 9),
-		Vector2i(6, 10),
-	]],
-
-	[GridItem.Type.FLOOR_CUSTOMER, Vector3.RIGHT, [[Vector2i(1, 1), Vector2i(5, 9)]]],
+	#[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(0, 0), Vector2i(15, 0)]]],
+	#[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(15, 1), Vector2i(15, 10)]]],
+	#[GridItem.Type.WALL, Vector3.RIGHT, [
+		#Vector2i(0, 1),
+		#[Vector2i(0, 4), Vector2i(0, 10)],
+	#]],
+	#[GridItem.Type.WALL, Vector3.FORWARD, [[Vector2i(0, 11), Vector2i(15, 11)]]],
+#
+	#[GridItem.Type.TABLE, Vector3.BACK, [
+		#[Vector2i(6, 1), Vector2i(6, 7)],
+		#Vector2i(6, 9),
+		#Vector2i(6, 10),
+	#]],
+#
+	#[GridItem.Type.FLOOR_CUSTOMER, Vector3.RIGHT, [[Vector2i(1, 1), Vector2i(5, 9)]]],
 	[GridItem.Type.FLOOR_PLAYER, Vector3.RIGHT, [[Vector2i(7, 1), Vector2i(14, 9)]]],
 	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-10, -10), Vector2i(30, 25)]]],
 
@@ -31,6 +31,7 @@ const TEMPLATE = [
 	[GridItem.Type.CAULDRON, {}, Vector2i(10, 7)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(8, 1)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(10, 1)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.STARLIGHT_DUST}, Vector2i(10, 4)],
 	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_RED}, Vector2i(10, 3)],
 	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_BLUE}, Vector2i(10, 4)],
 	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(12, 1)],
@@ -113,14 +114,14 @@ func setup(data: Array):
 			else:
 				place(pos, grid_item)
 
-	var min_max = get_min_max_positions(get_used_cells().filter(func(x): return x.y == default_layer))
-	var min_pos = min_max[0]
-	var max_pos = min_max[1]
-	
-	var center = min_pos + (max_pos - min_pos) / 2
-	var center_pos = map_to_local(center)
-	camera.position = center_pos + Vector3.BACK * 15 + Vector3.UP * 15
-	camera.look_at(center_pos)
+	#var min_max = get_min_max_positions(get_used_cells().filter(func(x): return x.y == default_layer))
+	#var min_pos = min_max[0]
+	#var max_pos = min_max[1]
+	#
+	#var center = min_pos + (max_pos - min_pos) / 2
+	#var center_pos = map_to_local(center)
+	#camera.position = center_pos + Vector3.BACK * 15 + Vector3.UP * 15
+	#camera.look_at(center_pos)
 	
 	root.bake_navigation_mesh()
 	setup_finished.emit()
