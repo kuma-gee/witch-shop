@@ -20,23 +20,8 @@ const TEMPLATE = [
 		#Vector2i(6, 9),
 		#Vector2i(6, 10),
 	#]],
-#
-	#[GridItem.Type.FLOOR_CUSTOMER, Vector3.RIGHT, [[Vector2i(1, 1), Vector2i(5, 9)]]],
-	[GridItem.Type.FLOOR_PLAYER, Vector3.RIGHT, [[Vector2i(7, 1), Vector2i(14, 9)]]],
-	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-10, -10), Vector2i(30, 25)]]],
-
-	#[GridItem.Type.PLAYER_SPAWN, Vector3.BACK, Vector2i(3, 1)],
-	#[GridItem.Type.CUSTOMER_SPAWN, Vector3.BACK, Vector2i(-5, 1)],
-
-	[GridItem.Type.CAULDRON, {}, Vector2i(10, 7)],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(8, 1)],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(10, 1)],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.STARLIGHT_DUST}, Vector2i(10, 4)],
-	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_RED}, Vector2i(10, 3)],
-	#[GridItem.Type.MATERIAL, {"type": PotionItem.Type.POTION_BLUE}, Vector2i(10, 4)],
-	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(12, 1)],
-	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.COMBUST}, Vector2i(14, 3)],
-	[GridItem.Type.TRASH, {}, Vector2i(14, 1)],
+	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
+	[GridItem.Type.CAULDRON, {}, Vector2i(0, 0)],
 ]
 
 const CAULDRON = preload("res://src/blocks/cauldron.tscn")
@@ -53,9 +38,9 @@ const ITEM_MAP := {
 	GridItem.Type.PREP_AREA: PREP_AREA,
 	GridItem.Type.TRASH: TRASH,
 	GridItem.Type.TABLE: TABLE,
+	#GridItem.Type.CUSTOMER_SPAWN: CUSTOMER_SPAWNER,
+	#GridItem.Type.PLAYER_SPAWN: PLAYER_SPAWNER,
 	GridItem.Type.WALL: 2,
-	GridItem.Type.FLOOR_CUSTOMER: 1,
-	GridItem.Type.FLOOR_PLAYER: 1,
 	GridItem.Type.FLOOR_FILL: 1,
 }
 
@@ -67,6 +52,7 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 
 @export var default_layer := 1
 @export var floor_layer := 0
+@export var package_scene: PackedScene
 
 @export var spawn_root: Node3D
 @export var camera: Camera3D
@@ -76,6 +62,14 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 var player_spawn: PlayerSpawner
 var customer_spawn: CustomerSpawner
 
+var initial_packages = [
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.STARLIGHT_DUST}],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.COMBUST}],
+	[GridItem.Type.TRASH, {}],
+]
 var data = {}
 var customer_tiles = []
 
@@ -86,9 +80,21 @@ func _ready() -> void:
 func _get_coord(pos: Vector2i, y: int):
 	return Vector3i(pos.x, y, pos.y)
 
+func spawn_initial_packages():
+	var start_x = initial_packages.size() / 2.0
+	for i in initial_packages.size():
+		var pkg = initial_packages[i]
+		var node = package_scene.instantiate()
+		node.grid_item = pkg[0]
+		node.data = pkg[1]
+		node.position = Vector3(-start_x + i * 2, 1, 4)
+		add_child(node)
+
 func setup(data: Array):
 	for c in get_children():
 		c.queue_free()
+	
+	spawn_initial_packages()
 	
 	self.data = {}
 	for pos in get_used_cells():
@@ -123,7 +129,7 @@ func setup(data: Array):
 	#camera.position = center_pos + Vector3.BACK * 15 + Vector3.UP * 15
 	#camera.look_at(center_pos)
 	
-	root.bake_navigation_mesh()
+	#root.bake_navigation_mesh()
 	setup_finished.emit()
 
 func get_min_max_positions(positions: Array):

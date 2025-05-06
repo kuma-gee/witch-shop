@@ -1,35 +1,55 @@
 class_name CustomerSpawner
 extends Node3D
 
-signal customer_left(c)
+signal order_failed()
+signal order_success()
 
-@export var spawn_margin := 1.0
-@export var grid: ShopGridMap
-@export var scene: PackedScene
-@onready var random_timer: RandomTimer = $RandomTimer
+@onready var interactable_3d: Interactable3D = $Interactable3D
+@onready var order: Sprite3D = $Order
+@onready var order_timer: Timer = $OrderTimer
+
+var is_started := false
+var menu := [PotionItem.Type.POTION_RED]
+
+var current_order:
+	set(v):
+		current_order = v
+		order.visible = v != null
+		if v:
+			order.modulate = PotionItem.get_color(v)
 
 func _ready() -> void:
-	random_timer.timeout.connect(func(): spawn())
+	current_order = null
+	interactable_3d.interacted.connect(func(hand: Hand3D):
+		if not hand.is_holding_item():
+			if current_order == null and is_started:
+				new_customer_order()
+		elif hand.item == current_order:
+			finished_order()
+	)
+	order_timer.timeout.connect(func(): failed_order())
 
-func start_timer():
-	random_timer.start()
-
-func stop_timer():
-	random_timer.stop()
-
-func is_stopped():
-	return random_timer.is_stopped()
-
-func spawn():
-	var customer = scene.instantiate()
-	add_child(customer)
-	customer.has_left.connect(func(): customer_left.emit(customer))
+func new_customer_order():
+	if current_order != null:
+		print("An active order exists")
+		return
 	
-	var tile = grid.get_random_customer_tile(get_customer_tiles())
-	var target = grid.map_to_local(tile)
-	customer.move_to(target)
-	customer.tile = tile
-	customer.return_pos = global_position
+	current_order = menu.pick_random()
+	order_timer.start()
 
-func get_customer_tiles():
-	return get_tree().get_nodes_in_group("customer").map(func(x): return x.tile)
+func failed_order():
+	if current_order == null:
+		print("No order to fail")
+		return
+	
+	current_order = null
+	order_failed.emit()
+
+func finished_order():
+	current_order = null
+	order_success.emit()
+
+func start():
+	is_started = true
+func stop():
+	is_started = false

@@ -35,7 +35,8 @@ func _ready():
 	reset()
 
 func reset():
-	item = null
+	self.item = null
+	self.type = self.type
 
 func _is_automatic():
 	return type in AUTOMATIC_PROCESS
@@ -68,7 +69,7 @@ func can_prepare(item):
 
 func interact(hand: Hand3D):
 	if pickupable:
-		try_pickup(hand, GridItem.Type.PREP_AREA, {"item": item})
+		try_pickup(hand, GridItem.Type.PREP_AREA, {"item": item, "type": type})
 		return
 	
 	if item == null:

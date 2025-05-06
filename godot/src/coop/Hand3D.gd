@@ -16,6 +16,7 @@ var item:
 func interact():
 	var interactable = get_interactable()
 	if interactable:
+		print(interactable)
 		interactable.interact(self)
 		return true
 		
@@ -35,12 +36,13 @@ func get_interactable() -> Interactable3D:
 			return area
 	return null
 
-func hold_item(i, pos = Vector3.ZERO):
+func hold_item(i, pos = null):
 	if item: return
 	
 	item = i
+	if i is GridItem and pos != null:
+		picked_up_at.emit(pos)
 	
-	picked_up_at.emit(pos)
 	print("Holding item %s" % i.get_name())
 
 func is_holding_item():

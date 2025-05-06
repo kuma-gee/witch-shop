@@ -10,11 +10,11 @@ var shop_open := false:
 		_update_moveable_objects()
 		
 		if shop_open:
-			navigation_region_3d.bake_navigation_mesh()
+			#navigation_region_3d.bake_navigation_mesh()
 			was_open = true
 			
 			print("Opening Shop")
-			customer_spawner.start_timer()
+			customer_spawner.start()
 			shop_open_timer.start()
 			shop_time_effect.do_show()
 			ready_effect.do_hide()
@@ -72,14 +72,14 @@ func _ready() -> void:
 	#)
 	
 	shop_open = false
-	customer_spawner.customer_left.connect(func(c):
-		if customer_spawner.is_stopped():
-			_check_all_customers_left(c)
-	)
+	#customer_spawner.customer_left.connect(func(c):
+		#if customer_spawner.is_stopped():
+			#_check_all_customers_left(c)
+	#)
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
 	grid_map.start_game.connect(func(): start_game())
 	shop_open_timer.timeout.connect(func():
-		customer_spawner.stop_timer()
+		customer_spawner.stop()
 		_check_all_customers_left()
 	)
 

@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbfcl7njphinr"]
+
+[ext_resource type="Texture2D" uid="uid://bmqfhw52f3ffw" path="res://assets/Prototype Textures/PNG/Orange/texture_11.png" id="1_67pg7"]
+[ext_resource type="Script" uid="uid://bwsls2iv3lka3" path="res://src/coop/package.gd" id="1_mucan"]
+[ext_resource type="Script" uid="uid://d1v635ks51pb2" path="res://src/coop/Interactable3D.gd" id="1_s6fv0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mucan"]
+albedo_texture = ExtResource("1_67pg7")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6fv0"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_67pg7"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Package" type="RigidBody3D"]
+script = ExtResource("1_mucan")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mucan")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_s6fv0")
+
+[node name="Interactable3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_s6fv0")
+metadata/_custom_type_script = "uid://d1v635ks51pb2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable3D"]
+shape = SubResource("BoxShape3D_67pg7")

@@ -53,16 +53,12 @@ func interact(hand: Hand3D):
 		return
 	
 	if not hand.is_holding_item():
-		pick_up(hand)
+		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items})
 		return
 	
 	items.append(hand.take_item())
 	_update_ingredients()
 	print("Items inside: %s" % [items.map(func(x): return x.get_name())])
-
-func pick_up(hand: Hand3D):
-	hand.hold_item(GridItem.new(GridItem.Type.CAULDRON, {"items": items}), global_position)
-	queue_free()
 
 func _update_ingredients():
 	label.text = "%sx" % items.size()
