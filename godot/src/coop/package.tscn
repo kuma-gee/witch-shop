@@ -8,17 +8,18 @@
 albedo_texture = ExtResource("1_67pg7")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s6fv0"]
-size = Vector3(0.3, 0.3, 0.3)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_67pg7"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Package" type="RigidBody3D"]
+collision_mask = 3
 script = ExtResource("1_mucan")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 material_override = SubResource("StandardMaterial3D_mucan")
-size = Vector3(0.3, 0.3, 0.3)
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_s6fv0")

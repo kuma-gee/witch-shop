@@ -45,6 +45,7 @@ player_spawn=""
 customer_spawn=""
 moveable=""
 customer=""
+grid=""
 
 [importer_defaults]
 

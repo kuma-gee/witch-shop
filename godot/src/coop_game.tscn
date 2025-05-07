@@ -37,7 +37,7 @@ script = ExtResource("19_ruurj")
 control = NodePath("../CanvasLayer/Control/ReadyContainer")
 
 [node name="ShopOpenTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 30.0
 one_shot = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -61,7 +61,7 @@ grid = NodePath("../GridMap")
 [node name="CustomerSpawner" parent="NavigationRegion3D" instance=ExtResource("10_a0di1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_root", "camera", "root", "ready_container")]
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_root", "camera", "root", "ready_container") groups=["grid"]]
 mesh_library = ExtResource("18_qcp5f")
 cell_size = Vector3(1, 0.5, 1)
 cell_center_y = false
@@ -84,7 +84,7 @@ root = NodePath("..")
 ready_container = NodePath("../../CanvasLayer/Control/ReadyContainer")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="@Area3D@57679" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
+[node name="@Area3D@82444" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 collision_layer = 4
 collision_mask = 0

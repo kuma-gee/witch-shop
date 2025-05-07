@@ -72,15 +72,12 @@ func _ready() -> void:
 	#)
 	
 	shop_open = false
-	#customer_spawner.customer_left.connect(func(c):
-		#if customer_spawner.is_stopped():
-			#_check_all_customers_left(c)
-	#)
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
 	grid_map.start_game.connect(func(): start_game())
+	
 	shop_open_timer.timeout.connect(func():
 		customer_spawner.stop()
-		_check_all_customers_left()
+		shop_open = false
 	)
 
 func start_game():
@@ -93,8 +90,3 @@ func _update_moveable_objects():
 func _reset_moveable_objects():
 	for obj in get_tree().get_nodes_in_group("moveable"):
 		obj.reset()
-
-func _check_all_customers_left(current_customer: ShopCustomer = null):
-	var customers = get_tree().get_nodes_in_group("customer").filter(func(c): return c != current_customer)
-	if customers.is_empty():
-		shop_open = false
