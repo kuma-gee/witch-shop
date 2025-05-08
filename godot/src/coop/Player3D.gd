@@ -150,7 +150,7 @@ func _get_throw_dir():
 	var throw: Vector3 = dir
 	var throw_axis = throw.rotated(Vector3.UP, deg_to_rad(90)).normalized()
 	
-	throw = throw.rotated(throw_axis, deg_to_rad(-throw_angle))
+	return throw.rotated(throw_axis, deg_to_rad(-throw_angle))
 
 func _get_face_dir():
 	var quat = pivot.basis.get_euler() as Vector3

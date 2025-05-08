@@ -84,7 +84,7 @@ root = NodePath("..")
 ready_container = NodePath("../../CanvasLayer/Control/ReadyContainer")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="@Area3D@82444" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
+[node name="Cauldron" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 collision_layer = 4
 collision_mask = 0
@@ -164,20 +164,25 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 0
-offset_right = 241.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -241.0
 offset_bottom = 77.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+grow_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("16_58ut5")
 expand_mode = 3

@@ -2,15 +2,23 @@ class_name CustomerSpawner
 extends Node3D
 
 signal order_failed()
-signal order_success()
+signal order_success(type: PotionItem)
 
 @onready var interactable_3d: Interactable3D = $Interactable3D
 @onready var order: Sprite3D = $Order
 @onready var order_timer: Timer = $OrderTimer
 @onready var chargeable: Chargeable = $Chargeable
 
+var next_potions = [
+	PotionItem.Type.POTION_RED,
+	PotionItem.Type.POTION_BLUE,
+	PotionItem.Type.POTION_GREEN,
+	PotionItem.Type.POTION_YELLOW,
+	PotionItem.Type.POTION_WHITE,
+]
+
 var is_started := false
-var menu := [PotionItem.Type.POTION_RED]
+var menu := []
 var last_hand
 
 var current_order:
@@ -33,8 +41,8 @@ func _ready() -> void:
 			last_hand = null
 	)
 	interactable_3d.interacted.connect(func(hand: Hand3D):
-		if hand.is_holding_item() and hand.item == current_order:
-			finished_order()
+		if hand.is_holding_item() and hand.item is PotionItem and hand.item.type == current_order:
+			finished_order(hand.take_item())
 	)
 	chargeable.charged.connect(func():
 		if current_order == null and is_started:
@@ -42,7 +50,9 @@ func _ready() -> void:
 	)
 	order_timer.timeout.connect(func(): failed_order())
 
-	
+func add_new_menu():
+	menu.append(next_potions.pop_front())
+
 func new_customer_order():
 	if current_order != null:
 		print("An active order exists")
@@ -59,9 +69,9 @@ func failed_order():
 	current_order = null
 	order_failed.emit()
 
-func finished_order():
+func finished_order(item: PotionItem):
 	current_order = null
-	order_success.emit()
+	order_success.emit(item)
 
 func start():
 	is_started = true

@@ -20,8 +20,10 @@ const RECIPIES = {
 
 const PRICES = {
 	Type.POTION_RED: 5,
-	Type.POTION_BLUE: 5,
-	Type.POTION_GREEN: 10,
+	Type.POTION_BLUE: 8,
+	Type.POTION_GREEN: 12,
+	Type.POTION_YELLOW: 15,
+	Type.POTION_WHITE: 20,
 }
 
 const COLOR = {

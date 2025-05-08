@@ -1,8 +1,6 @@
 class_name CoopGame
 extends Node3D
 
-var shop_ui_tween: Tween
-
 var was_open := false
 var shop_open := false:
 	set(v):
@@ -10,16 +8,14 @@ var shop_open := false:
 		_update_moveable_objects()
 		
 		if shop_open:
-			#navigation_region_3d.bake_navigation_mesh()
 			was_open = true
+			day += 1
 			
-			print("Opening Shop")
 			customer_spawner.start()
 			shop_open_timer.start()
 			shop_time_effect.do_show()
 			ready_effect.do_hide()
 		else:
-			print("Closing Shop")
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
@@ -27,9 +23,6 @@ var shop_open := false:
 			if was_open:
 				shop.open_shop()
 				was_open = false
-
-#var player_spawner: PlayerSpawner
-#var customer_spawner: CustomerSpawner
 
 @export var shop_open_time: Control
 @export var money_label: Label
@@ -43,10 +36,19 @@ var shop_open := false:
 @onready var shop_time_effect: SlideEffect = $ShopTimeEffect
 @onready var ready_effect: SlideEffect = $ReadyEffect
 
+var difficulty := 1.0
+var day := 0:
+	set(v):
+		day = v
+		if day == 1:
+			customer_spawner.add_new_menu()
+
+var money := 0:
+	set(v):
+		money = v
+		money_label.text = "%s" % v
+
 func _ready() -> void:
-	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
-	money_label.text = "%s" % GameManager.money
-	
 	InputMapper.override_key_inputs({
 		"move_left": [KEY_A, InputMapper.joy_stick_x(-1)],
 		"move_right": [KEY_D, InputMapper.joy_stick_x(1)],
@@ -58,6 +60,8 @@ func _ready() -> void:
 		"accept": [KEY_CTRL, InputMapper.joy_btn(JOY_BUTTON_Y)],
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
+	
+	customer_spawner.order_success.connect(func(potion: PotionItem): money += potion.get_price())
 	
 	#grid_map.setup_finished.connect(func():
 		#player_spawner = get_tree().get_first_node_in_group("player_spawn")
@@ -72,8 +76,8 @@ func _ready() -> void:
 	#)
 	
 	shop_open = false
-	grid_map.object_placed.connect(func(): _update_moveable_objects())
 	grid_map.start_game.connect(func(): start_game())
+	#grid_map.object_placed.connect(func(): _update_moveable_objects())
 	
 	shop_open_timer.timeout.connect(func():
 		customer_spawner.stop()
