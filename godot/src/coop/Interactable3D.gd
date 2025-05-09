@@ -4,8 +4,13 @@ extends Area3D
 signal interacted(hand: Hand3D)
 signal action_start(hand: Hand3D)
 signal action_end(hand: Hand3D)
+signal pickup_changed()
 
-var pickupable := false
+var pickupable := false:
+	set(v):
+		pickupable = v
+		pickup_changed.emit()
+
 var interactable := true
 
 func interact(hand: Hand3D):

@@ -21,6 +21,7 @@ const TEMPLATE = [
 		#Vector2i(6, 10),
 	#]],
 	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
+	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -3)],
 	[GridItem.Type.CAULDRON, {}, Vector2i(0, 0)],
 ]
 
@@ -38,7 +39,7 @@ const ITEM_MAP := {
 	GridItem.Type.PREP_AREA: PREP_AREA,
 	GridItem.Type.TRASH: TRASH,
 	GridItem.Type.TABLE: TABLE,
-	#GridItem.Type.CUSTOMER_SPAWN: CUSTOMER_SPAWNER,
+	GridItem.Type.CUSTOMER_SPAWN: CUSTOMER_SPAWNER,
 	#GridItem.Type.PLAYER_SPAWN: PLAYER_SPAWNER,
 	GridItem.Type.WALL: 2,
 	GridItem.Type.FLOOR_FILL: 1,

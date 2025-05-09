@@ -11,11 +11,11 @@ var shop_open := false:
 			was_open = true
 			day += 1
 			
-			customer_spawner.start()
 			shop_open_timer.start()
 			shop_time_effect.do_show()
 			ready_effect.do_hide()
 		else:
+			_reset_moveable_objects()
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
@@ -27,7 +27,6 @@ var shop_open := false:
 @export var shop_open_time: Control
 @export var money_label: Label
 @export var shop: Shop
-@export var customer_spawner: CustomerSpawner
 @export var player_spawner: PlayerSpawner
 
 @onready var shop_open_timer: Timer = $ShopOpenTimer
@@ -41,12 +40,7 @@ var day := 0:
 	set(v):
 		day = v
 		if day == 1:
-			customer_spawner.add_new_menu()
-
-var money := 0:
-	set(v):
-		money = v
-		money_label.text = "%s" % v
+			GameManager.increase_menu()
 
 func _ready() -> void:
 	InputMapper.override_key_inputs({
@@ -61,28 +55,13 @@ func _ready() -> void:
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
 	
-	customer_spawner.order_success.connect(func(potion: PotionItem): money += potion.get_price())
-	
-	#grid_map.setup_finished.connect(func():
-		#player_spawner = get_tree().get_first_node_in_group("player_spawn")
-		#customer_spawner = get_tree().get_first_node_in_group("customer_spawn")
-		#print(customer_spawner)
-		#shop_open = false
-		#
-		#customer_spawner.customer_left.connect(func(c):
-			#if customer_spawner.is_stopped():
-				#_check_all_customers_left(c)
-		#)
-	#)
+	GameManager.money_changed.connect(func(): money_label.text = "%s" % GameManager.money)
 	
 	shop_open = false
 	grid_map.start_game.connect(func(): start_game())
-	#grid_map.object_placed.connect(func(): _update_moveable_objects())
-	
-	shop_open_timer.timeout.connect(func():
-		customer_spawner.stop()
-		shop_open = false
-	)
+	grid_map.setup_finished.connect(func(): _update_moveable_objects())
+	grid_map.object_placed.connect(func(): _update_moveable_objects())
+	shop_open_timer.timeout.connect(func(): shop_open = false)
 
 func start_game():
 	shop_open = true

@@ -1,20 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtysqsseit3yw"]
+[gd_scene load_steps=9 format=3 uid="uid://dtysqsseit3yw"]
 
 [ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_q64ky"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_ds2tk"]
 [ext_resource type="Texture2D" uid="uid://cnb8kbv0gcuir" path="res://assets/Prototype Textures/PNG/Purple/texture_01.png" id="4_wrjg4"]
-[ext_resource type="Script" uid="uid://d1v635ks51pb2" path="res://src/coop/Interactable3D.gd" id="5_cklce"]
 [ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="5_j58on"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="6_mwbhi"]
 [ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="7_k6cdt"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j58on"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mwbhi"]
 albedo_texture = ExtResource("4_wrjg4")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j58on"]
-size = Vector3(2, 1, 2)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mwbhi"]
+height = 1.21484
+radius = 0.626465
 
-[node name="CustomerSpawner" type="Node3D" groups=["customer_spawn"]]
+[node name="CustomerSpawner" type="Area3D" groups=["customer_spawn", "moveable"]]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_q64ky")
 
 [node name="OrderTimer" type="Timer" parent="."]
@@ -30,32 +32,28 @@ script = ExtResource("3_ds2tk")
 min_time = 2.0
 max_time = 4.0
 
-[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
-material_override = SubResource("StandardMaterial3D_j58on")
-inner_radius = 0.3
-outer_radius = 0.8
-sides = 16
+[node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4767, 0)
+chargeable = NodePath("../Chargeable")
 
 [node name="Order" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.43555, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.91225, 0)
 modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture = ExtResource("5_j58on")
-
-[node name="Interactable3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("5_cklce")
-metadata/_custom_type_script = "uid://d1v635ks51pb2"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable3D"]
-shape = SubResource("BoxShape3D_j58on")
-
-[node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
-chargeable = NodePath("../Chargeable")
 
 [node name="Chargeable" type="Node" parent="."]
 script = ExtResource("7_k6cdt")
 activate_on_charged = true
 metadata/_custom_type_script = "uid://cr7pk0toishak"
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504081, 0)
+material_override = SubResource("StandardMaterial3D_mwbhi")
+radius = 0.2
+height = 1.0
+sides = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.598319, 0)
+shape = SubResource("CylinderShape3D_mwbhi")
