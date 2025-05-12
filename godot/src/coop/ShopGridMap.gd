@@ -7,8 +7,9 @@ signal setup_finished()
 signal object_placed()
 
 const TEMPLATE = [
-	#[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(0, 0), Vector2i(15, 0)]]],
-	#[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(15, 1), Vector2i(15, 10)]]],
+	[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(-8, -7), Vector2i(8, -7)]]],
+	[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(8, -7), Vector2i(8, 5)]]],
+	[GridItem.Type.WALL, Vector3.RIGHT, [[Vector2i(-8, -7), Vector2i(-8, 5)]]],
 	#[GridItem.Type.WALL, Vector3.RIGHT, [
 		#Vector2i(0, 1),
 		#[Vector2i(0, 4), Vector2i(0, 10)],
@@ -21,7 +22,8 @@ const TEMPLATE = [
 		#Vector2i(6, 10),
 	#]],
 	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
-	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -3)],
+	[GridItem.Type.FLOOR_MAIN, Vector3.RIGHT, [[Vector2i(-8, -7), Vector2i(8, 5)]]],
+	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -5)],
 	[GridItem.Type.CAULDRON, {}, Vector2i(0, 0)],
 ]
 
@@ -41,11 +43,12 @@ const ITEM_MAP := {
 	GridItem.Type.TABLE: TABLE,
 	GridItem.Type.CUSTOMER_SPAWN: CUSTOMER_SPAWNER,
 	#GridItem.Type.PLAYER_SPAWN: PLAYER_SPAWNER,
-	GridItem.Type.WALL: 2,
+	GridItem.Type.WALL: 3,
 	GridItem.Type.FLOOR_FILL: 1,
+	GridItem.Type.FLOOR_MAIN: 2,
 }
 
-const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, GridItem.Type.FLOOR_FILL]
+const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, GridItem.Type.FLOOR_FILL, GridItem.Type.FLOOR_MAIN]
 
 @export var run := false:
 	set(v):
@@ -59,9 +62,6 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 @export var camera: Camera3D
 @export var root: NavigationRegion3D
 @export var ready_container: ReadyContainer
-
-var player_spawn: PlayerSpawner
-var customer_spawn: CustomerSpawner
 
 var initial_packages = [
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}],
@@ -121,34 +121,7 @@ func setup(data: Array):
 			else:
 				place(pos, grid_item)
 
-	#var min_max = get_min_max_positions(get_used_cells().filter(func(x): return x.y == default_layer))
-	#var min_pos = min_max[0]
-	#var max_pos = min_max[1]
-	#
-	#var center = min_pos + (max_pos - min_pos) / 2
-	#var center_pos = map_to_local(center)
-	#camera.position = center_pos + Vector3.BACK * 15 + Vector3.UP * 15
-	#camera.look_at(center_pos)
-	
-	#root.bake_navigation_mesh()
 	setup_finished.emit()
-
-func get_min_max_positions(positions: Array):
-	var min_pos = null
-	var max_pos = null
-	for c in positions:
-		if min_pos == null:
-			min_pos = c
-		
-		if max_pos == null:
-			max_pos = c
-		
-		min_pos.x = min(c.x, min_pos.x)
-		min_pos.z = min(c.z, min_pos.z)
-		max_pos.x = max(c.x, max_pos.x)
-		max_pos.z = max(c.z, max_pos.z)
-	
-	return [min_pos, max_pos]
 
 func get_random_customer_tile(exclude := []):
 	var available = customer_tiles.filter(func(x): return not x in exclude)
@@ -158,29 +131,14 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 	var layer = floor_layer if item.type in FLOOR_TYPES else default_layer
 	var v = _get_coord(pos, layer)
 	
-	if item.type == GridItem.Type.FLOOR_CUSTOMER:
-		customer_tiles.append(v)
-	
 	if v in data:
 		print("Already an object at %s" % v)
 		return false
 	
-	if get_cell_item(v) != INVALID_CELL_ITEM:
-		print("Already a tile at %s" % v)
-		return false
-		
-	#if item.type == GridItem.Type.PLAYER_SPAWN:
-		#var node = _create_node(v, PLAYER_SPAWNER)
-		#node.grid = self
-		#player_spawn = node
-		#return true
-		#
-	#if item.type == GridItem.Type.CUSTOMER_SPAWN:
-		#var node = _create_node(v, CUSTOMER_SPAWNER)
-		#node.grid = self
-		#customer_spawn = node
-		#return true
-		
+	#if get_cell_item(v) != INVALID_CELL_ITEM and layer != FLOOR_TYPES:
+		#print("Already a tile at %s" % v)
+		#return false
+	
 	var item_obj = ITEM_MAP[item.type]
 	
 	if typeof(item_obj) == TYPE_INT:
