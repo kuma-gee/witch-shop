@@ -55,7 +55,7 @@ func _ready() -> void:
 		"hold": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_RIGHT_SHOULDER)]
 	})
 	
-	GameManager.money_changed.connect(func(): money_label.text = "%s" % GameManager.money)
+	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
 	
 	shop_open = false
 	grid_map.start_game.connect(func(): start_game())

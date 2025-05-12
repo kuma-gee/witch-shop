@@ -58,7 +58,7 @@ navigation_mesh = SubResource("NavigationMesh_47riw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 2.5)
 grid = NodePath("../GridMap")
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D" node_paths=PackedStringArray("spawn_root", "camera", "root", "ready_container") groups=["grid"]]
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D" node_paths=PackedStringArray("ready_container", "spawn_root") groups=["grid"]]
 mesh_library = ExtResource("18_qcp5f")
 cell_size = Vector3(1, 0.5, 1)
 cell_center_y = false
@@ -77,10 +77,8 @@ Vector3i(0, 1, 0): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_own
 }
 script = ExtResource("5_gi45j")
 package_scene = ExtResource("7_ork61")
-spawn_root = NodePath("../..")
-camera = NodePath("../../Camera3D")
-root = NodePath("..")
 ready_container = NodePath("../../CanvasLayer/Control/ReadyContainer")
+spawn_root = NodePath("..")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="CustomerSpawner" type="Area3D" parent="NavigationRegion3D/GridMap" groups=["customer_spawn", "moveable"] instance=ExtResource("10_a0di1")]
