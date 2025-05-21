@@ -1,32 +1,102 @@
-[gd_scene load_steps=19 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=31 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" uid="uid://biy2bicher7co" path="res://src/coop/ShopGridMap.gd" id="5_gi45j"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
 [ext_resource type="PackedScene" uid="uid://dbfcl7njphinr" path="res://src/coop/package.tscn" id="7_ork61"]
-[ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="8_auqk2"]
-[ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="10_a0di1"]
 [ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
-[ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://src/blocks/cauldron.tscn" id="13_3pxrl"]
-[ext_resource type="Script" uid="uid://boxwoyc338x1h" path="res://src/blocks/cauldron.gd" id="14_ww1lu"]
 [ext_resource type="Script" uid="uid://coj14chbxj38d" path="res://src/coop/time_slider.gd" id="15_qjup0"]
+[ext_resource type="Texture2D" uid="uid://b3kjjfw1us5ak" path="res://assets/scroll/Map inventory/Map/Map Close/0.png" id="16_0rtmg"]
+[ext_resource type="Texture2D" uid="uid://0fcg8v7pq6b7" path="res://assets/scroll/Map inventory/Map/Map Open/0.png" id="16_36a83"]
 [ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="16_58ut5"]
+[ext_resource type="Texture2D" uid="uid://c6skh1c743u47" path="res://assets/scroll/Map inventory/Map/Map Close/1.png" id="17_0teeq"]
+[ext_resource type="Texture2D" uid="uid://cqglscspmci7b" path="res://assets/scroll/Map inventory/Map/Map Open/1.png" id="17_djjii"]
 [ext_resource type="Script" uid="uid://pymeyerou0w7" path="res://src/ui/ready_container.gd" id="18_027cq"]
+[ext_resource type="Texture2D" uid="uid://bp2a4oup0b1jx" path="res://assets/scroll/Map inventory/Map/Map Close/2.png" id="18_hcrk0"]
 [ext_resource type="MeshLibrary" uid="uid://c4fb71ayg3tol" path="res://assets/Prototype Textures/prototypes.tres" id="18_qcp5f"]
+[ext_resource type="Texture2D" uid="uid://cnbap2wi5cevy" path="res://assets/scroll/Map inventory/Map/Map Open/2.png" id="18_qjnkl"]
+[ext_resource type="Texture2D" uid="uid://cf1d7ydf4m8gx" path="res://assets/scroll/Map inventory/Map/Map Close/3.png" id="19_0lgnc"]
 [ext_resource type="Texture2D" uid="uid://cicpjsrxlm7hb" path="res://assets/inputs/Xbox Series/XboxSeriesX_A.png" id="19_cva0b"]
 [ext_resource type="Script" uid="uid://bf1k0qm6t7ct5" path="res://src/ui/slide_effect.gd" id="19_ruurj"]
+[ext_resource type="Texture2D" uid="uid://c8ulqj2mugxa6" path="res://assets/scroll/Map inventory/Map/Map Open/3.png" id="19_u8l8w"]
+[ext_resource type="Texture2D" uid="uid://bcsxamcpn7uhs" path="res://assets/scroll/Map inventory/Map/Map Open/4.png" id="20_1biyi"]
+[ext_resource type="Texture2D" uid="uid://ck7jk4n1ut0o0" path="res://assets/scroll/Map inventory/Map/Map Close/4.png" id="20_1ssp0"]
+[ext_resource type="Texture2D" uid="uid://ccwvw7m5561mj" path="res://assets/scroll/Map inventory/Map/Map Close/5.png" id="21_hmubx"]
+[ext_resource type="Texture2D" uid="uid://vjfmlye6n1s7" path="res://assets/scroll/Map inventory/Map/Map Open/5.png" id="21_ifkex"]
+[ext_resource type="Texture2D" uid="uid://d1hcaaimm6yil" path="res://assets/scroll/Map inventory/Map/Map Open/6.png" id="22_7hmlr"]
+[ext_resource type="Texture2D" uid="uid://dpw7k7xf5ly5t" path="res://assets/scroll/Map inventory/Map/Map Close/6.png" id="22_30eib"]
 [ext_resource type="Script" uid="uid://lhla87ebfps0" path="res://src/ui/shop.gd" id="22_dp0hm"]
+[ext_resource type="Texture2D" uid="uid://csrod5n8wevq8" path="res://assets/scroll/Map inventory/Map/Map Open/7.png" id="23_deeh8"]
+[ext_resource type="Texture2D" uid="uid://xngh64tknmn" path="res://assets/scroll/Map inventory/Map/Map Close/7.png" id="23_kamss"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_47riw"]
-agent_radius = 0.7
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkkuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_0rtmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_0teeq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_hcrk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_0lgnc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_1ssp0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_hmubx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_30eib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_kamss")
+}],
+"loop": false,
+"name": &"close",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_36a83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_djjii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_qjnkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_u8l8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_1biyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ifkex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_7hmlr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_deeh8")
+}],
+"loop": false,
+"name": &"open",
+"speed": 6.0
+}]
 
 [node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "player_spawner")]
 script = ExtResource("1_t8gqi")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
 money_label = NodePath("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
 shop = NodePath("CanvasLayer/Control/Shop")
-player_spawner = NodePath("NavigationRegion3D/PlayerSpawner")
+player_spawner = NodePath("PlayerSpawner")
 
 [node name="ShopTimeEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
 script = ExtResource("19_ruurj")
@@ -45,58 +115,26 @@ transform = Transform3D(-0.930083, -0.321953, -0.176896, -0.065209, -0.329201, 0
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.5, 15.5, 15.7)
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766045, 0, -0.766045, 0.642788, 0.5, 16, 14)
 current = true
 fov = 30.0
 size = 7.27389
 far = 600.0
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_47riw")
-
-[node name="PlayerSpawner" parent="NavigationRegion3D" node_paths=PackedStringArray("grid") instance=ExtResource("7_iyq4s")]
+[node name="PlayerSpawner" parent="." node_paths=PackedStringArray("spawn_root", "ready_container") instance=ExtResource("7_iyq4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 2.5)
-grid = NodePath("../GridMap")
+spawn_root = NodePath(".")
+ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D" node_paths=PackedStringArray("ready_container", "spawn_root") groups=["grid"]]
+[node name="GridMap" type="GridMap" parent="." node_paths=PackedStringArray("ready_container") groups=["grid"]]
 mesh_library = ExtResource("18_qcp5f")
 cell_size = Vector3(1, 0.5, 1)
 cell_center_y = false
 collision_mask = 0
-data = {
-Vector3i(0, 1, -3): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -2.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("8_auqk2"))
-,
-Vector3i(0, 1, 0): Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":4,"collision_mask":0,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":ExtResource("14_ww1lu"),"chargeable":Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":Resource("res://src/coop/chargeable.gd"),"max_value":1.0,"increase":1.0,"activate_on_charged":true)
-,"icon":Object(Sprite3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"modulate":Color(1, 1, 1, 1),"pixel_size":0.01,"axis":2,"billboard":1,"transparent":true,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"texture":ExtResource("16_58ut5"),"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"script":Resource("res://src/coop/action_icon.gd"),"chargeable":Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":Resource("res://src/coop/chargeable.gd"),"max_value":1.0,"increase":1.0,"activate_on_charged":true)
-)
-,"ingredients":Object(Sprite3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":1,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":1,"gi_lightmap_texel_scale":1.0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"modulate":Color(1, 1, 1, 1),"pixel_size":0.01,"axis":2,"billboard":1,"transparent":true,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"texture":null,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"script":null)
-,"label":Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":2,"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","tooltip_auto_translate_mode":0,"focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","text":"2x","label_settings":null,"horizontal_alignment":0,"vertical_alignment":0,"autowrap_mode":0,"justification_flags":163,"paragraph_separator":"\\n","clip_text":false,"text_overrun_behavior":0,"ellipsis_char":"…","uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
-,"label_3d":Object(Label3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"layers":1,"sorting_offset":0.0,"sorting_use_aabb_center":true,"material_override":null,"material_overlay":null,"transparency":0.0,"cast_shadow":0,"extra_cull_margin":0.0,"custom_aabb":AABB(0, 0, 0, 0, 0, 0),"lod_bias":1.0,"ignore_occlusion_culling":false,"gi_mode":0,"gi_lightmap_texel_scale":1.0,"gi_lightmap_scale":0,"visibility_range_begin":0.0,"visibility_range_begin_margin":0.0,"visibility_range_end":0.0,"visibility_range_end_margin":0.0,"visibility_range_fade_mode":0,"pixel_size":0.005,"offset":Vector2(0, 0),"billboard":1,"shaded":false,"double_sided":true,"no_depth_test":false,"fixed_size":false,"alpha_cut":0,"alpha_scissor_threshold":0.5,"alpha_hash_scale":1.0,"alpha_antialiasing_mode":0,"alpha_antialiasing_edge":0.0,"texture_filter":3,"render_priority":0,"outline_render_priority":-1,"modulate":Color(1, 1, 1, 1),"outline_modulate":Color(0, 0, 0, 1),"text":"Test","font":null,"font_size":32,"outline_size":12,"horizontal_alignment":1,"vertical_alignment":1,"uppercase":false,"line_spacing":0.0,"autowrap_mode":0,"justification_flags":163,"width":500.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
-)
-
-}
 script = ExtResource("5_gi45j")
 package_scene = ExtResource("7_ork61")
-ready_container = NodePath("../../CanvasLayer/Control/ReadyContainer")
-spawn_root = NodePath("..")
+ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="CustomerSpawner" type="Area3D" parent="NavigationRegion3D/GridMap" groups=["customer_spawn", "moveable"] instance=ExtResource("10_a0di1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -2.5)
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("8_auqk2")
-
-[node name="Cauldron" type="Area3D" parent="NavigationRegion3D/GridMap" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"] instance=ExtResource("13_3pxrl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("14_ww1lu")
-chargeable = NodePath("MixChargeable")
-icon = NodePath("ActionIcon")
-ingredients = NodePath("Ingredients")
-label = NodePath("SubViewport/CanvasLayer/CenterContainer/Label")
-label_3d = NodePath("Label3D")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -129,11 +167,10 @@ timer = NodePath("../../../../ShopOpenTimer")
 
 [node name="ReadyContainer" type="MarginContainer" parent="CanvasLayer/Control" node_paths=PackedStringArray("player_container", "key_container")]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 89.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 15
+offset_right = 42.0
+offset_bottom = 79.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
 script = ExtResource("18_027cq")
 player_container = NodePath("VBoxContainer/HBoxContainer")
 key_container = NodePath("VBoxContainer/HBoxContainer2")
@@ -216,3 +253,22 @@ layout_mode = 2
 
 [node name="ShopItem" parent="CanvasLayer/Control/Shop/MarginContainer/HBoxContainer" instance=ExtResource("11_arh2m")]
 layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/CenterContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/Control"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_xkkuv")
+animation = &"open"
+frame = 7
+frame_progress = 1.0

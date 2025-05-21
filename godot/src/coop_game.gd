@@ -30,8 +30,7 @@ var shop_open := false:
 @export var player_spawner: PlayerSpawner
 
 @onready var shop_open_timer: Timer = $ShopOpenTimer
-@onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
-@onready var grid_map: ShopGridMap = $NavigationRegion3D/GridMap
+@onready var grid_map: ShopGridMap = $GridMap
 @onready var shop_time_effect: SlideEffect = $ShopTimeEffect
 @onready var ready_effect: SlideEffect = $ReadyEffect
 
@@ -58,7 +57,7 @@ func _ready() -> void:
 	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
 	
 	shop_open = false
-	grid_map.start_game.connect(func(): start_game())
+	player_spawner.start_game.connect(func(): start_game())
 	grid_map.setup_finished.connect(func(): _update_moveable_objects())
 	grid_map.object_placed.connect(func(): _update_moveable_objects())
 	shop_open_timer.timeout.connect(func(): shop_open = false)

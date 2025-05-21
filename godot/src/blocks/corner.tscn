@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhmxng344884u"]
+
+[ext_resource type="PackedScene" uid="uid://dnikfnq3ngar4" path="res://assets/models/Corner.gltf" id="1_uhwh3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ev1sw"]
+size = Vector3(0.2, 1, 0.2)
+
+[node name="Corner" type="Node3D"]
+
+[node name="Corner2" parent="." instance=ExtResource("1_uhwh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Corner2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Corner2/StaticBody3D"]
+shape = SubResource("BoxShape3D_ev1sw")

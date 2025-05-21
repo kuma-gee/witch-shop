@@ -1,14 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://bthf3mqkvyw2i"]
 
-[ext_resource type="Texture2D" uid="uid://u0l07jqmesco" path="res://assets/Prototype Textures/PNG/Dark/texture_13.png" id="1_iecck"]
+[ext_resource type="PackedScene" uid="uid://dt140gvccvu1" path="res://assets/models/Wall.gltf" id="2_5xetn"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xetn"]
-albedo_texture = ExtResource("1_iecck")
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xetn"]
+size = Vector3(0.2, 1, 1)
 
 [node name="Wall" type="Node3D"]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Wall2" parent="." instance=ExtResource("2_5xetn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_5xetn")
-use_collision = true
-size = Vector3(0.25, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
+shape = SubResource("BoxShape3D_5xetn")

@@ -1,8 +1,11 @@
 class_name PlayerSpawner
 extends Marker3D
 
+signal start_game()
+
 @export var player: PackedScene
-@export var grid: ShopGridMap
+@export var spawn_root: Node3D
+@export var ready_container: ReadyContainer
 
 @export var colors: Array[Color] = []
 
@@ -23,7 +26,7 @@ func _create_player(event: InputEvent):
 	player_node.player_input = input
 	player_node.color = colors[get_child_count()] if get_child_count() < colors.size() else Color.WHITE
 	player_node.position = position
-	grid.spawn_root.add_child(player_node)
+	spawn_root.add_child(player_node)
 	
 	ready_players[player_id] = false
 	
@@ -31,10 +34,10 @@ func _create_player(event: InputEvent):
 		if started: return
 		
 		ready_players[player_id] = not ready_players[player_id]
-		grid.ready_container.set_ready(player_id, ready_players[player_id])
+		ready_container.set_ready(player_id, ready_players[player_id])
 		
 		if is_everyone_ready():
-			grid.start_game.emit() # Signals in here don't work?
+			start_game.emit() # Signals in here don't work?
 			started = true
 			reset_ready_state()
 	)
@@ -68,5 +71,5 @@ func reset_ready_state():
 		ready_players[x] = false
 
 func shop_closed():
-	grid.ready_container.reset()
+	ready_container.reset()
 	started = false

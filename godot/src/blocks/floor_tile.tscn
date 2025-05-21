@@ -7,6 +7,7 @@
 albedo_texture = ExtResource("2_ec86l")
 
 [node name="FloorTile" instance=ExtResource("1_rfyo8")]
+script = null
 
 [node name="FloorWhite" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_jibiy")

@@ -16,6 +16,7 @@ const RECIPIES = {
 	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTED],
 	Type.POTION_BLUE: [Type.STARLIGHT_DUST, Type.FEATHER, Type.FEATHER],
 	Type.POTION_GREEN: [Type.HERB_CUTTED, Type.HERB_CUTTED, Type.FEATHER],
+	Type.TEARS_DISTILL: [Type.TEARS, Type.STARLIGHT_DUST],
 }
 
 const PRICES = {
@@ -55,7 +56,6 @@ enum Type {
 }
 
 var type: Type
-
 var process_type: Process = -1
 var processed := 0.0
 

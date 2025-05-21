@@ -7,5 +7,6 @@
 script = ExtResource("1_ef1rt")
 
 [node name="Node3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(1, 0.265625, 1)
 material = ExtResource("1_wpl42")

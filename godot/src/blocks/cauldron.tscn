@@ -67,7 +67,7 @@ collision_mask = 0
 script = ExtResource("1_5gmnb")
 chargeable = NodePath("MixChargeable")
 icon = NodePath("ActionIcon")
-ingredients = NodePath("Ingredients")
+ingredients = NodePath("ActionIcon/Ingredients")
 label = NodePath("SubViewport/CanvasLayer/CenterContainer/Label")
 label_3d = NodePath("Label3D")
 
@@ -89,8 +89,8 @@ activate_on_charged = true
 [node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("4_n6xpv")]
 chargeable = NodePath("../MixChargeable")
 
-[node name="Ingredients" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="Ingredients" type="Sprite3D" parent="ActionIcon"]
+visible = false
 billboard = 1
 texture = SubResource("ViewportTexture_vofb8")
 

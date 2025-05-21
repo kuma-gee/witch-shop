@@ -27,21 +27,16 @@ func _ready():
 			print("Failed to mix potion")
 			smoke.emitting = true
 			return
-			
-		if last_hand == null:
-			print("Couldn't put potion to someone's hand")
+		
+		if PotionItem.is_potion(potion) and last_hand != null:
+			last_hand.hold_item(PotionItem.new(potion))
 			return
 		
-		last_hand.hold_item(PotionItem.new(potion))
+		items.append(PotionItem.new(potion))
+		_update_ingredients()
 	)
-	chargeable.charging_started.connect(func():
-		icon.show()
-		ingredients.hide()
-	)
-	chargeable.charging_stopped.connect(func():
-		icon.hide()
-		ingredients.show()
-	)
+	chargeable.charging_started.connect(func(): icon.show())
+	chargeable.charging_stopped.connect(func(): icon.hide())
 
 func interact(hand: Hand3D):
 	if pickupable:
@@ -58,12 +53,9 @@ func interact(hand: Hand3D):
 	
 	items.append(hand.take_item())
 	_update_ingredients()
-	print("Items inside: %s" % [items.map(func(x): return x.get_name())])
 
 func _update_ingredients():
 	label.text = "%sx" % items.size()
-	ingredients.show()
-	
 	label_3d.text = ", ".join(items.map(func(x): return x.get_name()))
 
 func is_someone_else_working(hand: Hand3D):

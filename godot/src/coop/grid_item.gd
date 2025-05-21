@@ -7,6 +7,8 @@ enum Type {
 	PREP_AREA,
 	TABLE,
 	WALL,
+	CORNER,
+	DOOR,
 	
 	FLOOR_CUSTOMER,
 	FLOOR_PLAYER,

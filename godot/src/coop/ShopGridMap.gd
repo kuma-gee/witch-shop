@@ -1,4 +1,3 @@
-@tool
 class_name ShopGridMap
 extends GridMap
 
@@ -18,13 +17,32 @@ const TEMPLATE = [
 		#Vector2i(6, 9),
 		#Vector2i(6, 10),
 	#]],
-	[GridItem.Type.FLOOR_FILL, Vector3.RIGHT, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
-	[GridItem.Type.FLOOR_MAIN, Vector3.RIGHT, [[Vector2i(-8, -7), Vector2i(8, 5)]]],
-	[GridItem.Type.WALL, Vector3.BACK, [[Vector2i(-8, -7), Vector2i(8, -7)]]],
-	[GridItem.Type.WALL, Vector3.LEFT, [[Vector2i(8, -7), Vector2i(8, 5)]]],
-	[GridItem.Type.WALL, Vector3.RIGHT, [[Vector2i(-8, -7), Vector2i(-8, 5)]]],
-	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -5)],
-	[GridItem.Type.CAULDRON, {}, Vector2i(0, 0)],
+	[GridItem.Type.FLOOR_FILL, 0.0, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
+	[GridItem.Type.FLOOR_MAIN, 0.0, [[Vector2i(-7, -6), Vector2i(7, 4)]]],
+	
+	[GridItem.Type.WALL, -PI/2, [[Vector2i(-7, -7), Vector2i(7, -7)]]], # Back
+	[GridItem.Type.WALL, PI, [[Vector2i(8, -6), Vector2i(8, 4)]]], # Right
+	[GridItem.Type.WALL, 0.0, [[Vector2i(-8, -6), Vector2i(-8, 4)]]], # Left
+	
+	[GridItem.Type.WALL, PI/2, [[Vector2i(-7, 5), Vector2i(-2, 5)]]], # Front
+	[GridItem.Type.WALL, PI/2, [[Vector2i(1, 5), Vector2i(7, 5)]]], # Front
+	[GridItem.Type.DOOR, PI/2, Vector2i(-1, 5)], # Front
+	
+	[GridItem.Type.CORNER, 0.0, Vector2i(-8, -7)],
+	[GridItem.Type.CORNER, -PI/2, Vector2i(8, -7)],
+	[GridItem.Type.CORNER, PI/2, Vector2i(-8, 5)],
+	[GridItem.Type.CORNER, PI, Vector2i(8, 5)],
+	
+	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -6)],
+	[GridItem.Type.CAULDRON, {}, Vector2i(0, -2)],
+	
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(2, -6)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(3, -6)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.STARLIGHT_DUST}, Vector2i(4, -6)],
+	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.TEARS}, Vector2i(5, -6)],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}, Vector2i(-1, -6)],
+	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.COMBUST}, Vector2i(-2, -6)],
+	[GridItem.Type.TRASH, {}, Vector2i(-4, -6)],
 ]
 
 const CAULDRON = preload("res://src/blocks/cauldron.tscn")
@@ -37,6 +55,8 @@ const CUSTOMER_SPAWNER = preload("res://src/blocks/customer_spawner.tscn")
 const FLOOR_MAIN = preload("res://src/blocks/floor_main.tscn")
 const FLOOR_TILE = preload("res://src/blocks/floor_tile.tscn")
 const WALL = preload("res://src/blocks/wall.tscn")
+const CORNER = preload("res://src/blocks/corner.tscn")
+const DOOR = preload("res://src/blocks/door.tscn")
 
 const ITEM_MAP := {
 	GridItem.Type.CAULDRON: CAULDRON,
@@ -48,6 +68,8 @@ const ITEM_MAP := {
 	GridItem.Type.FLOOR_FILL: FLOOR_TILE,
 	GridItem.Type.FLOOR_MAIN: FLOOR_MAIN,
 	GridItem.Type.WALL: WALL,
+	GridItem.Type.CORNER: CORNER,
+	GridItem.Type.DOOR: DOOR,
 }
 
 const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, GridItem.Type.FLOOR_FILL, GridItem.Type.FLOOR_MAIN]
@@ -60,17 +82,8 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 @export var floor_layer := 0
 @export var package_scene: PackedScene
 @export var ready_container: ReadyContainer
-@export var spawn_root: Node3D
 
-var initial_packages = [
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}],
-	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.STARLIGHT_DUST}],
-	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.CUTTING}],
-	[GridItem.Type.PREP_AREA, {"type": PotionItem.Process.COMBUST}],
-	[GridItem.Type.TRASH, {}],
-]
-
+var initial_packages = []
 var data = {}
 var customer_tiles = []
 
@@ -121,6 +134,9 @@ func setup(data: Array):
 			positions = [positions]
 
 		var grid_item = GridItem.new(line[0], item_data)
+		if grid_item.type == GridItem.Type.WALL:
+			print()
+		
 		for pos in positions:
 			if typeof(pos) == TYPE_ARRAY:
 				var start = pos[0]
@@ -156,11 +172,11 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 		#return false
 	
 	var item_obj = ITEM_MAP[item.type]
-	var dir = item.data if item.data is Vector3 else Vector3.RIGHT #Basis.looking_at(item.data).rotated(Vector3.UP, PI / 2) if not item.data is Dictionary else Basis.IDENTITY
+	var dir = item.data if item.data is float else 0 #Basis.looking_at(item.data).rotated(Vector3.UP, PI / 2) if not item.data is Dictionary else Basis.IDENTITY
 	
-	if typeof(item_obj) == TYPE_INT:
-		set_cell_item(v, item_obj, get_orthogonal_index_from_basis(dir))
-		return true
+	#if typeof(item_obj) == TYPE_INT:
+		#set_cell_item(v, item_obj, get_orthogonal_index_from_basis(dir))
+		#return true
 	
 	var node = _create_node(v, item_obj, dir)
 	if node == null: return false
@@ -174,26 +190,28 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 	object_placed.emit()
 	return true
 
-func _add_to_floor(pos: Vector3i, scene: PackedScene, dir: Vector3):
+func _add_to_floor(pos: Vector3i, scene: PackedScene, rot: float):
 	var node = scene.instantiate()
 	var floor_coord = pos + Vector3i.DOWN
 	if not floor_coord in data:
 		print("Floor does not exist")
 		return null
 	
-	node.rotation.y = dir.angle_to(Vector3.RIGHT)
+	node.rotation.y = rot
 	var floor = data[floor_coord]
+	if floor is not FloorMain and scene != WALL and scene != CORNER and scene != DOOR: return null
+	
 	floor.add_child(node)
 	return node
 
-func _create_node(pos: Vector3i, scene: PackedScene, dir: Vector3):
+func _create_node(pos: Vector3i, scene: PackedScene, rot: float):
 	if pos.y == default_layer:
-		return _add_to_floor(pos, scene, dir)
+		return _add_to_floor(pos, scene, rot)
 	
 	var node = scene.instantiate()
 	add_child(node)
 	node.global_position = map_to_local(pos) + Vector3(0, -cell_size.y, 0)
-	node.rotation.y = dir.angle_to(Vector3.RIGHT)
+	node.rotation.y = rot
 	node.owner = owner
 	return node
 
