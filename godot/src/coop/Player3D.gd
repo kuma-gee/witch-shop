@@ -3,6 +3,8 @@ extends RigidBody3D
 
 const ARM_BONES = ["UpperArm.L", "LowerArm.L", "UpperArm.R", "LowerArm.R"]
 
+signal cleared()
+signal died(pos: Vector3)
 signal accepted()
 
 @export var player_input: PlayerInput
@@ -37,6 +39,15 @@ signal accepted()
 @onready var hold_point = $Pivot/HoldPoint
 @onready var hand_3d: Hand3D = $Pivot/Hand3D
 
+var hidden := false:
+	set(v):
+		hidden = v
+		freeze = v
+		pivot.visible = not hidden
+		set_process(not hidden)
+		set_physics_process(not hidden)
+
+var working_obj = null
 var is_hold_pressed := false:
 	set(v):
 		is_hold_pressed = v
@@ -44,6 +55,10 @@ var is_hold_pressed := false:
 			animation.prepare_catch()
 
 func _ready() -> void:
+	explosion_timer.timeout.connect(func():
+		cleared.emit()
+		queue_free()
+	)
 	hand_3d.body_entered.connect(func(item):
 		if item is ThrowableItem and is_hold_pressed:
 			item.pick_up(hand_3d)
@@ -84,10 +99,15 @@ func _process(_delta: float) -> void:
 	preview_item.update_position(global_position)
 
 func _physics_process(delta: float) -> void:
-	if not freeze_timer.is_stopped() or phyiscal_bone_simulator.active:
+	if not freeze_timer.is_stopped() or phyiscal_bone_simulator.is_simulating_physics():
 		animation.active = false
 		return
 	animation.active = true
+
+	if working_obj:
+		#var p = global_position.direction_to(working_obj.global_position)
+		#pivot.basis = Basis.looking_at(Vector3(p.x, 0, p.y))
+		return
 
 	var move_dir = _get_move_dir()
 	_aim_for_throw(move_dir)
@@ -110,7 +130,9 @@ func _hand_interact():
 	hand_3d.interact()
 
 func _hand_action():
-	if hand_3d.action(true):
+	var obj = hand_3d.action(true)
+	if obj:
+		working_obj = obj
 		animation.start_work()
 		return
 	
@@ -131,6 +153,7 @@ func _hand_action_release():
 	else:
 		hand_3d.action(false)
 	
+	working_obj = null
 	is_hold_pressed = false
 
 func _throw_item(item):
@@ -166,13 +189,18 @@ func _update_hand_items():
 
 ### Effects ###
 
-func freeze():
+func freeze_body():
 	freeze_timer.start()
 
-func explode(from: Vector3):
-	var dir = from.direction_to(global_position)
+func explode(from: Vector3, force = 200):
+	died.emit(global_position)
+	color_ring.hide()
+	
+	phyiscal_bone_simulator.active = true
 	phyiscal_bone_simulator.physical_bones_start_simulation()
-	body_bone.apply_central_impulse(dir * 200)
+	
+	var dir = from.direction_to(global_position)
+	body_bone.apply_central_impulse(dir * force)
 	explosion_timer.start()
 
 func levitate():

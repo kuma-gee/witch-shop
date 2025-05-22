@@ -199,7 +199,8 @@ func _add_to_floor(pos: Vector3i, scene: PackedScene, rot: float):
 	
 	node.rotation.y = rot
 	var floor = data[floor_coord]
-	if floor is not FloorMain and scene != WALL and scene != CORNER and scene != DOOR: return null
+	if floor == null: return null
+	#if floor is not FloorMain and scene != WALL and scene != CORNER and scene != DOOR: return null
 	
 	floor.add_child(node)
 	return node

@@ -122,7 +122,7 @@ size = 7.27389
 far = 600.0
 
 [node name="PlayerSpawner" parent="." node_paths=PackedStringArray("spawn_root", "ready_container") instance=ExtResource("7_iyq4s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 spawn_root = NodePath(".")
 ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 

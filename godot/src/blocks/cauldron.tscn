@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://m6dlgd44drfk"]
+[gd_scene load_steps=21 format=3 uid="uid://m6dlgd44drfk"]
 
 [ext_resource type="Script" uid="uid://boxwoyc338x1h" path="res://src/blocks/cauldron.gd" id="1_5gmnb"]
 [ext_resource type="Texture2D" uid="uid://dfjg2p4ux0dcq" path="res://assets/Prototype Textures/PNG/Green/texture_13.png" id="2_jypdl"]
@@ -60,6 +60,9 @@ color_ramp = SubResource("GradientTexture1D_lwhjt")
 alpha_curve = SubResource("CurveTexture_esvej")
 
 [sub_resource type="SphereMesh" id="SphereMesh_6t1g3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jypdl"]
+radius = 1.2
 
 [node name="Cauldron" type="Area3D" node_paths=PackedStringArray("chargeable", "icon", "ingredients", "label", "label_3d") groups=["moveable"]]
 collision_layer = 4
@@ -125,3 +128,11 @@ draw_pass_1 = SubResource("SphereMesh_6t1g3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0)
 billboard = 1
 text = "Test"
+
+[node name="ExplosionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.619329, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea"]
+shape = SubResource("SphereShape3D_jypdl")

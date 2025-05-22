@@ -29,9 +29,9 @@ func action(pressed: bool):
 	var interactable = get_interactable()
 	if interactable:
 		interactable.action(self, pressed)
-		return true
+		return interactable
 		
-	return false
+	return null
 	
 func get_interactable() -> Interactable3D:
 	for area in get_overlapping_areas():

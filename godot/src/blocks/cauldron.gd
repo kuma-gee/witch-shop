@@ -8,6 +8,7 @@ extends Interactable3D
 @export var label_3d: Label3D
 
 @onready var smoke: GPUParticles3D = $Smoke
+@onready var explosion_area: Area3D = $ExplosionArea
 
 var items := []:
 	set(v):
@@ -26,6 +27,8 @@ func _ready():
 		if not potion:
 			print("Failed to mix potion")
 			smoke.emitting = true
+			for body in explosion_area.get_overlapping_bodies():
+				body.explode(global_position, 50)
 			return
 		
 		if PotionItem.is_potion(potion) and last_hand != null:

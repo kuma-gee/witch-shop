@@ -9,6 +9,7 @@ signal start_game()
 
 @export var colors: Array[Color] = []
 
+var player_colors := {}
 var ready_players := {}
 var started := false
 
@@ -18,34 +19,43 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _create_player(event: InputEvent):
 	var input = _create_input(event) as PlayerInput
-	var player_node = player.instantiate() as Player3D
-	
 	add_child(input)
-	
+	player_colors[input.get_id()] = colors[player_colors.size()] if player_colors.size() < colors.size() else Color.WHITE
+	ready_players[input.get_id()] = false
+	_create_player_for_input(input)
+
+func _create_player_for_input(input: PlayerInput, pos = position):
+	var player_node = player.instantiate() as Player3D
 	var player_id = input.get_id()
+	player_node.position = pos
 	player_node.player_input = input
-	player_node.color = colors[get_child_count()] if get_child_count() < colors.size() else Color.WHITE
-	player_node.position = position
+	player_node.color = player_colors[input.get_id()]
 	spawn_root.add_child(player_node)
 	
-	ready_players[player_id] = false
-	
-	player_node.accepted.connect(func():
-		if started: return
-		
-		ready_players[player_id] = not ready_players[player_id]
-		ready_container.set_ready(player_id, ready_players[player_id])
-		
-		if is_everyone_ready():
-			start_game.emit() # Signals in here don't work?
-			started = true
-			reset_ready_state()
+	player_node.accepted.connect(func(): _player_accepted(player_id))
+	player_node.died.connect(func(pos):
+		var node = _create_player_for_input(input, to_local(pos))
+		node.hidden = true
+		await player_node.cleared
+		node.hidden = false
 	)
+	return player_node
 
 func _create_input(event: InputEvent):
 	var input = PlayerInput.new()
 	input.set_for_event(event)
 	return input
+
+func _player_accepted(player_id: String):
+	if started: return
+	
+	ready_players[player_id] = not ready_players[player_id]
+	ready_container.set_ready(player_id, ready_players[player_id])
+	
+	if is_everyone_ready():
+		start_game.emit() # Signals in here don't work?
+		started = true
+		reset_ready_state()
 
 func _find_input_for(event: InputEvent):
 	var joypad = PlayerInput.is_joypad_event(event)
