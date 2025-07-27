@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://csiavq076wjrx"]
 
-[ext_resource type="Script" path="res://src/vfx/explosion_vfx.gd" id="1_h8mhe"]
+[ext_resource type="Script" uid="uid://bxmjv37bmrlaj" path="res://src/vfx/explosion_vfx.gd" id="1_h8mhe"]
 [ext_resource type="Material" uid="uid://cmmi0nr3vhk52" path="res://src/vfx/explosion_material.tres" id="1_sugrv"]
 [ext_resource type="Shader" uid="uid://86kvn817kbj4" path="res://src/vfx/streak_vfx.tres" id="2_dqbw7"]
 [ext_resource type="Texture2D" uid="uid://chopqsriukrmd" path="res://assets/particles/flare_01.png" id="3_at50x"]
@@ -281,8 +281,8 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q3nj"]
 _data = {
-"RESET": SubResource("Animation_n0bmi"),
-"start": SubResource("Animation_prran")
+&"RESET": SubResource("Animation_n0bmi"),
+&"start": SubResource("Animation_prran")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1pk8"]
@@ -352,7 +352,7 @@ omni_range = 10.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_4q3nj")
+&"": SubResource("AnimationLibrary_4q3nj")
 }
 autoplay = "start"
 

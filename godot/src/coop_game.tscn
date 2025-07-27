@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=32 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
+[ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_deeh8"]
 [ext_resource type="Script" uid="uid://biy2bicher7co" path="res://src/coop/ShopGridMap.gd" id="5_gi45j"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
@@ -105,6 +106,20 @@ control = NodePath("../CanvasLayer/Control/ShopOpenTime")
 [node name="ReadyEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
 script = ExtResource("19_ruurj")
 control = NodePath("../CanvasLayer/Control/ReadyContainer")
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+script = ExtResource("3_deeh8")
+min_time = 90.0
+max_time = 160.0
+
+[node name="ObstacleWaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+script = ExtResource("3_deeh8")
+min_time = 20.0
+max_time = 30.0
 
 [node name="ShopOpenTimer" type="Timer" parent="."]
 wait_time = 60.0

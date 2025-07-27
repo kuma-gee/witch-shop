@@ -20,21 +20,21 @@ const TEMPLATE = [
 	[GridItem.Type.FLOOR_FILL, 0.0, [[Vector2i(-20, -20), Vector2i(20, 20)]]],
 	[GridItem.Type.FLOOR_MAIN, 0.0, [[Vector2i(-7, -6), Vector2i(7, 4)]]],
 	
-	[GridItem.Type.WALL, -PI/2, [[Vector2i(-7, -7), Vector2i(7, -7)]]], # Back
-	[GridItem.Type.WALL, PI, [[Vector2i(8, -6), Vector2i(8, 4)]]], # Right
-	[GridItem.Type.WALL, 0.0, [[Vector2i(-8, -6), Vector2i(-8, 4)]]], # Left
-	
-	[GridItem.Type.WALL, PI/2, [[Vector2i(-7, 5), Vector2i(-2, 5)]]], # Front
-	[GridItem.Type.WALL, PI/2, [[Vector2i(1, 5), Vector2i(7, 5)]]], # Front
-	[GridItem.Type.DOOR, PI/2, Vector2i(-1, 5)], # Front
-	
-	[GridItem.Type.CORNER, 0.0, Vector2i(-8, -7)],
-	[GridItem.Type.CORNER, -PI/2, Vector2i(8, -7)],
-	[GridItem.Type.CORNER, PI/2, Vector2i(-8, 5)],
-	[GridItem.Type.CORNER, PI, Vector2i(8, 5)],
-	
-	[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -6)],
-	[GridItem.Type.CAULDRON, {}, Vector2i(0, -2)],
+	#[GridItem.Type.WALL, -PI/2, [[Vector2i(-7, -7), Vector2i(7, -7)]]], # Back
+	#[GridItem.Type.WALL, PI, [[Vector2i(8, -6), Vector2i(8, 4)]]], # Right
+	#[GridItem.Type.WALL, 0.0, [[Vector2i(-8, -6), Vector2i(-8, 4)]]], # Left
+	#
+	#[GridItem.Type.WALL, PI/2, [[Vector2i(-7, 5), Vector2i(-2, 5)]]], # Front
+	#[GridItem.Type.WALL, PI/2, [[Vector2i(1, 5), Vector2i(7, 5)]]], # Front
+	#[GridItem.Type.DOOR, PI/2, Vector2i(-1, 5)], # Front
+	#
+	#[GridItem.Type.CORNER, 0.0, Vector2i(-8, -7)],
+	#[GridItem.Type.CORNER, -PI/2, Vector2i(8, -7)],
+	#[GridItem.Type.CORNER, PI/2, Vector2i(-8, 5)],
+	#[GridItem.Type.CORNER, PI, Vector2i(8, 5)],
+	#
+	#[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -6)],
+	#[GridItem.Type.CAULDRON, {}, Vector2i(0, -2)],
 	
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(2, -6)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(3, -6)],
@@ -90,18 +90,6 @@ var customer_tiles = []
 func _ready() -> void:
 	await get_tree().physics_frame
 	setup(TEMPLATE)
-
-#var toggle := false:
-	#set(v):
-		#toggle = v
-		#for c in data:
-			#if c.y == floor_layer:
-				#var start = map_to_local(c) + Vector3(0, -cell_size.y, 0)
-				#data[c].global_position = start if not v else (start + Vector3(c.x, 0, c.z))
-#
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventKey and event.keycode == KEY_F10 and event.is_pressed():
-		#toggle = not toggle
 
 func _get_coord(pos: Vector2i, y: int):
 	return Vector3i(pos.x, y, pos.y)
@@ -210,8 +198,8 @@ func _create_node(pos: Vector3i, scene: PackedScene, rot: float):
 		return _add_to_floor(pos, scene, rot)
 	
 	var node = scene.instantiate()
+	node.position = map_to_local(pos) + Vector3(0, -cell_size.y, 0)
 	add_child(node)
-	node.global_position = map_to_local(pos) + Vector3(0, -cell_size.y, 0)
 	node.rotation.y = rot
 	node.owner = owner
 	return node
@@ -225,3 +213,33 @@ func remove(pos: Vector2i, layer = default_layer):
 	var obj = data[v]
 	obj.queue_free()
 	data.erase(v)
+
+func split_floor(start: Vector2, end: Vector2):
+	var group_a := []
+	var group_b := []
+	
+	for grid_pos in data:
+		var p = Vector2(grid_pos.x, grid_pos.z)
+		
+		# https://stackoverflow.com/questions/1560492/how-to-tell-whether-a-point-is-to-the-right-or-left-side-of-a-line
+		var side = (end.x - start.x) * (p.y - start.y) - (end.y - start.y) * (p.x - start.x)
+		if side > 0:
+			group_a.append(grid_pos)
+		else:
+			group_b.append(grid_pos)
+	
+	#print("Positive: %s" % [group_a])
+	#print("Negative: %s" % [group_b])
+	return [group_a, group_b]
+
+func move_floor(coords: Array, offset: Vector3):
+	for c in coords:
+		var tile = data[c]
+		if tile.has_method("move_tile"):
+			tile.move_tile(offset)
+
+func reset_floor():
+	for c in data:
+		var tile = data[c]
+		if tile.has_method("reset_tile"):
+			tile.reset_tile()
