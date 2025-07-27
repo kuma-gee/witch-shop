@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c460lw5wwy6fv"]
+[gd_scene load_steps=6 format=3 uid="uid://c460lw5wwy6fv"]
 
 [ext_resource type="PackedScene" uid="uid://c6fclo2fkt43q" path="res://src/blocks/floor_main.tscn" id="1_rfyo8"]
 [ext_resource type="Texture2D" uid="uid://u0l07jqmesco" path="res://assets/Prototype Textures/PNG/Dark/texture_13.png" id="2_ec86l"]
 [ext_resource type="Script" uid="uid://cqnl5griuqq8l" path="res://src/blocks/floor_tile.gd" id="2_jibiy"]
+[ext_resource type="PackedScene" uid="uid://udnoum1ts7gy" path="res://assets/KayKit_Dungeon/floor_dirt_small_B.gltf" id="3_bwv8a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jibiy"]
 albedo_texture = ExtResource("2_ec86l")
@@ -10,5 +11,11 @@ albedo_texture = ExtResource("2_ec86l")
 [node name="FloorTile" instance=ExtResource("1_rfyo8")]
 script = ExtResource("2_jibiy")
 
-[node name="FloorWhite" parent="." index="0"]
+[node name="floor_dirt_small_B2" parent="." index="0" instance=ExtResource("3_bwv8a")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0147636, 0)
+
+[node name="floor_tile_small2" parent="." index="1"]
+visible = false
+
+[node name="FloorWhite" parent="." index="2"]
 material_override = SubResource("StandardMaterial3D_jibiy")

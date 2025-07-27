@@ -95,7 +95,7 @@ func action(hand: Hand3D, pressed: bool):
 		return
 	
 	if pressed and not can_prepare(item):
-		print("Cannot prepare %s at this station" % item.get_name())
+		print("Cannot prepare %s at this station" % [item.get_name() if item else null])
 		return
 	
 	if pressed:

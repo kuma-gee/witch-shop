@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbwmqa8y5klj3"]
+[gd_scene load_steps=7 format=3 uid="uid://cbwmqa8y5klj3"]
 
 [ext_resource type="Script" uid="uid://htjhrxivcq1b" path="res://src/blocks/material_box.gd" id="1_mndcy"]
+[ext_resource type="PackedScene" uid="uid://drwwepkta53be" path="res://assets/KayKit_Dungeon/box_small.gltf" id="2_8epx4"]
 [ext_resource type="Texture2D" uid="uid://s8og3wf3j0ld" path="res://assets/Prototype Textures/PNG/Orange/texture_13.png" id="2_stfbf"]
 [ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="3_63dwh"]
 
@@ -16,8 +17,11 @@ collision_mask = 0
 script = ExtResource("1_mndcy")
 label_3d = NodePath("Label3D")
 
+[node name="box_small2" parent="." instance=ExtResource("2_8epx4")]
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_6y1pu")
 use_collision = true
 

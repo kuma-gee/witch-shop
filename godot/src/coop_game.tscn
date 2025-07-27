@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=38 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_deeh8"]
@@ -6,7 +6,13 @@
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
 [ext_resource type="PackedScene" uid="uid://dbfcl7njphinr" path="res://src/coop/package.tscn" id="7_ork61"]
+[ext_resource type="MeshLibrary" uid="uid://tcoj72myjlwl" path="res://map/dungeon_meshes.tres" id="8_0rtmg"]
+[ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://src/blocks/cauldron.tscn" id="9_0teeq"]
+[ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="10_hcrk0"]
+[ext_resource type="PackedScene" uid="uid://bthf3mqkvyw2i" path="res://src/blocks/wall.tscn" id="11_0lgnc"]
 [ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
+[ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="12_1ssp0"]
+[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="13_hmubx"]
 [ext_resource type="Script" uid="uid://coj14chbxj38d" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://b3kjjfw1us5ak" path="res://assets/scroll/Map inventory/Map/Map Close/0.png" id="16_0rtmg"]
 [ext_resource type="Texture2D" uid="uid://0fcg8v7pq6b7" path="res://assets/scroll/Map inventory/Map/Map Open/0.png" id="16_36a83"]
@@ -130,7 +136,7 @@ transform = Transform3D(-0.930083, -0.321953, -0.176896, -0.065209, -0.329201, 0
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766045, 0, -0.766045, 0.642788, 0.5, 16, 14)
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, -0.162247, 25.2426, 17.321)
 current = true
 fov = 30.0
 size = 7.27389
@@ -150,6 +156,149 @@ script = ExtResource("5_gi45j")
 package_scene = ExtResource("7_ork61")
 ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="GridMap3" type="GridMap" parent="."]
+mesh_library = ExtResource("8_0rtmg")
+cell_size = Vector3(4, 2, 4)
+
+[node name="GridMap2" type="GridMap" parent="GridMap3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("8_0rtmg")
+cell_size = Vector3(2, 1, 2)
+data = {
+"cells": PackedInt32Array(65531, 65532, 23, 65531, 65533, 23, 65531, 65534, 23, 65531, 65535, 23, 65531, 0, 23, 65531, 1, 23, 65531, 2, 23, 65532, 65532, 23, 65532, 65533, 23, 65532, 65534, 23, 65532, 65535, 23, 65532, 0, 23, 65532, 1, 23, 65532, 2, 23, 65533, 65532, 23, 65533, 65533, 23, 65533, 65534, 23, 65533, 65535, 23, 65533, 0, 23, 65533, 1, 23, 65533, 2, 23, 65534, 65532, 23, 65534, 65533, 23, 65534, 65534, 23, 65534, 65535, 23, 65534, 0, 23, 65534, 1, 23, 65534, 2, 23, 65535, 65532, 23, 65535, 65533, 23, 65535, 65534, 23, 65535, 65535, 23, 65535, 0, 23, 65535, 1, 23, 65535, 2, 23, 0, 65532, 23, 0, 65533, 23, 0, 65534, 23, 0, 65535, 23, 0, 0, 23, 0, 1, 23, 0, 2, 23, 1, 65532, 23, 1, 65533, 23, 1, 65534, 23, 1, 65535, 23, 1, 0, 23, 1, 1, 23, 1, 2, 23, 2, 65532, 23, 2, 65533, 23, 2, 65534, 23, 2, 65535, 23, 2, 0, 23, 2, 1, 23, 2, 2, 23, 3, 65532, 23, 3, 65533, 23, 3, 65534, 23, 3, 65535, 23, 3, 0, 23, 3, 1, 23, 3, 2, 23, 4, 65532, 23, 4, 65533, 23, 4, 65534, 23, 4, 65535, 23, 4, 0, 23, 4, 1, 23, 4, 2, 23, 65531, 65531, 23, 65532, 65531, 23, 65533, 65531, 23, 65534, 65531, 23, 65535, 65531, 23, 0, 65531, 23, 1, 65531, 23, 2, 65531, 23, 3, 65531, 23, 4, 65531, 23, 5, 65531, 23, 5, 65532, 23, 5, 65533, 23, 5, 65534, 23, 5, 65535, 23, 5, 0, 23, 6, 65532, 23, 6, 65531, 23, 5, 2, 23, 5, 1, 23, 65529, 2, 23, 65529, 1, 23, 65529, 65532, 23, 65529, 65531, 23, 65529, 65533, 23, 65529, 65534, 23, 65529, 65535, 23, 65529, 0, 23, 65530, 1, 23, 65530, 2, 23, 65530, 0, 23, 65530, 65535, 23, 65530, 65534, 23, 65530, 65533, 23, 65530, 65532, 23, 65530, 65531, 23, 6, 65530, 23, 5, 65530, 23, 4, 65530, 23, 3, 65530, 23, 2, 65530, 23, 1, 65530, 23, 0, 65530, 23, 65535, 65530, 23, 65534, 65530, 23, 65533, 65530, 23, 65532, 65530, 23, 65531, 65530, 23, 65530, 65530, 23, 65529, 65530, 23, 6, 65533, 23, 6, 65534, 23, 6, 65535, 23, 6, 0, 23, 6, 1, 23, 6, 2, 23)
+}
+
+[node name="Cauldron" parent="GridMap3" instance=ExtResource("9_0teeq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="PrepArea" parent="GridMap3" instance=ExtResource("10_hcrk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -6)
+
+[node name="PrepArea2" parent="GridMap3" instance=ExtResource("10_hcrk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -4)
+type = 1
+
+[node name="PrepArea3" parent="GridMap3" instance=ExtResource("10_hcrk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -2)
+type = 2
+
+[node name="Material" parent="GridMap3" instance=ExtResource("13_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+
+[node name="Material2" parent="GridMap3" instance=ExtResource("13_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -11)
+type = 1
+
+[node name="Material3" parent="GridMap3" instance=ExtResource("13_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -11)
+type = 3
+
+[node name="Walls" type="Node3D" parent="GridMap3"]
+
+[node name="WallsTop" type="Node3D" parent="GridMap3/Walls"]
+
+[node name="Wall" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -10)
+
+[node name="Wall2" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
+
+[node name="wall_archedwindow_open2" parent="GridMap3/Walls/WallsTop/Wall2" index="1"]
+visible = true
+
+[node name="wall2" parent="GridMap3/Walls/WallsTop/Wall2" index="2"]
+visible = false
+
+[node name="CustomerSpawner" parent="GridMap3/Walls/WallsTop/Wall2" instance=ExtResource("12_1ssp0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0639238, 0.591395, -1.84669)
+
+[node name="Wall3" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
+
+[node name="Wall4" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
+
+[node name="Wall5" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
+
+[node name="Wall6" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -10)
+
+[node name="Wall7" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+
+[node name="Wall8" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -10)
+
+[node name="WallsRight" type="Node3D" parent="GridMap3/Walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 0, 0)
+
+[node name="Wall2" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -14)
+
+[node name="Wall3" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14)
+
+[node name="Wall4" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -14)
+
+[node name="Wall5" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -14)
+
+[node name="Wall6" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
+
+[node name="Wall7" parent="GridMap3/Walls/WallsRight" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -14)
+
+[node name="WallsLeft" type="Node3D" parent="GridMap3/Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
+
+[node name="Wall2" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -14)
+
+[node name="Wall3" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14)
+
+[node name="Wall4" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -14)
+
+[node name="Wall5" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -14)
+
+[node name="Wall6" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
+
+[node name="Wall7" parent="GridMap3/Walls/WallsLeft" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -14)
+
+[node name="WallsBot" type="Node3D" parent="GridMap3/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -6)
+
+[node name="Wall" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -10)
+
+[node name="Wall2" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
+
+[node name="Wall3" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
+
+[node name="Wall4" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
+
+[node name="Wall5" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
+
+[node name="Wall6" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -10)
+
+[node name="Wall7" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+
+[node name="Wall8" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -10)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -287,3 +436,5 @@ sprite_frames = SubResource("SpriteFrames_xkkuv")
 animation = &"open"
 frame = 7
 frame_progress = 1.0
+
+[editable path="GridMap3/Walls/WallsTop/Wall2"]

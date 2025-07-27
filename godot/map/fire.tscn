@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfioqgsmkc1ho"]
+
+[ext_resource type="Shader" uid="uid://bs5ehe1g8fywe" path="res://map/fire.tres" id="1_3rk7l"]
+[ext_resource type="Shader" uid="uid://cn8hk3q6apnjx" path="res://map/smoke.tres" id="2_hy1dc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xovs8"]
+render_priority = 0
+shader = ExtResource("1_3rk7l")
+shader_parameter/Speed = Vector2(0, 0.8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_178g7"]
+
+[sub_resource type="Curve" id="Curve_7nejv"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nejv"]
+render_priority = 0
+shader = ExtResource("2_hy1dc")
+
+[sub_resource type="Gradient" id="Gradient_xovs8"]
+offsets = PackedFloat32Array(0, 0.505929, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7nejv"]
+gradient = SubResource("Gradient_xovs8")
+
+[sub_resource type="Curve" id="Curve_xovs8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.442308), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7nejv"]
+curve = SubResource("Curve_xovs8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tnwqm"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_min = -120.0
+angle_max = 90.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, 5, 0)
+damping_min = 1.5
+damping_max = 2.2
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_7nejv")
+color = Color(1, 0.754667, 0.54, 1)
+color_ramp = SubResource("GradientTexture1D_7nejv")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tnwqm"]
+
+[node name="Fire" type="CPUParticles3D"]
+sorting_offset = 2.0
+material_override = SubResource("ShaderMaterial_xovs8")
+amount = 4
+mesh = SubResource("QuadMesh_178g7")
+gravity = Vector3(0, 0, 0)
+split_scale = true
+scale_curve_x = null
+scale_curve_y = SubResource("Curve_7nejv")
+scale_curve_z = null
+color = Color(4, 0.8, 0, 1)
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_7nejv")
+amount = 16
+lifetime = 1.6
+randomness = 0.1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tnwqm")
+draw_pass_1 = SubResource("QuadMesh_tnwqm")

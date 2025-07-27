@@ -34,7 +34,7 @@ const TEMPLATE = [
 	#[GridItem.Type.CORNER, PI, Vector2i(8, 5)],
 	#
 	#[GridItem.Type.CUSTOMER_SPAWN, {}, Vector2i(0, -6)],
-	#[GridItem.Type.CAULDRON, {}, Vector2i(0, -2)],
+	[GridItem.Type.CAULDRON, {}, Vector2i(0, -2)],
 	
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.FEATHER}, Vector2i(2, -6)],
 	[GridItem.Type.MATERIAL, {"type": PotionItem.Type.HERB}, Vector2i(3, -6)],
@@ -87,9 +87,9 @@ var initial_packages = []
 var data = {}
 var customer_tiles = []
 
-func _ready() -> void:
-	await get_tree().physics_frame
-	setup(TEMPLATE)
+#func _ready() -> void:
+	#await get_tree().physics_frame
+	#setup(TEMPLATE)
 
 func _get_coord(pos: Vector2i, y: int):
 	return Vector3i(pos.x, y, pos.y)

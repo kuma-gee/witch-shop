@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmkmfsmjmv388"]
+
+[ext_resource type="Script" uid="uid://ciyjv772yw7oe" path="res://map/spikes.gd" id="1_a7si6"]
+[ext_resource type="PackedScene" uid="uid://cnc2jtjk0lgvx" path="res://assets/KayKit_Dungeon/floor_tile_big_spikes.gltf" id="1_gjv0u"]
+[ext_resource type="Script" uid="uid://waejs0de2imh" path="res://map/hit_box.gd" id="1_yxeym"]
+[ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="4_a0rhn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gjv0u"]
+size = Vector3(2.6, 2.6, 2.6)
+
+[sub_resource type="Animation" id="Animation_yxeym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("floor_tile_big_spikes2/floor_tile_big_spikes/spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -2.00587, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gjv0u"]
+resource_name = "spikes"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("floor_tile_big_spikes2/floor_tile_big_spikes/spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.9, 1.13079, 2.13079, 2.33079, 2.73333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -2.00587, 0), Vector3(0, -1.68493, 0), Vector3(0, -1.68493, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -1.68493, 0), Vector3(0, -2.00587, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hit"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody3D/CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.997433, 2.27995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yxeym"]
+_data = {
+&"RESET": SubResource("Animation_yxeym"),
+&"spikes": SubResource("Animation_gjv0u")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a7si6"]
+size = Vector3(2.69946, 3.11145, 2.95605)
+
+[node name="Spikes" type="Node3D"]
+script = ExtResource("1_a7si6")
+
+[node name="HitBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11006, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_yxeym")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_gjv0u")
+
+[node name="floor_tile_big_spikes2" parent="." instance=ExtResource("1_gjv0u")]
+
+[node name="spikes" parent="floor_tile_big_spikes2/floor_tile_big_spikes" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.00587, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yxeym")
+}
+
+[node name="RandomTimer" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("4_a0rhn")
+min_time = 10.0
+max_time = 60.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05573, 0)
+shape = SubResource("BoxShape3D_a7si6")
+disabled = true
+
+[editable path="floor_tile_big_spikes2"]

@@ -1,0 +1,151 @@
+[gd_scene load_steps=34 format=3 uid="uid://dn5ebmh4decfk"]
+
+[ext_resource type="PackedScene" uid="uid://cdreamq710dew" path="res://assets/KayKit_Dungeon/barrel_small.gltf" id="1_7rqy5"]
+[ext_resource type="PackedScene" uid="uid://dtn568a56cs37" path="res://assets/KayKit_Dungeon/wall_window_open.gltf" id="1_807lj"]
+[ext_resource type="PackedScene" uid="uid://dn2sx4jd163ug" path="res://assets/KayKit_Dungeon/table_long.gltf" id="1_cpijc"]
+[ext_resource type="PackedScene" uid="uid://d3522a75gyxdr" path="res://assets/KayKit_Dungeon/floor_wood_large.gltf" id="1_qlkni"]
+[ext_resource type="PackedScene" uid="uid://d2hwk4wk2l6bl" path="res://assets/KayKit_Dungeon/wall_shelves.gltf" id="2_1jfas"]
+[ext_resource type="PackedScene" uid="uid://bpo21fjub85bg" path="res://assets/KayKit_Dungeon/table_long_decorated_C.gltf" id="2_17f7m"]
+[ext_resource type="PackedScene" uid="uid://bn8gelwgrdxkf" path="res://assets/KayKit_Dungeon/floor_tile_small_decorated.gltf" id="2_55rsj"]
+[ext_resource type="PackedScene" uid="uid://ll8n1wuhpolw" path="res://assets/KayKit_Dungeon/barrel_large.gltf" id="2_uw6fr"]
+[ext_resource type="PackedScene" uid="uid://xbe32de22rww" path="res://assets/KayKit_Dungeon/floor_tile_small.gltf" id="3_48fea"]
+[ext_resource type="PackedScene" uid="uid://dme2hjiebjn7a" path="res://assets/KayKit_Dungeon/box_stacked.gltf" id="3_lpqbk"]
+[ext_resource type="PackedScene" uid="uid://d1k77f4bgullt" path="res://assets/KayKit_Dungeon/wall_pillar.gltf" id="3_tm8hu"]
+[ext_resource type="PackedScene" uid="uid://ctjvvv0cg35g6" path="res://assets/KayKit_Dungeon/table_medium_decorated_A.gltf" id="3_wgny1"]
+[ext_resource type="PackedScene" uid="uid://dn46uqr1kogth" path="res://assets/KayKit_Dungeon/wall_half.gltf" id="4_5ykd5"]
+[ext_resource type="PackedScene" uid="uid://cidicb35ghple" path="res://assets/KayKit_Dungeon/floor_tile_big_grate_open.gltf" id="4_ktw23"]
+[ext_resource type="PackedScene" uid="uid://bgngthdrxeblg" path="res://assets/KayKit_Dungeon/table_medium.gltf" id="4_xjbjr"]
+[ext_resource type="PackedScene" uid="uid://bjawi46qaea55" path="res://assets/KayKit_Dungeon/chair.gltf" id="4_y531h"]
+[ext_resource type="PackedScene" uid="uid://bj4260mscxn0l" path="res://assets/KayKit_Dungeon/wall_doorway.gltf" id="5_cpijc"]
+[ext_resource type="PackedScene" uid="uid://cnc2jtjk0lgvx" path="res://assets/KayKit_Dungeon/floor_tile_big_spikes.gltf" id="5_cxs64"]
+[ext_resource type="PackedScene" uid="uid://de7r3t3x4vgh" path="res://assets/KayKit_Dungeon/crates_stacked.gltf" id="5_u67po"]
+[ext_resource type="PackedScene" uid="uid://3r8kde6ado1g" path="res://assets/KayKit_Dungeon/floor_foundation_allsides.gltf" id="6_6frxb"]
+[ext_resource type="PackedScene" uid="uid://raes33e0b3co" path="res://assets/KayKit_Dungeon/wall_crossing.gltf" id="6_17f7m"]
+[ext_resource type="PackedScene" uid="uid://lp068vmdrhor" path="res://assets/KayKit_Dungeon/pillar.gltf" id="6_wkkeb"]
+[ext_resource type="PackedScene" uid="uid://b6sy0p4btlkxl" path="res://assets/KayKit_Dungeon/floor_foundation_corner.gltf" id="7_4i37l"]
+[ext_resource type="PackedScene" uid="uid://bkjhsybpqy2be" path="res://assets/KayKit_Dungeon/wall_counter_gated.glb" id="7_wgny1"]
+[ext_resource type="PackedScene" uid="uid://ci4lfxmwrvhqd" path="res://assets/KayKit_Dungeon/floor_dirt_small_C.gltf" id="8_5ql46"]
+[ext_resource type="PackedScene" uid="uid://d0dup3lt31ksf" path="res://assets/KayKit_Dungeon/wall_corner_gated.gltf" id="8_xjbjr"]
+[ext_resource type="PackedScene" uid="uid://dpwn5xml67vip" path="res://assets/KayKit_Dungeon/wall_corner.gltf" id="9_4svdk"]
+[ext_resource type="PackedScene" uid="uid://du7sa7gq5mo5x" path="res://assets/KayKit_Dungeon/floor_dirt_small_corner.gltf" id="9_lt1bl"]
+[ext_resource type="PackedScene" uid="uid://cr85qcu68uqnd" path="res://assets/KayKit_Dungeon/floor_tile_grate.gltf" id="10_gukmy"]
+[ext_resource type="PackedScene" uid="uid://myqq7o2pvbvq" path="res://assets/KayKit_Dungeon/wall_archedwindow_open.gltf" id="10_vbq4r"]
+[ext_resource type="PackedScene" uid="uid://cu48xscx0khsi" path="res://assets/KayKit_Dungeon/wall_archedwindow_gated.gltf" id="11_7rqy5"]
+[ext_resource type="PackedScene" uid="uid://7q55eeysl3rq" path="res://assets/KayKit_Dungeon/wall.gltf" id="12_uw6fr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7rqy5"]
+size = Vector3(2, 0.143, 2)
+
+[node name="DungeonMeshes" type="Node3D"]
+
+[node name="barrel_small2" parent="." instance=ExtResource("1_7rqy5")]
+visible = false
+
+[node name="barrel_large2" parent="." instance=ExtResource("2_uw6fr")]
+visible = false
+
+[node name="box_stacked2" parent="." instance=ExtResource("3_lpqbk")]
+visible = false
+
+[node name="chair2" parent="." instance=ExtResource("4_y531h")]
+visible = false
+
+[node name="crates_stacked2" parent="." instance=ExtResource("5_u67po")]
+visible = false
+
+[node name="pillar2" parent="." instance=ExtResource("6_wkkeb")]
+visible = false
+
+[node name="table_long2" parent="." instance=ExtResource("1_cpijc")]
+visible = false
+
+[node name="table_long_decorated_C2" parent="." instance=ExtResource("2_17f7m")]
+visible = false
+
+[node name="table_medium_decorated_A2" parent="." instance=ExtResource("3_wgny1")]
+visible = false
+
+[node name="table_medium2" parent="." instance=ExtResource("4_xjbjr")]
+visible = false
+
+[node name="wall_window_open2" parent="." instance=ExtResource("1_807lj")]
+visible = false
+
+[node name="wall_shelves2" parent="." instance=ExtResource("2_1jfas")]
+visible = false
+
+[node name="wall_pillar2" parent="." instance=ExtResource("3_tm8hu")]
+visible = false
+
+[node name="wall_half2" parent="." instance=ExtResource("4_5ykd5")]
+visible = false
+
+[node name="wall_doorway2" parent="." instance=ExtResource("5_cpijc")]
+visible = false
+
+[node name="wall_crossing2" parent="." instance=ExtResource("6_17f7m")]
+visible = false
+
+[node name="wall_counter_gated2" parent="." instance=ExtResource("7_wgny1")]
+visible = false
+
+[node name="wall_counter_gated" parent="." instance=ExtResource("7_wgny1")]
+visible = false
+
+[node name="wall_corner_gated2" parent="." instance=ExtResource("8_xjbjr")]
+visible = false
+
+[node name="wall_corner2" parent="." instance=ExtResource("9_4svdk")]
+visible = false
+
+[node name="wall_archedwindow_open2" parent="." instance=ExtResource("10_vbq4r")]
+visible = false
+
+[node name="wall_archedwindow_gated3" parent="." instance=ExtResource("11_7rqy5")]
+visible = false
+
+[node name="wall_archedwindow_gated2" parent="." instance=ExtResource("11_7rqy5")]
+visible = false
+
+[node name="wall2" parent="." instance=ExtResource("12_uw6fr")]
+visible = false
+
+[node name="floor_wood_large3" parent="." instance=ExtResource("1_qlkni")]
+visible = false
+
+[node name="floor_wood_large2" parent="." instance=ExtResource("1_qlkni")]
+visible = false
+
+[node name="floor_tile_small_decorated2" parent="." instance=ExtResource("2_55rsj")]
+visible = false
+
+[node name="floor_tile_small2" parent="." instance=ExtResource("3_48fea")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor_tile_small2/floor_tile_small" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor_tile_small2/floor_tile_small/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0235596, 0)
+shape = SubResource("BoxShape3D_7rqy5")
+
+[node name="floor_tile_big_grate_open2" parent="." instance=ExtResource("4_ktw23")]
+visible = false
+
+[node name="floor_tile_big_spikes2" parent="." instance=ExtResource("5_cxs64")]
+visible = false
+
+[node name="floor_foundation_allsides2" parent="." instance=ExtResource("6_6frxb")]
+visible = false
+
+[node name="floor_foundation_corner2" parent="." instance=ExtResource("7_4i37l")]
+visible = false
+
+[node name="floor_dirt_small_C2" parent="." instance=ExtResource("8_5ql46")]
+visible = false
+
+[node name="floor_dirt_small_corner2" parent="." instance=ExtResource("9_lt1bl")]
+visible = false
+
+[node name="floor_tile_grate3" parent="." instance=ExtResource("10_gukmy")]
+visible = false
+
+[editable path="floor_tile_small2"]
