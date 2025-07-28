@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hne88dktobly"]
+[gd_scene load_steps=9 format=3 uid="uid://hne88dktobly"]
 
 [ext_resource type="Script" uid="uid://cl8pk4i66lar" path="res://src/blocks/trash.gd" id="1_4yguj"]
 [ext_resource type="Texture2D" uid="uid://bk1f5f376j8xg" path="res://assets/Prototype Textures/PNG/Red/texture_03.png" id="2_5r6qj"]
@@ -13,6 +13,9 @@ size = Vector3(1.5, 1.5, 1.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rd4og"]
 albedo_texture = ExtResource("2_5r6qj")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_va3at"]
+size = Vector3(2, 1.01123, 2)
 
 [node name="Trash" type="Area3D" groups=["moveable"]]
 collision_layer = 4
@@ -35,5 +38,11 @@ material_override = SubResource("StandardMaterial3D_rd4og")
 use_collision = true
 height = 1.0
 sides = 16
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.494385, 0)
+shape = SubResource("BoxShape3D_va3at")
 
 [editable path="barrel_small2"]

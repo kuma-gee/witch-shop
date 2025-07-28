@@ -6,14 +6,13 @@ extends Node3D
 @onready var item: CSGBox3D = $Item
 @onready var cauldron: CSGBox3D = $Cauldron
 
-
-func show_item(item, hide_others = true):
+func show_item(i, hide_others = true):
 	if hide_others:
 		hide_all()
-	get_node_for_item(item).show()
+	get_node_for_item(i).show()
 
-func get_node_for_item(item):
-	if item is GridItem:
+func get_node_for_item(i):
+	if i is GridItem:
 		return cauldron
 	
 	return item_node

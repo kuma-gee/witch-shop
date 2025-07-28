@@ -25,7 +25,6 @@ func _ready():
 		_update_ingredients()
 		
 		if not potion:
-			print("Failed to mix potion")
 			smoke.emitting = true
 			for body in explosion_area.get_overlapping_bodies():
 				body.explode(global_position, 50)
@@ -42,7 +41,7 @@ func _ready():
 	chargeable.charging_stopped.connect(func(): icon.hide())
 
 func interact(hand: Hand3D):
-	if pickupable:
+	if not GameManager.shop_open:
 		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items})
 		return
 	
@@ -51,7 +50,7 @@ func interact(hand: Hand3D):
 		return
 	
 	if not hand.is_holding_item():
-		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items})
+		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items}, true)
 		return
 	
 	items.append(hand.take_item())

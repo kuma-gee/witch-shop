@@ -30,8 +30,9 @@ func interact(hand: Hand3D):
 	if pickupable:
 		try_pickup(hand, GridItem.Type.CUSTOMER_SPAWN)
 		return
-		
+	
 	if hand.is_holding_item() and hand.item is PotionItem and hand.item.type == current_order:
+		print("Interacted")
 		finished_order(hand.take_item())
 
 func action(hand: Hand3D, pressed: bool):
@@ -65,10 +66,12 @@ func failed_order():
 		print("No order to fail")
 		return
 	
+	print("Failed order")
 	current_order = null
 	order_failed.emit()
 
 func finished_order(item: PotionItem):
+	print("Finished Order")
 	current_order = null
 	GameManager.finished_order(item)
 	order_success.emit(item)

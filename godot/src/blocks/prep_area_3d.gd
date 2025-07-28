@@ -68,7 +68,7 @@ func can_prepare(item):
 	return item is PotionItem and PotionItem.get_process_item(type, item.type) != null
 
 func interact(hand: Hand3D):
-	if pickupable:
+	if not GameManager.shop_open:
 		try_pickup(hand, GridItem.Type.PREP_AREA, {"item": item, "type": type})
 		return
 	

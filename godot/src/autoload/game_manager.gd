@@ -19,6 +19,7 @@ var potions = [
 ]
 
 var current_menu := 0
+var shop_open := false
 
 func _ready() -> void:
 	money = 0

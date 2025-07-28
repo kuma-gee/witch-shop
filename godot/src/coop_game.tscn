@@ -1,27 +1,28 @@
-[gd_scene load_steps=38 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=40 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_deeh8"]
 [ext_resource type="Script" uid="uid://biy2bicher7co" path="res://src/coop/ShopGridMap.gd" id="5_gi45j"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
-[ext_resource type="PackedScene" uid="uid://dbfcl7njphinr" path="res://src/coop/package.tscn" id="7_ork61"]
 [ext_resource type="MeshLibrary" uid="uid://tcoj72myjlwl" path="res://map/dungeon_meshes.tres" id="8_0rtmg"]
 [ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://src/blocks/cauldron.tscn" id="9_0teeq"]
+[ext_resource type="PackedScene" uid="uid://bmkmfsmjmv388" path="res://map/spikes.tscn" id="9_30eib"]
 [ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="10_hcrk0"]
-[ext_resource type="PackedScene" uid="uid://bthf3mqkvyw2i" path="res://src/blocks/wall.tscn" id="11_0lgnc"]
+[ext_resource type="PackedScene" uid="uid://bthf3mqkvyw2i" path="res://map/wall.tscn" id="11_0lgnc"]
 [ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
 [ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="12_1ssp0"]
 [ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="13_hmubx"]
+[ext_resource type="PackedScene" uid="uid://be4ur3al8q3gp" path="res://map/wall_counter.tscn" id="15_kamss"]
 [ext_resource type="Script" uid="uid://coj14chbxj38d" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://b3kjjfw1us5ak" path="res://assets/scroll/Map inventory/Map/Map Close/0.png" id="16_0rtmg"]
 [ext_resource type="Texture2D" uid="uid://0fcg8v7pq6b7" path="res://assets/scroll/Map inventory/Map/Map Open/0.png" id="16_36a83"]
 [ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="16_58ut5"]
+[ext_resource type="PackedScene" uid="uid://hne88dktobly" path="res://src/blocks/trash.tscn" id="16_dtat6"]
 [ext_resource type="Texture2D" uid="uid://c6skh1c743u47" path="res://assets/scroll/Map inventory/Map/Map Close/1.png" id="17_0teeq"]
 [ext_resource type="Texture2D" uid="uid://cqglscspmci7b" path="res://assets/scroll/Map inventory/Map/Map Open/1.png" id="17_djjii"]
 [ext_resource type="Script" uid="uid://pymeyerou0w7" path="res://src/ui/ready_container.gd" id="18_027cq"]
 [ext_resource type="Texture2D" uid="uid://bp2a4oup0b1jx" path="res://assets/scroll/Map inventory/Map/Map Close/2.png" id="18_hcrk0"]
-[ext_resource type="MeshLibrary" uid="uid://c4fb71ayg3tol" path="res://assets/Prototype Textures/prototypes.tres" id="18_qcp5f"]
 [ext_resource type="Texture2D" uid="uid://cnbap2wi5cevy" path="res://assets/scroll/Map inventory/Map/Map Open/2.png" id="18_qjnkl"]
 [ext_resource type="Texture2D" uid="uid://cf1d7ydf4m8gx" path="res://assets/scroll/Map inventory/Map/Map Close/3.png" id="19_0lgnc"]
 [ext_resource type="Texture2D" uid="uid://cicpjsrxlm7hb" path="res://assets/inputs/Xbox Series/XboxSeriesX_A.png" id="19_cva0b"]
@@ -98,12 +99,18 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "player_spawner")]
+[sub_resource type="Environment" id="Environment_hmubx"]
+glow_enabled = true
+glow_intensity = 0.4
+glow_blend_mode = 1
+
+[node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "player_spawner", "customer_spawner")]
 script = ExtResource("1_t8gqi")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
 money_label = NodePath("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
 shop = NodePath("CanvasLayer/Control/Shop")
 player_spawner = NodePath("PlayerSpawner")
+customer_spawner = NodePath("GridMap3/Walls/WallsTop/WallCounter/CustomerSpawner")
 
 [node name="ShopTimeEffect" type="Node" parent="." node_paths=PackedStringArray("control")]
 script = ExtResource("19_ruurj")
@@ -131,10 +138,6 @@ max_time = 30.0
 wait_time = 60.0
 one_shot = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.930083, -0.321953, -0.176896, -0.065209, -0.329201, 0.942006, -0.361516, 0.887678, 0.28519, 0, 1.83953, 0)
-shadow_enabled = true
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, -0.162247, 25.2426, 17.321)
 current = true
@@ -147,30 +150,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 spawn_root = NodePath(".")
 ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 
-[node name="GridMap" type="GridMap" parent="." node_paths=PackedStringArray("ready_container") groups=["grid"]]
-mesh_library = ExtResource("18_qcp5f")
-cell_size = Vector3(1, 0.5, 1)
-cell_center_y = false
-collision_mask = 0
-script = ExtResource("5_gi45j")
-package_scene = ExtResource("7_ork61")
-ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
 [node name="GridMap3" type="GridMap" parent="."]
 mesh_library = ExtResource("8_0rtmg")
 cell_size = Vector3(4, 2, 4)
 
-[node name="GridMap2" type="GridMap" parent="GridMap3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="GridMap2" type="GridMap" parent="GridMap3" groups=["grid"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh_library = ExtResource("8_0rtmg")
-cell_size = Vector3(2, 1, 2)
 data = {
-"cells": PackedInt32Array(65531, 65532, 23, 65531, 65533, 23, 65531, 65534, 23, 65531, 65535, 23, 65531, 0, 23, 65531, 1, 23, 65531, 2, 23, 65532, 65532, 23, 65532, 65533, 23, 65532, 65534, 23, 65532, 65535, 23, 65532, 0, 23, 65532, 1, 23, 65532, 2, 23, 65533, 65532, 23, 65533, 65533, 23, 65533, 65534, 23, 65533, 65535, 23, 65533, 0, 23, 65533, 1, 23, 65533, 2, 23, 65534, 65532, 23, 65534, 65533, 23, 65534, 65534, 23, 65534, 65535, 23, 65534, 0, 23, 65534, 1, 23, 65534, 2, 23, 65535, 65532, 23, 65535, 65533, 23, 65535, 65534, 23, 65535, 65535, 23, 65535, 0, 23, 65535, 1, 23, 65535, 2, 23, 0, 65532, 23, 0, 65533, 23, 0, 65534, 23, 0, 65535, 23, 0, 0, 23, 0, 1, 23, 0, 2, 23, 1, 65532, 23, 1, 65533, 23, 1, 65534, 23, 1, 65535, 23, 1, 0, 23, 1, 1, 23, 1, 2, 23, 2, 65532, 23, 2, 65533, 23, 2, 65534, 23, 2, 65535, 23, 2, 0, 23, 2, 1, 23, 2, 2, 23, 3, 65532, 23, 3, 65533, 23, 3, 65534, 23, 3, 65535, 23, 3, 0, 23, 3, 1, 23, 3, 2, 23, 4, 65532, 23, 4, 65533, 23, 4, 65534, 23, 4, 65535, 23, 4, 0, 23, 4, 1, 23, 4, 2, 23, 65531, 65531, 23, 65532, 65531, 23, 65533, 65531, 23, 65534, 65531, 23, 65535, 65531, 23, 0, 65531, 23, 1, 65531, 23, 2, 65531, 23, 3, 65531, 23, 4, 65531, 23, 5, 65531, 23, 5, 65532, 23, 5, 65533, 23, 5, 65534, 23, 5, 65535, 23, 5, 0, 23, 6, 65532, 23, 6, 65531, 23, 5, 2, 23, 5, 1, 23, 65529, 2, 23, 65529, 1, 23, 65529, 65532, 23, 65529, 65531, 23, 65529, 65533, 23, 65529, 65534, 23, 65529, 65535, 23, 65529, 0, 23, 65530, 1, 23, 65530, 2, 23, 65530, 0, 23, 65530, 65535, 23, 65530, 65534, 23, 65530, 65533, 23, 65530, 65532, 23, 65530, 65531, 23, 6, 65530, 23, 5, 65530, 23, 4, 65530, 23, 3, 65530, 23, 2, 65530, 23, 1, 65530, 23, 0, 65530, 23, 65535, 65530, 23, 65534, 65530, 23, 65533, 65530, 23, 65532, 65530, 23, 65531, 65530, 23, 65530, 65530, 23, 65529, 65530, 23, 6, 65533, 23, 6, 65534, 23, 6, 65535, 23, 6, 0, 23, 6, 1, 23, 6, 2, 23)
+"cells": PackedInt32Array(65531, 65532, 23, 65531, 65533, 23, 65531, 65534, 23, 65531, 65535, 23, 65531, 0, 23, 65531, 1, 23, 65531, 2, 23, 65532, 65532, 23, 65532, 65533, 23, 65532, 65534, 23, 65532, 65535, 23, 65532, 0, 23, 65532, 1, 23, 65532, 2, 23, 65533, 65532, 23, 65533, 65533, 23, 65533, 65534, 23, 65533, 65535, 23, 65533, 0, 23, 65533, 1, 23, 65533, 2, 23, 65534, 65532, 23, 65534, 65533, 23, 65534, 65534, 23, 65534, 65535, 23, 65534, 0, 23, 65534, 1, 23, 65534, 2, 23, 65535, 65532, 23, 65535, 65533, 23, 65535, 65534, 23, 65535, 1, 23, 65535, 2, 23, 0, 65532, 23, 0, 65533, 23, 0, 65534, 23, 0, 1, 23, 0, 2, 23, 1, 65532, 23, 1, 65533, 23, 1, 65534, 23, 1, 0, 23, 1, 1, 23, 1, 2, 23, 2, 65532, 23, 2, 65533, 23, 2, 65534, 23, 2, 65535, 23, 2, 0, 23, 2, 1, 23, 2, 2, 23, 3, 65532, 23, 3, 65533, 23, 3, 65534, 23, 3, 65535, 23, 3, 0, 23, 3, 1, 23, 3, 2, 23, 4, 65532, 23, 4, 65533, 23, 4, 65534, 23, 4, 65535, 23, 4, 0, 23, 4, 1, 23, 4, 2, 23, 65531, 65531, 23, 65532, 65531, 23, 65533, 65531, 23, 65534, 65531, 23, 65535, 65531, 23, 0, 65531, 23, 1, 65531, 23, 2, 65531, 23, 3, 65531, 23, 4, 65531, 23, 5, 65531, 23, 5, 65532, 23, 5, 65533, 23, 5, 65534, 23, 5, 65535, 23, 5, 0, 23, 6, 65532, 23, 6, 65531, 23, 5, 2, 23, 5, 1, 23, 65529, 2, 23, 65529, 1, 23, 65529, 65532, 23, 65529, 65531, 23, 65529, 65533, 23, 65529, 65534, 23, 65529, 65535, 23, 65529, 0, 23, 65530, 1, 23, 65530, 2, 23, 65530, 0, 23, 65530, 65535, 23, 65530, 65534, 23, 65530, 65533, 23, 65530, 65532, 23, 65530, 65531, 23, 6, 65530, 23, 5, 65530, 23, 4, 65530, 23, 3, 65530, 23, 2, 65530, 23, 1, 65530, 23, 0, 65530, 23, 65535, 65530, 23, 65534, 65530, 23, 65533, 65530, 23, 65532, 65530, 23, 65531, 65530, 23, 65530, 65530, 23, 65529, 65530, 23, 6, 65533, 23, 6, 65534, 23, 6, 65535, 23, 6, 0, 23, 6, 1, 23, 6, 2, 23, 1, 65535, 23)
 }
+script = ExtResource("5_gi45j")
+
+[node name="Spikes" parent="GridMap3/GridMap2" instance=ExtResource("9_30eib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Cauldron" parent="GridMap3" instance=ExtResource("9_0teeq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="PrepArea" parent="GridMap3" instance=ExtResource("10_hcrk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -6)
@@ -201,17 +196,11 @@ type = 3
 [node name="Wall" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -10)
 
-[node name="Wall2" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
+[node name="WallCounter" parent="GridMap3/Walls/WallsTop" instance=ExtResource("15_kamss")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
 
-[node name="wall_archedwindow_open2" parent="GridMap3/Walls/WallsTop/Wall2" index="1"]
-visible = true
-
-[node name="wall2" parent="GridMap3/Walls/WallsTop/Wall2" index="2"]
-visible = false
-
-[node name="CustomerSpawner" parent="GridMap3/Walls/WallsTop/Wall2" instance=ExtResource("12_1ssp0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0639238, 0.591395, -1.84669)
+[node name="CustomerSpawner" parent="GridMap3/Walls/WallsTop/WallCounter" instance=ExtResource("12_1ssp0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0639238, 0.591395, -2.04034)
 
 [node name="Wall3" parent="GridMap3/Walls/WallsTop" instance=ExtResource("11_0lgnc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
@@ -274,7 +263,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -14)
 
 [node name="WallsBot" type="Node3D" parent="GridMap3/Walls"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -6)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 0.5, 0, 1.50996e-07, 0, -1, 0, 0, -6)
 
 [node name="Wall" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -10)
@@ -299,6 +288,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
 
 [node name="Wall8" parent="GridMap3/Walls/WallsBot" instance=ExtResource("11_0lgnc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -10)
+
+[node name="Trash" parent="GridMap3" instance=ExtResource("16_dtat6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -437,4 +429,5 @@ animation = &"open"
 frame = 7
 frame_progress = 1.0
 
-[editable path="GridMap3/Walls/WallsTop/Wall2"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hmubx")

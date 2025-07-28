@@ -102,19 +102,14 @@ func _physics_process(delta: float) -> void:
 	if not freeze_timer.is_stopped() or phyiscal_bone_simulator.is_simulating_physics():
 		animation.active = false
 		return
+	
 	animation.active = true
 
-	if working_obj:
-		#var p = global_position.direction_to(working_obj.global_position)
-		#pivot.basis = Basis.looking_at(Vector3(p.x, 0, p.y))
-		return
-
-	var move_dir = _get_move_dir()
-	_aim_for_throw(move_dir)
-
-	if is_hold_pressed: return
-
-	apply_central_force(physics_movement.apply_physics(move_dir, delta, linear_velocity) * mass)
+	if not is_hold_pressed and not working_obj:
+		var move_dir = _get_move_dir()
+		_aim_for_throw(move_dir)
+		apply_central_force(physics_movement.apply_physics(move_dir, delta, linear_velocity) * mass)
+	
 	apply_central_force(ground_spring_cast.apply_spring_force(linear_velocity))
 	apply_torque(_get_upright_rotation())
 
@@ -123,11 +118,27 @@ func _physics_process(delta: float) -> void:
 func _hand_interact():
 	if hand_3d.is_holding_item() and hand_3d.item is GridItem:
 		var player_pos = preview_item.get_grid_position(global_position)
-		if grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
+		if can_place_at(player_pos) and grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
 			hand_3d.take_item()
-			return
+
+		# Right now its needs to fall through
+		# when the player is holding a CAULDRON and interacting with the TRASH
+		
+		# if grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
+		# 	hand_3d.take_item()
+		# 	return
 
 	hand_3d.interact()
+
+func can_place_at(coord: Vector3i) -> bool:
+	var pos = grid.map_to_local(coord)
+	var mask = 1
+
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 0.5, pos + Vector3.DOWN * 0.5, mask)
+	var result = space_state.intersect_ray(query)
+	print(result)
+	return result.is_empty()
 
 func _hand_action():
 	var obj = hand_3d.action(true)

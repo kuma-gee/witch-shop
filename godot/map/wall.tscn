@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bthf3mqkvyw2i"]
+
+[ext_resource type="PackedScene" uid="uid://bamhr0dcwgu4g" path="res://assets/KayKit_Dungeon/shelf_large.gltf" id="1_a8280"]
+[ext_resource type="Script" uid="uid://buvgrnyl4e5qj" path="res://map/wall.gd" id="1_i6tnn"]
+[ext_resource type="PackedScene" uid="uid://7q55eeysl3rq" path="res://assets/KayKit_Dungeon/wall.gltf" id="2_i6tnn"]
+[ext_resource type="Script" uid="uid://behsmmfc2m4x8" path="res://map/shelf.gd" id="3_3y4vk"]
+[ext_resource type="PackedScene" uid="uid://bh085bw7niar2" path="res://src/coop/item_nodes.tscn" id="4_3y4vk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xetn"]
+size = Vector3(4, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_76lbv"]
+size = Vector3(2.90723, 2.74512, 1.94922)
+
+[node name="Wall" type="Node3D" node_paths=PackedStringArray("shelve")]
+script = ExtResource("1_i6tnn")
+shelve = NodePath("shelf_large2")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.5008)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49487, 0)
+shape = SubResource("BoxShape3D_5xetn")
+
+[node name="shelf_large2" parent="." instance=ExtResource("1_a8280")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.16608)
+
+[node name="Interactable3D" type="Area3D" parent="shelf_large2" node_paths=PackedStringArray("container")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_3y4vk")
+container = NodePath("../Locations")
+metadata/_custom_type_script = "uid://d1v635ks51pb2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shelf_large2/Interactable3D"]
+shape = SubResource("BoxShape3D_76lbv")
+
+[node name="Locations" type="Node3D" parent="shelf_large2"]
+
+[node name="ItemNodes" parent="shelf_large2/Locations" instance=ExtResource("4_3y4vk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.711209, 0.103255, 0.251695)
+
+[node name="ItemNodes2" parent="shelf_large2/Locations" instance=ExtResource("4_3y4vk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0126732, 0.103255, 0.251695)
+
+[node name="ItemNodes3" parent="shelf_large2/Locations" instance=ExtResource("4_3y4vk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.764789, 0.103255, 0.251695)
+
+[node name="wall2" parent="." instance=ExtResource("2_i6tnn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5008)

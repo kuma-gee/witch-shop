@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://be4ur3al8q3gp"]
+
+[ext_resource type="PackedScene" uid="uid://myqq7o2pvbvq" path="res://assets/KayKit_Dungeon/wall_archedwindow_open.gltf" id="1_v4w1v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkxxj"]
+size = Vector3(4, 4, 0.5)
+
+[node name="WallCounter" type="Node3D"]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.5008)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49487, 0)
+shape = SubResource("BoxShape3D_fkxxj")
+
+[node name="wall_archedwindow_open2" parent="." instance=ExtResource("1_v4w1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.50397)

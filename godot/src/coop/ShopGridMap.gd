@@ -54,7 +54,7 @@ const PLAYER_SPAWNER = preload("res://src/blocks/player_spawner.tscn")
 const CUSTOMER_SPAWNER = preload("res://src/blocks/customer_spawner.tscn")
 const FLOOR_MAIN = preload("res://src/blocks/floor_main.tscn")
 const FLOOR_TILE = preload("res://src/blocks/floor_tile.tscn")
-const WALL = preload("res://src/blocks/wall.tscn")
+#const WALL = preload("res://src/blocks/wall.tscn")
 const CORNER = preload("res://src/blocks/corner.tscn")
 const DOOR = preload("res://src/blocks/door.tscn")
 
@@ -67,7 +67,7 @@ const ITEM_MAP := {
 	GridItem.Type.CUSTOMER_SPAWN: CUSTOMER_SPAWNER,
 	GridItem.Type.FLOOR_FILL: FLOOR_TILE,
 	GridItem.Type.FLOOR_MAIN: FLOOR_MAIN,
-	GridItem.Type.WALL: WALL,
+	#GridItem.Type.WALL: WALL,
 	GridItem.Type.CORNER: CORNER,
 	GridItem.Type.DOOR: DOOR,
 }
@@ -81,7 +81,6 @@ const FLOOR_TYPES := [GridItem.Type.FLOOR_CUSTOMER, GridItem.Type.FLOOR_PLAYER, 
 @export var default_layer := 1
 @export var floor_layer := 0
 @export var package_scene: PackedScene
-@export var ready_container: ReadyContainer
 
 var initial_packages = []
 var data = {}
@@ -147,10 +146,10 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 	var layer = floor_layer if item.type in FLOOR_TYPES else default_layer
 	var v = _get_coord(pos, layer)
 	
-	var replace = layer == floor_layer
-	if v in data and not replace:
-		print("Already an object at %s" % v)
-		return false
+	#var replace = layer == floor_layer
+	#if v in data and not replace:
+		#print("Already an object at %s" % v)
+		#return false
 	
 	if v in data:
 		remove(pos, layer)
@@ -170,7 +169,6 @@ func place(pos: Vector2i, item: GridItem) -> bool:
 	if node == null: return false
 	
 	data[v] = node
-	
 	if item.data is Dictionary:
 		for prop in item.data:
 			node.set(prop, item.data[prop])
@@ -194,8 +192,8 @@ func _add_to_floor(pos: Vector3i, scene: PackedScene, rot: float):
 	return node
 
 func _create_node(pos: Vector3i, scene: PackedScene, rot: float):
-	if pos.y == default_layer:
-		return _add_to_floor(pos, scene, rot)
+	#if pos.y == default_layer:
+		#return _add_to_floor(pos, scene, rot)
 	
 	var node = scene.instantiate()
 	node.position = map_to_local(pos) + Vector3(0, -cell_size.y, 0)

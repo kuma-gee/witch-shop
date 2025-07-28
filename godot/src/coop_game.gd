@@ -5,7 +5,8 @@ var was_open := false
 var shop_open := false:
 	set(v):
 		shop_open = v
-		_update_moveable_objects()
+		GameManager.shop_open = v
+		#_update_moveable_objects()
 		
 		if shop_open:
 			was_open = true
@@ -16,7 +17,7 @@ var shop_open := false:
 			ready_effect.do_hide()
 			#obstacle_timer.start()
 		else:
-			_reset_moveable_objects()
+			#_reset_moveable_objects()
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
@@ -30,9 +31,10 @@ var shop_open := false:
 @export var money_label: Label
 @export var shop: Shop
 @export var player_spawner: PlayerSpawner
+@export var customer_spawner: CustomerSpawner
 
 @onready var shop_open_timer: Timer = $ShopOpenTimer
-@onready var grid_map: ShopGridMap = $GridMap
+#@onready var grid_map: ShopGridMap = $GridMap
 @onready var shop_time_effect: SlideEffect = $ShopTimeEffect
 @onready var ready_effect: SlideEffect = $ReadyEffect
 #@onready var obstacle_timer: RandomTimer = $ObstacleTimer
@@ -66,8 +68,8 @@ func _ready() -> void:
 	
 	shop_open = false
 	player_spawner.start_game.connect(func(): start_game())
-	grid_map.setup_finished.connect(func(): _update_moveable_objects())
-	grid_map.object_placed.connect(func(): _update_moveable_objects())
+	#grid_map.setup_finished.connect(func(): _update_moveable_objects())
+	#grid_map.object_placed.connect(func(): _update_moveable_objects())
 	shop_open_timer.timeout.connect(func(): shop_open = false)
 	#obstacle_timer.timeout.connect(func():
 		#var groups = grid_map.split_floor(Vector2(-2, -2), Vector2(2, 2))
@@ -83,10 +85,10 @@ func _ready() -> void:
 func start_game():
 	shop_open = true
 
-func _update_moveable_objects():
-	for obj in get_tree().get_nodes_in_group("moveable"):
-		obj.pickupable = not shop_open
-
-func _reset_moveable_objects():
-	for obj in get_tree().get_nodes_in_group("moveable"):
-		obj.reset()
+#func _update_moveable_objects():
+	#for obj in get_tree().get_nodes_in_group("moveable"):
+		#obj.pickupable = not shop_open
+#
+#func _reset_moveable_objects():
+	#for obj in get_tree().get_nodes_in_group("moveable"):
+		#obj.reset()

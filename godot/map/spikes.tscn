@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmkmfsmjmv388"]
+[gd_scene load_steps=11 format=3 uid="uid://bmkmfsmjmv388"]
 
 [ext_resource type="Script" uid="uid://ciyjv772yw7oe" path="res://map/spikes.gd" id="1_a7si6"]
 [ext_resource type="PackedScene" uid="uid://cnc2jtjk0lgvx" path="res://assets/KayKit_Dungeon/floor_tile_big_spikes.gltf" id="1_gjv0u"]
@@ -25,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody3D/CollisionShape3D:disabled")
+tracks/1/path = NodePath("SpikeCollision/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -67,7 +67,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("StaticBody3D/CollisionShape3D:disabled")
+tracks/2/path = NodePath("SpikeCollision/CollisionShape3D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -82,6 +82,9 @@ _data = {
 &"RESET": SubResource("Animation_yxeym"),
 &"spikes": SubResource("Animation_gjv0u")
 }
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2g7k1"]
+size = Vector3(4, 0.131, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a7si6"]
 size = Vector3(2.69946, 3.11145, 2.95605)
@@ -99,6 +102,7 @@ script = ExtResource("1_yxeym")
 shape = SubResource("BoxShape3D_gjv0u")
 
 [node name="floor_tile_big_spikes2" parent="." instance=ExtResource("1_gjv0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0508878, 0)
 
 [node name="spikes" parent="floor_tile_big_spikes2/floor_tile_big_spikes" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.00587, 0)
@@ -114,10 +118,17 @@ script = ExtResource("4_a0rhn")
 min_time = 10.0
 max_time = 60.0
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="FloorCollision" type="StaticBody3D" parent="."]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0745343, 0)
+shape = SubResource("BoxShape3D_2g7k1")
+
+[node name="SpikeCollision" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpikeCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05573, 0)
 shape = SubResource("BoxShape3D_a7si6")
 disabled = true

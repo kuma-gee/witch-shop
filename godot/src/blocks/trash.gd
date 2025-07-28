@@ -2,7 +2,7 @@ class_name Trash
 extends Interactable3D
 
 func interact(hand: Hand3D):
-	if pickupable:
+	if not GameManager.shop_open:
 		try_pickup(hand, GridItem.Type.TRASH)
 		return
 	

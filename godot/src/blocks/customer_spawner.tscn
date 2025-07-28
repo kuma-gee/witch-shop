@@ -11,7 +11,7 @@
 albedo_texture = ExtResource("4_wrjg4")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cklce"]
-size = Vector3(1.73535, 1.69434, 1.17212)
+size = Vector3(1.73535, 1.69434, 1.53809)
 
 [node name="CustomerSpawner" type="Area3D" groups=["customer_spawn", "moveable"]]
 collision_layer = 4

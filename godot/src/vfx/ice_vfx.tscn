@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://dpryhci7cb4sn"]
 
 [ext_resource type="Shader" uid="uid://dg53kkr3au48b" path="res://src/vfx/ice_vfx.tres" id="1_3dh1j"]
-[ext_resource type="Script" path="res://src/vfx/ice_vfx.gd" id="1_5o81f"]
+[ext_resource type="Script" uid="uid://cjsptt6a05eko" path="res://src/vfx/ice_vfx.gd" id="1_5o81f"]
 [ext_resource type="Shader" uid="uid://c5fqyui0lci4g" path="res://src/vfx/blackhole_sphere.tres" id="2_5bosj"]
-[ext_resource type="Script" path="res://src/vfx/particle_rotate.gd" id="3_5jlvb"]
+[ext_resource type="Script" uid="uid://pjkfeu3v5q7p" path="res://src/vfx/particle_rotate.gd" id="3_5jlvb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_i3p6j"]
 noise_type = 2
@@ -21,8 +21,8 @@ render_priority = 0
 shader = ExtResource("1_3dh1j")
 shader_parameter/ColorParameter = Color(0, 1, 1.2, 1)
 shader_parameter/IceLayerDissolve = 0.0
-shader_parameter/Mix = 0.608
 shader_parameter/SphereTexture = SubResource("NoiseTexture2D_boro6")
+shader_parameter/Mix = 0.608
 
 [sub_resource type="SphereMesh" id="SphereMesh_o1qju"]
 
@@ -169,8 +169,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0cvd8"]
 _data = {
-"RESET": SubResource("Animation_mp0ou"),
-"start": SubResource("Animation_vwfhw")
+&"RESET": SubResource("Animation_mp0ou"),
+&"start": SubResource("Animation_vwfhw")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_30o7c"]
@@ -214,7 +214,7 @@ mesh = SubResource("PlaneMesh_k4s2q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_0cvd8")
+&"": SubResource("AnimationLibrary_0cvd8")
 }
 autoplay = "start"
 

@@ -25,8 +25,8 @@ func action(hand: Hand3D, pressed: bool):
 func reset():
 	pass
 
-func try_pickup(hand: Hand3D, type: GridItem.Type, data = {}):
-	if not pickupable:
+func try_pickup(hand: Hand3D, type: GridItem.Type, data = {}, force := false):
+	if not pickupable and not force:
 		return false
 		
 	if hand.is_holding_item():

@@ -19,7 +19,7 @@ func _update_text():
 	label_3d.text = PotionItem.Type.keys()[type]
 
 func interact(hand: Hand3D):
-	if pickupable:
+	if not GameManager.shop_open:
 		try_pickup(hand, GridItem.Type.MATERIAL, {"type": type})
 		return
 	
