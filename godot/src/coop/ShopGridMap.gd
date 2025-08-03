@@ -121,8 +121,6 @@ func setup(data: Array):
 			positions = [positions]
 
 		var grid_item = GridItem.new(line[0], item_data)
-		if grid_item.type == GridItem.Type.WALL:
-			print()
 		
 		for pos in positions:
 			if typeof(pos) == TYPE_ARRAY:

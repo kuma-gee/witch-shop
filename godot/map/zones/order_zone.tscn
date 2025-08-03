@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bonjbb7wwwmud"]
+
+[ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_uhdgm"]
+[ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="2_16am4"]
+[ext_resource type="PackedScene" uid="uid://be4ur3al8q3gp" path="res://map/wall_counter.tscn" id="2_ffgwk"]
+
+[node name="OrderZone" type="Node3D"]
+
+[node name="Grid" parent="." instance=ExtResource("1_uhdgm")]
+
+[node name="Wall" parent="Grid/WallTop" index="0"]
+visible = false
+
+[node name="WallCounter" parent="Grid" instance=ExtResource("2_ffgwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="CustomerSpawner" parent="." instance=ExtResource("2_16am4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -4)
+
+[editable path="Grid"]

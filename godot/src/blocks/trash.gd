@@ -11,7 +11,7 @@ func interact(hand: Hand3D):
 		return
 	
 	if not hand.item is PotionItem:
-		if hand.item is GridItem and hand.item.type == GridItem.Type.CAULDRON:
+		if hand.is_holding_grid_item(GridItem.Type.CAULDRON):
 			hand.item.data.items = []
 			print("Cleared cauldron")
 		else:

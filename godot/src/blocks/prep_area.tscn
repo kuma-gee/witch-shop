@@ -35,11 +35,13 @@ shape = SubResource("BoxShape3D_2jmb1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0)
 billboard = 1
 text = "Test"
+font_size = 64
 
 [node name="TypeLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51782, 0)
 billboard = 1
 text = "Test"
+font_size = 64
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

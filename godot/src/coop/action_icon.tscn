@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctoanxjg4nxn3"]
 
-[ext_resource type="Shader" path="res://src/shaders/billboard_timer.gdshader" id="1_ic15h"]
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_tk5s2"]
-[ext_resource type="Script" path="res://src/coop/action_icon.gd" id="3_kxln1"]
+[ext_resource type="Shader" uid="uid://btvoq5armesi8" path="res://src/shaders/billboard_timer.gdshader" id="1_ic15h"]
+[ext_resource type="Texture2D" uid="uid://da33a8dkxqllj" path="res://icon.svg" id="2_tk5s2"]
+[ext_resource type="Script" uid="uid://mhjlmfl468ba" path="res://src/coop/action_icon.gd" id="3_kxln1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vvbj"]
 render_priority = 0
 shader = ExtResource("1_ic15h")
+shader_parameter/tex = ExtResource("2_tk5s2")
 shader_parameter/mix_color = Color(0, 0, 0, 1)
 shader_parameter/mix_amount = 0.9
 shader_parameter/fill = 0.0
-shader_parameter/scale = 0.3
+shader_parameter/scale = 0.5
 shader_parameter/rotation_speed = 1.0
-shader_parameter/tex = ExtResource("2_tk5s2")
 
 [node name="ActionIcon" type="Sprite3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

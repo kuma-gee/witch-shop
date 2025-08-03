@@ -27,7 +27,7 @@ func _ready() -> void:
 func buy_item(item: ShopItem.Item, price: int):
 	if money < price: return false
 	
-	print("Bought item %s" % ShopItem.Item.keys()[item])
+	print("Bought item %ss" % ShopItem.Item.keys()[item])
 	money -= price
 	items.append(item)
 	return true

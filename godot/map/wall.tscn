@@ -25,6 +25,7 @@ shape = SubResource("BoxShape3D_5xetn")
 
 [node name="shelf_large2" parent="." instance=ExtResource("1_a8280")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.16608)
+visible = false
 
 [node name="Interactable3D" type="Area3D" parent="shelf_large2" node_paths=PackedStringArray("container")]
 collision_layer = 4

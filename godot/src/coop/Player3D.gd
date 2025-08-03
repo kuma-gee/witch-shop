@@ -116,10 +116,10 @@ func _physics_process(delta: float) -> void:
 
 ### Items ###
 func _hand_interact():
-	if hand_3d.is_holding_item() and hand_3d.item is GridItem:
-		var player_pos = preview_item.get_grid_position(global_position)
-		if can_place_at(player_pos) and grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
-			hand_3d.take_item()
+	#if hand_3d.is_holding_item() and hand_3d.item is GridItem:
+		#var player_pos = preview_item.get_grid_position(global_position)
+		#if can_place_at(player_pos) and grid.place(Vector2i(player_pos.x, player_pos.z), hand_3d.item):
+			#hand_3d.take_item()
 
 		# Right now its needs to fall through
 		# when the player is holding a CAULDRON and interacting with the TRASH
@@ -137,7 +137,6 @@ func can_place_at(coord: Vector3i) -> bool:
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 0.5, pos + Vector3.DOWN * 0.5, mask)
 	var result = space_state.intersect_ray(query)
-	print(result)
 	return result.is_empty()
 
 func _hand_action():

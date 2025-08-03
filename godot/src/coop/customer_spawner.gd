@@ -73,8 +73,10 @@ func failed_order():
 func finished_order(item: PotionItem):
 	print("Finished Order")
 	current_order = null
-	GameManager.finished_order(item)
 	order_success.emit(item)
+
+func has_order():
+	return current_order != null
 
 func reset():
 	current_order = null

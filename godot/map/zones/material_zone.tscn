@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://btlnhcw80c5c6"]
+
+[ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_tydof"]
+[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="2_u3i8v"]
+
+[node name="MaterialZone" type="Node3D"]
+
+[node name="Grid" parent="." instance=ExtResource("1_tydof")]
+
+[node name="Material2" parent="." instance=ExtResource("2_u3i8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="Material3" parent="." instance=ExtResource("2_u3i8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
+
+[node name="Material4" parent="." instance=ExtResource("2_u3i8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+
+[node name="Material5" parent="." instance=ExtResource("2_u3i8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)

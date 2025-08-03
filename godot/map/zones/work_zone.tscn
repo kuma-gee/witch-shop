@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://b20vl3nw07jst"]
+
+[ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_if1bu"]
+[ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="2_d5h2j"]
+
+[node name="WorkZone" type="Node3D"]
+
+[node name="Grid" parent="." instance=ExtResource("1_if1bu")]
+
+[node name="PrepArea" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+
+[node name="PrepArea4" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
+
+[node name="PrepArea5" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="PrepArea6" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="PrepArea2" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="PrepArea3" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="PrepArea7" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)

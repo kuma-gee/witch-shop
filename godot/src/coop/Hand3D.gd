@@ -19,7 +19,6 @@ var item:
 func interact():
 	var interactable = get_interactable()
 	if interactable:
-		print(interactable)
 		interactable.interact(self)
 		return true
 		
@@ -35,7 +34,7 @@ func action(pressed: bool):
 	
 func get_interactable() -> Interactable3D:
 	for area in get_overlapping_areas():
-		if area is Interactable3D:
+		if area is Interactable3D and area.interactable:
 			return area
 	return null
 
@@ -50,6 +49,9 @@ func hold_item(i, pos = null):
 
 func is_holding_item():
 	return item != null
+
+func is_holding_grid_item(type: GridItem.Type):
+	return item is GridItem and item.type == type
 
 func take_item():
 	var x = item

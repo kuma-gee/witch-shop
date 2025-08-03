@@ -4,11 +4,12 @@ extends Interactable3D
 const AUTOMATIC_PROCESS = [PotionItem.Process.COMBUST, PotionItem.Process.DISTILL]
 
 @export var type_label: Label3D
-@export var type := PotionItem.Process.CUTTING:
+@export var type := PotionItem.Process.NONE:
 	set(v):
 		type = v
 		if type_label:
 			type_label.text = PotionItem.get_process_name(v)
+			type_label.visible = v != PotionItem.Process.NONE
 
 @export var default_process_time := 1.0
 @export var item_node: ItemNodes

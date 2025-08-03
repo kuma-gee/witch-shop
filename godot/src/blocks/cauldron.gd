@@ -53,6 +53,10 @@ func interact(hand: Hand3D):
 		try_pickup(hand, GridItem.Type.CAULDRON, {"items": items}, true)
 		return
 	
+	if PotionItem.is_potion(hand.item.type):
+		print("Cannot put potions into the cauldron")
+		return
+	
 	items.append(hand.take_item())
 	_update_ingredients()
 

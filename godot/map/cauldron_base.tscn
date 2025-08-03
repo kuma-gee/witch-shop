@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cc0q2osqijafd"]
+
+[ext_resource type="Texture2D" uid="uid://cpqmhro35gqen" path="res://assets/Prototype Textures/PNG/Red/texture_13.png" id="1_aqngx"]
+[ext_resource type="Script" uid="uid://1pe8gc0nds60" path="res://map/cauldron_base.gd" id="2_snm1p"]
+[ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://src/blocks/cauldron.tscn" id="2_yd82t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mv77a"]
+size = Vector3(1.76953, 1.10986, 1.82617)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snm1p"]
+albedo_texture = ExtResource("1_aqngx")
+
+[node name="CauldronBase" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_snm1p")
+cauldron_scene = ExtResource("2_yd82t")
+metadata/_custom_type_script = "uid://d1v635ks51pb2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860495, 0)
+shape = SubResource("BoxShape3D_mv77a")
+
+[node name="Box" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0594008, 0)
+material_override = SubResource("StandardMaterial3D_snm1p")
+size = Vector3(2, 0.1, 2)
