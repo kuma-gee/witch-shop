@@ -6,10 +6,9 @@ signal action_start(hand: Hand3D)
 signal action_end(hand: Hand3D)
 signal pickup_changed()
 
+# TODO: remove
 var pickupable := false:
-	set(v):
-		pickupable = v
-		pickup_changed.emit()
+	get(): return false #not GameManager.shop_open
 
 var interactable := true
 

@@ -2,7 +2,7 @@ class_name PotionItem
 
 const PROCESSES = {
 	Process.CUTTING: {
-		Type.HERB: Type.HERB_CUTTED,
+		Type.HERB: Type.HERB_CUTTING,
 	},
 	Process.DISTILL: {
 		Type.TEARS: Type.TEARS_DISTILL,
@@ -13,9 +13,9 @@ const PROCESSES = {
 }
 
 const RECIPIES = {
-	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTED],
+	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTING],
 	Type.POTION_BLUE: [Type.TEARS_DISTILL, Type.FEATHER, Type.FEATHER],
-	Type.POTION_GREEN: [Type.HERB_CUTTED, Type.HERB_CUTTED, Type.FEATHER],
+	Type.POTION_GREEN: [Type.HERB_CUTTING, Type.HERB_CUTTING, Type.FEATHER],
 	Type.TEARS_DISTILL: [Type.TEARS, Type.STARLIGHT_DUST],
 }
 
@@ -43,7 +43,7 @@ enum Process {
 enum Type {
 	FEATHER,
 	HERB,
-	HERB_CUTTED,
+	HERB_CUTTING,
 	TEARS,
 	TEARS_DISTILL,
 	STARLIGHT_DUST,

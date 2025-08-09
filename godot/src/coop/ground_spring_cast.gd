@@ -4,12 +4,13 @@ extends RayCast3D
 @export var spring_strength := 100.0
 @export var ride_height := 1.0
 @export var damping := 3.0
+@export var gravity := 1.0
 
 func _ready() -> void:
 	target_position = target_position.normalized() * ride_height * 1.5
 
 func apply_spring_force(velocity: Vector3) -> Vector3:
-	if not is_grounded(): return Vector3.ZERO
+	if not is_grounded(): return Vector3.DOWN * gravity
 		
 	var ray_dir = target_position.normalized()
 	var ground_vector = get_collision_point() - global_position

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhvbv4hrvsmos"]
+[gd_scene load_steps=5 format=3 uid="uid://dhvbv4hrvsmos"]
 
 [ext_resource type="Script" uid="uid://kkbjfhgbhctf" path="res://map/zones/grid.gd" id="1_4xqse"]
 [ext_resource type="PackedScene" uid="uid://c6fclo2fkt43q" path="res://src/blocks/floor_main.tscn" id="1_ig6sq"]
 [ext_resource type="PackedScene" uid="uid://bthf3mqkvyw2i" path="res://map/wall.tscn" id="2_87g4x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4xqse"]
+size = Vector3(8, 1, 8)
 
 [node name="Grid" type="Node3D"]
 script = ExtResource("1_4xqse")
@@ -235,3 +238,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
 [node name="Wall2" parent="WallLeft" instance=ExtResource("2_87g4x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.534396, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_4xqse")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.113741, 0)

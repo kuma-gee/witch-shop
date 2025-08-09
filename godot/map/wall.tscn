@@ -28,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.16608)
 visible = false
 
 [node name="Interactable3D" type="Area3D" parent="shelf_large2" node_paths=PackedStringArray("container")]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("3_3y4vk")
 container = NodePath("../Locations")

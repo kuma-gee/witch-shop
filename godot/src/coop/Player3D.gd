@@ -17,7 +17,6 @@ signal accepted()
 
 @export_category("Items")
 @export var throw_charge: Chargeable
-@export var preview_item: PreviewBlock
 @export var item_nodes: ItemNodes
 @export var throw_item: PackedScene
 @export var throw_angle := 45.0
@@ -55,6 +54,11 @@ var is_hold_pressed := false:
 			animation.prepare_catch()
 
 func _ready() -> void:
+	died.connect(func():
+		phyiscal_bone_simulator.active = true
+		phyiscal_bone_simulator.physical_bones_start_simulation()
+		color_ring.hide()
+	)
 	explosion_timer.timeout.connect(func():
 		cleared.emit()
 		queue_free()
@@ -70,10 +74,10 @@ func _ready() -> void:
 	
 	_update_hand_items()
 	hand_3d.item_changed.connect(func(): _update_hand_items())
-	hand_3d.picked_up_at.connect(func(pos: Vector3):
-		var p = grid.local_to_map(pos)
-		grid.remove(Vector2i(p.x, p.z))
-	)
+	#hand_3d.picked_up_at.connect(func(pos: Vector3):
+		#var p = grid.local_to_map(pos)
+		#grid.remove(Vector2i(p.x, p.z))
+	#)
 	
 	player_input.just_pressed.connect(func(event: InputEvent):
 		if event.is_action_pressed("interact"):
@@ -95,8 +99,8 @@ func _ready() -> void:
 			_hand_action_release()
 	)
 
-func _process(_delta: float) -> void:
-	preview_item.update_position(global_position)
+#func _process(_delta: float) -> void:
+	#preview_item.update_position(global_position)
 
 func _physics_process(delta: float) -> void:
 	if not freeze_timer.is_stopped() or phyiscal_bone_simulator.is_simulating_physics():
@@ -105,14 +109,26 @@ func _physics_process(delta: float) -> void:
 	
 	animation.active = true
 
+	var move_dir = Vector3.ZERO
 	if not is_hold_pressed and not working_obj:
-		var move_dir = _get_move_dir()
+		move_dir = _get_move_dir()
 		_aim_for_throw(move_dir)
-		apply_central_force(physics_movement.apply_physics(move_dir, delta, linear_velocity) * mass)
 	
+	if working_obj:
+		var p = working_obj.global_position
+		pivot.basis = Basis.looking_at(global_position.direction_to(Vector3(p.x, global_position.y, p.z)))
+	
+	apply_central_force(physics_movement.apply_physics(move_dir, delta, linear_velocity) * mass)
 	apply_central_force(ground_spring_cast.apply_spring_force(linear_velocity))
 	apply_torque(_get_upright_rotation())
-
+	
+	if global_position.y < -10:
+		for z in get_tree().get_nodes_in_group(Zone.GROUP):
+			var zone = z as Zone
+			if zone.is_moving(): continue
+			
+			respawn(zone.get_spawn_point())
+			break
 
 ### Items ###
 func _hand_interact():
@@ -192,10 +208,15 @@ func _get_face_dir():
 func _update_hand_items():
 	if hand_3d.is_holding_item():
 		item_nodes.show_item(hand_3d.item)
-		preview_item.show()
+		#preview_item.show()
 	else:
 		item_nodes.hide_all()
-		preview_item.hide()
+		#preview_item.hide()
+
+func respawn(pos: Vector3):
+	died.emit(pos)
+	await get_tree().create_timer(1.0).timeout
+	cleared.emit()
 
 ### Effects ###
 
@@ -204,10 +225,6 @@ func freeze_body():
 
 func explode(from: Vector3, force = 200):
 	died.emit(global_position)
-	color_ring.hide()
-	
-	phyiscal_bone_simulator.active = true
-	phyiscal_bone_simulator.physical_bones_start_simulation()
 	
 	var dir = from.direction_to(global_position)
 	body_bone.apply_central_impulse(dir * force)
