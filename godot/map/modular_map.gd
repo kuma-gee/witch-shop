@@ -13,6 +13,8 @@ const DIRECTION_MAP = {
 	Grid.Direction.WEST: Vector2i.LEFT,
 }
 
+@export var traps: Array[Trap] = []
+
 var zones = {}
 
 var material_zone = null
@@ -74,3 +76,12 @@ func get_min_max_coord():
 		max_coord.y = max(max_coord.y, coord.y)
 
 	return [min_coord, max_coord]
+
+func get_all_obstacles():
+	var result = []
+	for x in zones.values():
+		var zone = x as Zone
+		result.append_array(zone.traps)
+	
+	result.append_array(traps)
+	return result

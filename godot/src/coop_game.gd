@@ -15,7 +15,6 @@ var shop_open := false:
 			shop_open_timer.start()
 			shop_time_effect.do_show()
 			ready_effect.do_hide()
-			_start_zones()
 		else:
 			if day == 1:
 				GameManager.increase_menu()
@@ -23,7 +22,6 @@ var shop_open := false:
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
-			_stop_zones()
 			_update_zones()
 			
 			if was_open:
@@ -38,6 +36,7 @@ var shop_open := false:
 @onready var shop_time_effect: SlideEffect = $ShopTimeEffect
 @onready var ready_effect: SlideEffect = $ReadyEffect
 @onready var modular_map: ModularMap = $ModularMap
+@onready var obstacle_timer: RandomTimer = $ObstacleTimer
 
 var failed_orders := 0
 var difficulty := 1.0
@@ -71,6 +70,13 @@ func _ready() -> void:
 		failed_orders += 1
 		_check_shop_status()
 	)
+	
+	obstacle_timer.timeout.connect(func():
+		var obstacle = modular_map.get_all_obstacles().pick_random() as Trap
+		obstacle.start()
+		await obstacle.finished
+		obstacle_timer.random_start()
+	)
 
 func _get_customer_spawner() -> CustomerSpawner:
 	return get_tree().get_first_node_in_group("customer_spawn")
@@ -85,6 +91,7 @@ func _check_shop_status():
 func start_game():
 	if _are_zones_moving(): return
 	shop_open = true
+	obstacle_timer.random_start()
 
 func _update_zones():
 	var data = GameManager.get_current_needed_ingredients()
@@ -103,14 +110,6 @@ func _update_zones():
 	modular_map.material_zone.set_ingredients(ingredients)
 	modular_map.work_zone.set_processes(processes)
 	modular_map.update_directions()
-
-func _start_zones():
-	for zone in get_tree().get_nodes_in_group(Zone.GROUP):
-		zone.start()
-	
-func _stop_zones():
-	for zone in get_tree().get_nodes_in_group(Zone.GROUP):
-		zone.stop()
 
 func _are_zones_moving():
 	for zone in get_tree().get_nodes_in_group(Zone.GROUP):

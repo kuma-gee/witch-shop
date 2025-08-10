@@ -27,3 +27,5 @@ func set_processes(list: Array):
 		else:
 			node.queue_free()
 		
+	
+	
