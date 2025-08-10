@@ -2,40 +2,34 @@
 
 [ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_q64ky"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_ds2tk"]
-[ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="5_j58on"]
+[ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/order.tscn" id="4_j58on"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="6_mwbhi"]
 [ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="7_k6cdt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cklce"]
 size = Vector3(1.73535, 1.69434, 1.53809)
 
-[node name="CustomerSpawner" type="Area3D" groups=["customer_spawn", "moveable"]]
+[node name="CustomerSpawner" type="Area3D" node_paths=PackedStringArray("order_container") groups=["customer_spawn", "moveable"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_q64ky")
-
-[node name="OrderTimer" type="Timer" parent="."]
-wait_time = 30.0
-one_shot = true
+order_container = NodePath("CanvasLayer/Control/HBoxContainer")
+order_scene = ExtResource("4_j58on")
 
 [node name="TakeOrderTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="RandomTimer" type="Timer" parent="."]
+[node name="NewOrderTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 script = ExtResource("3_ds2tk")
 min_time = 2.0
-max_time = 4.0
+max_time = 5.0
 
 [node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4767, 0)
 chargeable = NodePath("../Chargeable")
-
-[node name="Order" type="Sprite3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.91225, 0)
-modulate = Color(1, 0, 0, 1)
-billboard = 1
-texture = ExtResource("5_j58on")
+hide_on_stopped = false
 
 [node name="Chargeable" type="Node" parent="."]
 script = ExtResource("7_k6cdt")
@@ -45,3 +39,12 @@ metadata/_custom_type_script = "uid://cr7pk0toishak"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.598319, 0)
 shape = SubResource("BoxShape3D_cklce")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0

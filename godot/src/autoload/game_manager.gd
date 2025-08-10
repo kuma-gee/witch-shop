@@ -2,6 +2,7 @@ extends Node
 
 signal logged(txt)
 signal money_changed(m)
+signal shop_state_changed()
 
 var bought_items: Array[ShopItem.Item] = []
 
@@ -19,7 +20,10 @@ var potions = [
 ]
 
 var current_menu := 1
-var shop_open := false
+var shop_open := false:
+	set(v):
+		shop_open = v
+		shop_state_changed.emit()
 
 func _ready() -> void:
 	money = 0

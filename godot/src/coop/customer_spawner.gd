@@ -4,36 +4,37 @@ extends Interactable3D
 signal order_failed()
 signal order_success(type: PotionItem)
 
-@onready var order: Sprite3D = $Order
-@onready var order_timer: Timer = $OrderTimer
+@export var order_container: Control
+@export var order_scene: PackedScene
 @onready var chargeable: Chargeable = $Chargeable
+@onready var new_order_timer: RandomTimer = $NewOrderTimer
+@onready var action_icon: ActionIcon = $ActionIcon
 
 var last_hand
-
-var current_order:
+var current_orders := []
+var new_order_arrived := false:
 	set(v):
-		current_order = v
-		order.visible = v != null
-		if v:
-			order.modulate = PotionItem.get_color(v)
+		new_order_arrived = v
+		action_icon.hide_on_stopped = not v
 
 func _ready() -> void:
-	current_order = null
-	chargeable.charged.connect(func():
-		if current_order == null and not pickupable:
-			new_customer_order()
+	new_order_arrived = false
+	chargeable.charged.connect(func(): new_customer_order())
+	new_order_timer.timeout.connect(func(): new_order_arrived = true)
+	GameManager.shop_state_changed.connect(func():
+		if GameManager.shop_open:
+			new_order_timer.random_start()
+		else:
+			new_order_timer.stop()
 	)
-	order_timer.timeout.connect(func(): failed_order())
-	pickup_changed.connect(func(): current_order = null)
 
 func interact(hand: Hand3D):
 	if pickupable:
 		try_pickup(hand, GridItem.Type.CUSTOMER_SPAWN)
 		return
 	
-	if hand.is_holding_item() and hand.item is PotionItem and hand.item.type == current_order:
-		print("Interacted")
-		finished_order(hand.take_item())
+	if hand.is_holding_item() and hand.item is PotionItem:
+		finished_order(hand)
 
 func action(hand: Hand3D, pressed: bool):
 	if pickupable:
@@ -45,7 +46,7 @@ func action(hand: Hand3D, pressed: bool):
 		return
 	
 	if pressed:
-		if last_hand == null and not chargeable.is_charging and current_order == null:
+		if last_hand == null and not chargeable.is_charging and new_order_arrived:
 			chargeable.start()
 			last_hand = hand
 	else:
@@ -54,30 +55,34 @@ func action(hand: Hand3D, pressed: bool):
 			last_hand = null
 
 func new_customer_order():
-	if current_order != null:
-		print("An active order exists")
-		return
+	if not new_order_arrived: return
 	
-	current_order = GameManager.get_menu().pick_random()
-	order_timer.start()
-
-func failed_order():
-	if current_order == null:
-		print("No order to fail")
-		return
+	var order_node = order_scene.instantiate()
+	order_node.order = GameManager.get_menu().pick_random()
+	order_node.failed.connect(func():
+		current_orders.erase(order_node)
+		order_failed.emit()
+	)
+	order_container.add_child(order_node)
 	
-	print("Failed order")
-	current_order = null
-	order_failed.emit()
+	current_orders.append(order_node)
+	new_order_arrived = false
+	new_order_timer.random_start()
 
-func finished_order(item: PotionItem):
-	print("Finished Order")
-	current_order = null
-	order_success.emit(item)
+func finished_order(hand: Hand3D):
+	var order = _find_matching_order(hand.item)
+	if order:
+		order_success.emit(hand.take_item())
+		current_orders.erase(order)
+
+func _find_matching_order(item: PotionItem):
+	for order in current_orders:
+		if order.order == item.type:
+			return order
 
 func has_order():
-	return current_order != null
+	return not current_orders.is_empty()
 
 func reset():
-	current_order = null
+	current_orders = []
 	last_hand = null

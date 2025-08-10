@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgfc7gq1abtay"]
+
+[ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="1_5251l"]
+[ext_resource type="Script" uid="uid://m7ustg60tjim" path="res://src/order.gd" id="2_nmvgh"]
+
+[node name="Order" type="MarginContainer" node_paths=PackedStringArray("texture", "timer", "progress_bar")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_nmvgh")
+texture = NodePath("PanelContainer/HBoxContainer/MarginContainer/TextureRect")
+timer = NodePath("Timer")
+progress_bar = NodePath("PanelContainer/HBoxContainer/ProgressBar")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture = ExtResource("1_5251l")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+value = 100.0
+show_percentage = false
