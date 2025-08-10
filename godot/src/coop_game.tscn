@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=32 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
@@ -26,6 +26,8 @@
 [ext_resource type="Script" uid="uid://lhla87ebfps0" path="res://src/ui/shop.gd" id="22_dp0hm"]
 [ext_resource type="Texture2D" uid="uid://csrod5n8wevq8" path="res://assets/scroll/Map inventory/Map/Map Open/7.png" id="23_deeh8"]
 [ext_resource type="Texture2D" uid="uid://xngh64tknmn" path="res://assets/scroll/Map inventory/Map/Map Close/7.png" id="23_kamss"]
+[ext_resource type="Script" uid="uid://eygppcitai5" path="res://map/zones/obstacle_timer.gd" id="28_ifkex"]
+[ext_resource type="Script" uid="uid://c664orftl82f2" path="res://map/moving_zones_trap.gd" id="29_7hmlr"]
 [ext_resource type="Script" uid="uid://dj37nxxnycrpq" path="res://map/modular_map.gd" id="42_3s5ca"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xkkuv"]
@@ -125,6 +127,10 @@ control = NodePath("../CanvasLayer/Control/ReadyContainer")
 [node name="ShopOpenTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+script = ExtResource("28_ifkex")
+metadata/_custom_type_script = "uid://eygppcitai5"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, -0.162, 28.6334, 22.9128)
@@ -280,3 +286,7 @@ environment = SubResource("Environment_hmubx")
 [node name="ModularMap" type="GridMap" parent="."]
 cell_size = Vector3(8, 2, 8)
 script = ExtResource("42_3s5ca")
+
+[node name="Trap" type="Node3D" parent="ModularMap"]
+script = ExtResource("29_7hmlr")
+metadata/_custom_type_script = "uid://ciyjv772yw7oe"

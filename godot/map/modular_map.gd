@@ -24,11 +24,11 @@ func setup(ingredients, processes):
 	work_zone = add_zone(WORK_ZONE, Vector2i(-1, 0)) as WorkZone
 	work_zone.set_processes(processes)
 	
-	material_zone = add_zone(MATERIAL_ZONE, Vector2i(0, -1)) as MaterialZone
+	material_zone = add_zone(MATERIAL_ZONE, Vector2i(0, 0)) as MaterialZone
 	material_zone.set_ingredients(ingredients)
 	
 	add_zone(ORDER_ZONE, Vector2i(-1, -1))
-	add_zone(CAULDRON_ZONE, Vector2i(0, 0))
+	add_zone(CAULDRON_ZONE, Vector2i(0, -1))
 
 func add_zone(scene: PackedScene, coord: Vector2i) -> Zone:
 	var final_pos = map_to_local(Vector3i(coord.x, 0, coord.y))
@@ -63,3 +63,14 @@ func update_directions():
 				open.append(d)
 		
 		zones[coord].set_open_directions(open)
+
+func get_min_max_coord():
+	var min_coord = Vector2i(0, 0)
+	var max_coord = Vector2i(0, 0)
+	for coord in zones:
+		min_coord.x = min(min_coord.x, coord.x)
+		min_coord.y = min(min_coord.y, coord.y)
+		max_coord.x = max(max_coord.x, coord.x)
+		max_coord.y = max(max_coord.y, coord.y)
+
+	return [min_coord, max_coord]

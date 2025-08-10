@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://2vk5frj8ga1a"]
+[gd_scene load_steps=9 format=3 uid="uid://2vk5frj8ga1a"]
 
 [ext_resource type="PackedScene" uid="uid://cidicb35ghple" path="res://assets/KayKit_Dungeon/floor_tile_big_grate_open.gltf" id="1_178g7"]
+[ext_resource type="Script" uid="uid://ciyjv772yw7oe" path="res://map/trap.gd" id="1_tcgp7"]
 [ext_resource type="PackedScene" uid="uid://bfioqgsmkc1ho" path="res://map/fire.tscn" id="2_xovs8"]
 [ext_resource type="Script" uid="uid://waejs0de2imh" path="res://map/hit_box.gd" id="4_7nejv"]
 
@@ -134,6 +135,7 @@ _data = {
 size = Vector3(2.61621, 3.81555, 2.70605)
 
 [node name="Grate" type="Node3D"]
+script = ExtResource("1_tcgp7")
 
 [node name="floor_tile_big_grate_open2" parent="." instance=ExtResource("1_178g7")]
 
