@@ -24,10 +24,17 @@ func _create_player(event: InputEvent):
 	ready_players[input.get_id()] = false
 	_create_player_for_input(input)
 
+func _get_spawn_point():
+	for z in get_tree().get_nodes_in_group(Zone.GROUP):
+		var zone = z as Zone
+		if zone.is_moving(): continue
+		return spawn_root.to_local(zone.get_spawn_point())
+	return position
+
 func _create_player_for_input(input: PlayerInput, pos = position):
 	var player_node = player.instantiate() as Player3D
 	var player_id = input.get_id()
-	player_node.position = pos
+	player_node.position = _get_spawn_point()
 	player_node.player_input = input
 	player_node.color = player_colors[input.get_id()]
 	spawn_root.add_child(player_node)

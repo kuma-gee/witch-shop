@@ -4,7 +4,7 @@ extends RayCast3D
 @export var spring_strength := 100.0
 @export var ride_height := 1.0
 @export var damping := 3.0
-@export var gravity := 1.0
+@export var gravity := 50.0
 
 func _ready() -> void:
 	target_position = target_position.normalized() * ride_height * 1.5

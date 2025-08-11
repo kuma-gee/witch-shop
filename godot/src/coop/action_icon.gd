@@ -6,6 +6,7 @@ extends Sprite3D
 
 func _ready() -> void:
 	material_override = material_override.duplicate()
+	visibility_changed.connect(func(): set_fill(0.0))
 
 func set_fill(v: float):
 	var mat = material_override as ShaderMaterial

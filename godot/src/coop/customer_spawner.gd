@@ -60,7 +60,7 @@ func new_customer_order():
 	var order_node = order_scene.instantiate()
 	order_node.order = GameManager.get_menu().pick_random()
 	order_node.failed.connect(func():
-		current_orders.erase(order_node)
+		remove_order(order_node)
 		order_failed.emit()
 	)
 	order_container.add_child(order_node)
@@ -73,7 +73,11 @@ func finished_order(hand: Hand3D):
 	var order = _find_matching_order(hand.item)
 	if order:
 		order_success.emit(hand.take_item())
-		current_orders.erase(order)
+		remove_order(order)
+
+func remove_order(order: Order):
+	order.queue_free()
+	current_orders.erase(order)
 
 func _find_matching_order(item: PotionItem):
 	for order in current_orders:

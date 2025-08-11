@@ -28,6 +28,7 @@ max_time = 5.0
 
 [node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4767, 0)
+render_priority = 10
 chargeable = NodePath("../Chargeable")
 hide_on_stopped = false
 

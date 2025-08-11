@@ -54,7 +54,7 @@ var is_hold_pressed := false:
 			animation.prepare_catch()
 
 func _ready() -> void:
-	died.connect(func():
+	died.connect(func(_p):
 		phyiscal_bone_simulator.active = true
 		phyiscal_bone_simulator.physical_bones_start_simulation()
 		color_ring.hide()
@@ -122,7 +122,7 @@ func _physics_process(delta: float) -> void:
 	apply_central_force(ground_spring_cast.apply_spring_force(linear_velocity))
 	apply_torque(_get_upright_rotation())
 	
-	if global_position.y < -10:
+	if global_position.y < -5:
 		for z in get_tree().get_nodes_in_group(Zone.GROUP):
 			var zone = z as Zone
 			if zone.is_moving(): continue

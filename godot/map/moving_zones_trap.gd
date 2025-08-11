@@ -28,16 +28,19 @@ func start():
 	var coord = coords.pick_random()
 
 	var dir = DIRS.pick_random()
-	var parts = split_floor(coords, coord, Vector2(coord) + dir)
+	var move_dir = dir.rotated(PI/2) * 0.5
+	
+	var start = Vector2(coord) + move_dir
+	var parts = split_floor(coords, start, start + dir)
 
 	var group_a = parts[0]
 	var group_b = parts[1]
 
+	print(group_a, group_b, coord, move_dir)
 	if group_a.size() == 0 or group_b.size() == 0:
 		finished.emit()
 		return
 
-	var move_dir = dir.rotated(PI/2)
 	var move_offset = map.map_to_local(_to_vector3(move_dir))
 
 	for p in group_a:

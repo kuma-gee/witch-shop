@@ -127,8 +127,8 @@ control = NodePath("../CanvasLayer/Control/ReadyContainer")
 [node name="ObstacleTimer" type="Timer" parent="."]
 one_shot = true
 script = ExtResource("30_deeh8")
-min_time = 5.0
-max_time = 10.0
+min_time = 2.0
+max_time = 3.0
 metadata/_custom_type_script = "uid://0gkypwrq3sew"
 
 [node name="ShopOpenTimer" type="Timer" parent="."]
@@ -143,6 +143,7 @@ size = 7.27389
 far = 600.0
 
 [node name="PlayerSpawner" parent="." node_paths=PackedStringArray("spawn_root", "ready_container") instance=ExtResource("7_iyq4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.2531, 0)
 spawn_root = NodePath(".")
 ready_container = NodePath("../CanvasLayer/Control/ReadyContainer")
 

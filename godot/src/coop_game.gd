@@ -73,9 +73,11 @@ func _ready() -> void:
 	
 	obstacle_timer.timeout.connect(func():
 		var obstacle = modular_map.get_all_obstacles().pick_random() as Trap
+		print("Starting obstacle", obstacle)
 		obstacle.start()
 		await obstacle.finished
 		obstacle_timer.random_start()
+		print("Finish obstacle, starting new with time %s" % obstacle_timer.wait_time)
 	)
 
 func _get_customer_spawner() -> CustomerSpawner:
