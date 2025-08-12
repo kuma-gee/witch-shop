@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bxmjv37bmrlaj" path="res://src/vfx/explosion_vfx.gd" id="1_h8mhe"]
 [ext_resource type="Material" uid="uid://cmmi0nr3vhk52" path="res://src/vfx/explosion_material.tres" id="1_sugrv"]
 [ext_resource type="Shader" uid="uid://86kvn817kbj4" path="res://src/vfx/streak_vfx.tres" id="2_dqbw7"]
-[ext_resource type="Texture2D" uid="uid://chopqsriukrmd" path="res://assets/particles/flare_01.png" id="3_at50x"]
-[ext_resource type="Texture2D" uid="uid://dm6pm2cfoy87p" path="res://assets/particles/explosion_decal.png" id="4_erun6"]
-[ext_resource type="Texture2D" uid="uid://pgjvfxiupmxu" path="res://assets/particles/explosion_decal_emission.png" id="5_ie8lq"]
+[ext_resource type="Texture2D" uid="uid://dpy74naxllt47" path="res://assets/particles/flare_01.png" id="3_at50x"]
+[ext_resource type="Texture2D" uid="uid://ciespxrctvqsp" path="res://assets/particles/explosion_decal.png" id="4_erun6"]
+[ext_resource type="Texture2D" uid="uid://dbm5r0ya35uqy" path="res://assets/particles/explosion_decal_emission.png" id="5_ie8lq"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_c57t4"]
 size = Vector2(20, 20)
@@ -316,6 +316,7 @@ scale_curve = SubResource("CurveTexture_i6s84")
 radius = 1.0
 
 [node name="ExplosionVFX" type="Area3D"]
+visible = false
 collision_layer = 0
 collision_mask = 34
 script = ExtResource("1_h8mhe")

@@ -25,6 +25,8 @@ shader_parameter/SphereTexture = SubResource("NoiseTexture2D_boro6")
 shader_parameter/Mix = 0.608
 
 [sub_resource type="SphereMesh" id="SphereMesh_o1qju"]
+radius = 0.25
+height = 0.5
 
 [sub_resource type="Gradient" id="Gradient_sftvh"]
 offsets = PackedFloat32Array(0.208054, 0.483221, 0.90604, 1)
@@ -100,18 +102,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_vwfhw"]
 resource_name = "start"
@@ -140,28 +130,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0, 0.0, 1.0]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:disabled")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3),
+"times": PackedFloat32Array(0.166667, 0.666667, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1.3),
-"transitions": PackedFloat32Array(1),
 "values": [{
+"args": [],
+"method": &"activate"
+}, {
+"args": [],
+"method": &"deactivate"
+}, {
 "args": [],
 "method": &"queue_free"
 }]
@@ -174,6 +158,7 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_30o7c"]
+radius = 1.2
 
 [node name="IceVFX" type="Area3D"]
 collision_layer = 0

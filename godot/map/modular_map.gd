@@ -66,16 +66,13 @@ func update_directions():
 		
 		zones[coord].set_open_directions(open)
 
-func get_min_max_coord():
-	var min_coord = Vector2i(0, 0)
+func get_max_coord():
 	var max_coord = Vector2i(0, 0)
-	for coord in zones:
-		min_coord.x = min(min_coord.x, coord.x)
-		min_coord.y = min(min_coord.y, coord.y)
+	for coord in zones.keys():
 		max_coord.x = max(max_coord.x, coord.x)
 		max_coord.y = max(max_coord.y, coord.y)
 
-	return [min_coord, max_coord]
+	return max_coord
 
 func get_all_obstacles():
 	var result = []

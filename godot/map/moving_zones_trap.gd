@@ -11,11 +11,15 @@ const DIRS = [
 # Dont need default ready function of super class
 func _ready() -> void:
 	timer.timeout.connect(func():
+		var last_tw = null
 		for coord in map.zones:
 			var zone = map.zones[coord] as Zone
 			if zone.is_moving(): continue # should not happen?
 			var pos = map.map_to_local(_to_vector3(zone.coord))
-			zone.move_to(pos)
+			last_tw = zone.move_to(pos)
+		
+		if last_tw:
+			await last_tw.finished
 		
 		finished.emit()
 	)
@@ -25,8 +29,10 @@ func _to_vector3(coord: Vector2):
 
 func start():
 	var coords = map.zones.keys()
-	var coord = coords.pick_random()
+	var max_coord = map.get_max_coord()
+	var valid_coords = coords.filter(func(c): return c.x < max_coord.x and c.y < max_coord.y)
 
+	var coord = valid_coords.pick_random()
 	var dir = DIRS.pick_random()
 	var move_dir = dir.rotated(PI/2) * 0.5
 	
@@ -36,7 +42,6 @@ func start():
 	var group_a = parts[0]
 	var group_b = parts[1]
 
-	print(group_a, group_b, coord, move_dir)
 	if group_a.size() == 0 or group_b.size() == 0:
 		finished.emit()
 		return

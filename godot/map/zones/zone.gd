@@ -24,6 +24,8 @@ func move_to(pos: Vector3, delete = false, time = 2.0):
 	
 	if delete:
 		tw.finished.connect(func(): queue_free())
+	
+	return tw
 
 func is_moving():
 	return tw and tw.is_running()

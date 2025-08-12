@@ -217,6 +217,7 @@ func respawn(pos: Vector3):
 	died.emit(pos)
 	await get_tree().create_timer(1.0).timeout
 	cleared.emit()
+	queue_free()
 
 ### Effects ###
 

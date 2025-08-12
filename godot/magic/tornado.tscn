@@ -139,9 +139,6 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_2b1s6")
 draw_pass_1 = ExtResource("3_eve0y")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(13.7854, 0.0556641, 12.7659)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_eve0y")

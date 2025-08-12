@@ -31,6 +31,8 @@ const COLOR = {
 	Type.POTION_RED: Color.RED,
 	Type.POTION_BLUE: Color.BLUE,
 	Type.POTION_GREEN: Color.GREEN,
+	Type.POTION_YELLOW: Color.YELLOW,
+	Type.POTION_WHITE: Color.WHITE,
 }
 
 enum Process {

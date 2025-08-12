@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b15vyasbr55i2"]
 
-[ext_resource type="Script" path="res://src/coop/potion_effect.gd" id="1_ddrt6"]
+[ext_resource type="Script" uid="uid://bwm68tr7qdccq" path="res://src/coop/potion_effect.gd" id="1_ddrt6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rxqln"]
 radius = 2.0
