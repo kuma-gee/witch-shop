@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0hhc4mqbjho6"]
+[gd_scene load_steps=23 format=3 uid="uid://b0hhc4mqbjho6"]
 
 [ext_resource type="Script" uid="uid://ck44b8p3ndong" path="res://magic/levitation_vfx.gd" id="1_gk2fi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sw42i"]
-radius = 1.0
+radius = 2.54037
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_sw42i"]
 source = 5
@@ -165,8 +165,28 @@ shader_parameter/SphereTexture = SubResource("NoiseTexture2D_hd3ek")
 shader_parameter/Mix = 0.414
 
 [sub_resource type="SphereMesh" id="SphereMesh_svn0v"]
-radius = 0.25
-height = 0.5
+
+[sub_resource type="Animation" id="Animation_sw42i"]
+resource_name = "start"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"activate"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aetwb"]
+_data = {
+&"start": SubResource("Animation_sw42i")
+}
 
 [node name="LevitationVFX" type="Area3D"]
 collision_layer = 0
@@ -180,3 +200,9 @@ shape = SubResource("SphereShape3D_sw42i")
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_kn0ip")
 mesh = SubResource("SphereMesh_svn0v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_aetwb")
+}
+autoplay = "start"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b3l1sb3cu34np"]
 
-[ext_resource type="Script" path="res://src/coop/throwing_item.gd" id="1_ixvvj"]
-[ext_resource type="Script" path="res://src/coop/Interactable3D.gd" id="2_dwyu7"]
+[ext_resource type="Script" uid="uid://bfvuqfw6ihq1k" path="res://src/coop/throwing_item.gd" id="1_ixvvj"]
+[ext_resource type="Script" uid="uid://d1v635ks51pb2" path="res://src/coop/Interactable3D.gd" id="2_dwyu7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xjwlf"]
 size = Vector3(0.2, 0.2, 0.2)

@@ -14,7 +14,8 @@ const PROCESSES = {
 
 const RECIPIES = {
 	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTING],
-	Type.POTION_BLUE: [Type.TEARS_DISTILL, Type.FEATHER, Type.FEATHER],
+	Type.POTION_WHITE: [Type.FEATHER, Type.FEATHER],
+	Type.POTION_BLUE: [Type.FEATHER, Type.FEATHER, Type.TEARS_DISTILL],
 	Type.POTION_GREEN: [Type.HERB_CUTTING, Type.HERB_CUTTING, Type.FEATHER],
 	Type.TEARS_DISTILL: [Type.TEARS, Type.STARLIGHT_DUST],
 }
@@ -55,8 +56,8 @@ enum Type {
 	POTION_BLUE, # Freeze - Fire Trap
 	POTION_GREEN, # Goo - Tornado
 	POTION_YELLOW, # Booze
-	POTION_PURPLE, # Levitation - Trapdoor
-	POTION_WHITE, # Invisibility - Hidden
+	POTION_PURPLE, # Invisibility?
+	POTION_WHITE, # Levitation - Trapdoor
 }
 
 var type: Type
@@ -92,8 +93,12 @@ static func contains_all(items: Array, types: Array):
 	if items.size() != types.size():
 		return false
 	
-	for x in items:
-		if not x.type in types:
+	items.sort_custom(func(a, b): return a.type < b.type)
+	var sorted_types = types.duplicate()
+	sorted_types.sort_custom(func(a, b): return a < b)
+	
+	for i in items.size():
+		if not items[i].type == sorted_types[i]:
 			return false
 	return true
 

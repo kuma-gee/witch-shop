@@ -51,6 +51,7 @@ func _ready() -> void:
 		"interact": [MOUSE_BUTTON_LEFT, InputMapper.joy_btn(JOY_BUTTON_A)],
 		"action": [MOUSE_BUTTON_RIGHT, InputMapper.joy_btn(JOY_BUTTON_X)],
 		"accept": [KEY_CTRL, InputMapper.joy_btn(JOY_BUTTON_Y)],
+		"flight": [KEY_TAB],
 	})
 	
 	shop_open = false

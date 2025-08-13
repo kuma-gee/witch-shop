@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=34 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://csrod5n8wevq8" path="res://assets/scroll/Map inventory/Map/Map Open/7.png" id="23_deeh8"]
 [ext_resource type="Texture2D" uid="uid://xngh64tknmn" path="res://assets/scroll/Map inventory/Map/Map Close/7.png" id="23_kamss"]
 [ext_resource type="Script" uid="uid://c664orftl82f2" path="res://map/moving_zones_trap.gd" id="29_7hmlr"]
+[ext_resource type="Script" uid="uid://821u1a62kdny" path="res://src/free_zone.gd" id="30_0rtmg"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="30_deeh8"]
 [ext_resource type="Script" uid="uid://dj37nxxnycrpq" path="res://map/modular_map.gd" id="42_3s5ca"]
 
@@ -108,6 +109,9 @@ fog_aerial_perspective = 0.37
 fog_sky_affect = 0.889
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7hmlr"]
+size = Vector3(100, 1, 100)
 
 [node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "player_spawner")]
 script = ExtResource("1_t8gqi")
@@ -303,3 +307,12 @@ script = ExtResource("30_deeh8")
 min_time = 20.0
 max_time = 30.0
 metadata/_custom_type_script = "uid://0gkypwrq3sew"
+
+[node name="FreeZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("30_0rtmg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FreeZone"]
+shape = SubResource("BoxShape3D_7hmlr")

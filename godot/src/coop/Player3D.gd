@@ -33,10 +33,15 @@ signal accepted()
 @export var body_bone: PhysicalBone3D
 @onready var freeze_timer: Timer = $FreezeTimer
 @onready var explosion_timer: Timer = $ExplosionTimer
+@onready var levitation_timer: LevitationTimer = $LevitationTimer
 
 @onready var pivot = $Pivot
 @onready var hold_point = $Pivot/HoldPoint
 @onready var hand_3d: Hand3D = $Pivot/Hand3D
+@onready var original_gravity_scale = gravity_scale
+
+@export var float_strength := 100.0
+@export var float_damping := 3.0
 
 var hidden := false:
 	set(v):
@@ -52,6 +57,11 @@ var is_hold_pressed := false:
 		is_hold_pressed = v
 		if is_hold_pressed:
 			animation.prepare_catch()
+
+var float_height := 0.0:
+	set(v):
+		float_height = v
+		gravity_scale = 0.0 if float_height > 0 else original_gravity_scale
 
 func _ready() -> void:
 	died.connect(func(_p):
@@ -86,6 +96,8 @@ func _ready() -> void:
 			_hand_action()
 		elif event.is_action_pressed("accept"):
 			accepted.emit()
+		elif event.is_action_pressed("flight"):
+			float_height = 0.0 if float_height > 0 else 2.0
 		elif event.is_action_pressed("ui_cancel"):
 			throw_charge.stop()
 			is_hold_pressed = false
@@ -119,7 +131,14 @@ func _physics_process(delta: float) -> void:
 		pivot.basis = Basis.looking_at(global_position.direction_to(Vector3(p.x, global_position.y, p.z)))
 	
 	apply_central_force(physics_movement.apply_physics(move_dir, delta, linear_velocity) * mass)
-	apply_central_force(ground_spring_cast.apply_spring_force(linear_velocity))
+	
+	if float_height > 0:
+		var displacement = float_height - global_position.y
+		var force = (displacement * float_strength) - (linear_velocity.y * float_damping)
+		apply_central_force(Vector3.UP * force)
+	else:
+		apply_central_force(ground_spring_cast.apply_spring_force(linear_velocity))
+	
 	apply_torque(_get_upright_rotation())
 	
 	if global_position.y < -5:
@@ -232,10 +251,9 @@ func explode(from: Vector3, force = 200):
 	explosion_timer.start()
 
 func levitate():
-	pass
+	levitation_timer.start_levitate()
 
 ### Movement ###
-
 func _get_move_dir():
 	var motion = player_input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var move_dir = Vector3(motion.x, 0, motion.y)
@@ -249,7 +267,7 @@ func _aim_for_throw(move_dir: Vector3):
 		pivot.basis = Basis.looking_at(Vector3(aim.x, 0, aim.y))
 	else:
 		if throw_charge.is_charging:
-			var offset = -PI * 0.5
+			var offset = PI * 0.5
 			var screen_pos = get_viewport().get_camera_3d().unproject_position(pivot.global_transform.origin)
 			var mouse_pos = get_viewport().get_mouse_position()
 			var angle = screen_pos.angle_to_point(mouse_pos)
