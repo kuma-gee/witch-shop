@@ -4,28 +4,36 @@ extends Interactable3D
 signal order_failed()
 signal order_success(type: PotionItem)
 
+@export var min_time := 15.0
+@export var max_time := 100.0
+@export var max_orders := 8.0
 @export var order_container: Control
 @export var order_scene: PackedScene
-@onready var chargeable: Chargeable = $Chargeable
-@onready var new_order_timer: RandomTimer = $NewOrderTimer
-@onready var action_icon: ActionIcon = $ActionIcon
+@onready var order_timer: Timer = $OrderTimer
 
-var last_hand
+#@onready var new_order_timer: RandomTimer = $NewOrderTimer
+# @onready var chargeable: Chargeable = $Chargeable
+# @onready var action_icon: ActionIcon = $ActionIcon
+
 var current_orders := []
-var new_order_arrived := false:
-	set(v):
-		new_order_arrived = v
-		action_icon.hide_on_stopped = not v
+
+# var last_hand
+# var new_order_arrived := false:
+# 	set(v):
+# 		new_order_arrived = v
+# 		action_icon.hide_on_stopped = not v
 
 func _ready() -> void:
-	new_order_arrived = false
-	chargeable.charged.connect(func(): new_customer_order())
-	new_order_timer.timeout.connect(func(): new_order_arrived = true)
+	# new_order_arrived = false
+	# chargeable.charged.connect(func(): new_customer_order())
+	# new_order_timer.timeout.connect(func(): new_order_arrived = true)
+	order_timer.timeout.connect(func(): new_customer_order())
+
 	GameManager.shop_state_changed.connect(func():
 		if GameManager.shop_open:
-			new_order_timer.random_start()
+			order_timer.start()
 		else:
-			new_order_timer.stop()
+			order_timer.stop()
 	)
 
 func interact(hand: Hand3D):
@@ -37,25 +45,27 @@ func interact(hand: Hand3D):
 		finished_order(hand)
 
 func action(hand: Hand3D, pressed: bool):
-	if pickupable:
-		print("In pickup mode")
-		return
+	return
+
+	# if pickupable:
+	# 	print("In pickup mode")
+	# 	return
 	
-	if last_hand != null and hand != last_hand:
-		print("Someone else is working on it")
-		return
+	# if last_hand != null and hand != last_hand:
+	# 	print("Someone else is working on it")
+	# 	return
 	
-	if pressed:
-		if last_hand == null and not chargeable.is_charging and new_order_arrived:
-			chargeable.start()
-			last_hand = hand
-	else:
-		if last_hand == hand:
-			chargeable.stop()
-			last_hand = null
+	# if pressed:
+	# 	if last_hand == null and not chargeable.is_charging and new_order_arrived:
+	# 		chargeable.start()
+	# 		last_hand = hand
+	# else:
+	# 	if last_hand == hand:
+	# 		chargeable.stop()
+	# 		last_hand = null
 
 func new_customer_order():
-	if not new_order_arrived: return
+	# if not new_order_arrived: return
 	
 	var order_node = order_scene.instantiate()
 	order_node.order = GameManager.get_menu().pick_random()
@@ -66,8 +76,11 @@ func new_customer_order():
 	order_container.add_child(order_node)
 	
 	current_orders.append(order_node)
-	new_order_arrived = false
-	new_order_timer.random_start()
+	# new_order_arrived = false
+
+	var order_count = current_orders.size()
+	var order_time = min_time + (max_time - min_time) * (order_count / max_orders)
+	order_timer.start(order_time)
 
 func finished_order(hand: Hand3D):
 	var order = _find_matching_order(hand.item)
@@ -89,4 +102,4 @@ func has_order():
 
 func reset():
 	current_orders = []
-	last_hand = null
+	#last_hand = null

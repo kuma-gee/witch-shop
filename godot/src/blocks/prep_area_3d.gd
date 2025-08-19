@@ -16,6 +16,12 @@ const AUTOMATIC_PROCESS = [PotionItem.Process.COMBUST, PotionItem.Process.DISTIL
 @export var icon: ActionIcon
 @export var label_3d: Label3D
 
+@onready var type_nodes := {
+	PotionItem.Process.NONE: $None,
+	PotionItem.Process.CUTTING: $Cutting,
+	PotionItem.Process.COMBUST: $Combust,
+}
+
 var item: PotionItem:
 	set(v):
 		item = v
@@ -38,6 +44,8 @@ func _ready():
 func reset():
 	self.item = null
 	self.type = self.type
+	for t in type_nodes.keys():
+		type_nodes[t].visible = t == type
 
 func _is_automatic():
 	return type in AUTOMATIC_PROCESS

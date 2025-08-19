@@ -2,6 +2,8 @@ class_name PlayerSpawner
 extends Marker3D
 
 signal start_game()
+signal player_created(player)
+signal player_deleted(player)
 
 @export var player: PackedScene
 @export var spawn_root: Node3D
@@ -38,9 +40,11 @@ func _create_player_for_input(input: PlayerInput, pos = position):
 	player_node.player_input = input
 	player_node.color = player_colors[input.get_id()]
 	spawn_root.add_child(player_node)
+	player_created.emit(player_node)
 	
 	player_node.accepted.connect(func(): _player_accepted(player_id))
 	player_node.died.connect(func(pos):
+		player_deleted.emit(player_node)
 		var node = _create_player_for_input(input, to_local(pos))
 		node.hidden = true
 		await player_node.cleared

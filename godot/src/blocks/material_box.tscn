@@ -8,7 +8,7 @@
 size = Vector3(1.5, 1.5, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8epx4"]
-size = Vector3(2, 2, 2)
+size = Vector3(1, 0.001, 1)
 
 [node name="Material" type="Area3D" node_paths=PackedStringArray("label_3d") groups=["moveable"]]
 collision_layer = 4
@@ -17,25 +17,25 @@ script = ExtResource("1_mndcy")
 label_3d = NodePath("Label3D")
 
 [node name="box_small2" parent="." instance=ExtResource("2_8epx4")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("BoxShape3D_2jmb1")
 
 [node name="Decal" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64675, 0)
-size = Vector3(1, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.868509, 0)
+size = Vector3(0.5, 0.5, 0.5)
 texture_albedo = ExtResource("3_63dwh")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.99162, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40899, 0)
+visible = false
 billboard = 1
 text = "Test"
-font_size = 64
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4995, 0)
 shape = SubResource("BoxShape3D_8epx4")

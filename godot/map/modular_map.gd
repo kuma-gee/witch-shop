@@ -6,12 +6,12 @@ const MATERIAL_ZONE = preload("res://map/zones/material_zone.tscn")
 const ORDER_ZONE = preload("res://map/zones/order_zone.tscn")
 const WORK_ZONE = preload("res://map/zones/work_zone.tscn")
 
-const DIRECTION_MAP = {
-	Grid.Direction.NORTH: Vector2i.UP,
-	Grid.Direction.EAST: Vector2i.RIGHT,
-	Grid.Direction.SOUTH: Vector2i.DOWN,
-	Grid.Direction.WEST: Vector2i.LEFT,
-}
+const DIRECTIONS = [
+	Vector2i.UP,
+	Vector2i.RIGHT,
+	Vector2i.DOWN,
+	Vector2i.LEFT,
+]
 
 @export var traps: Array[Trap] = []
 
@@ -59,10 +59,9 @@ func add_zone(scene: PackedScene, coord: Vector2i) -> Zone:
 func update_directions():
 	for coord in zones:
 		var open = []
-		for d in DIRECTION_MAP.keys():
-			var dir = DIRECTION_MAP[d]
+		for dir in DIRECTIONS:
 			if (coord + dir) in zones:
-				open.append(d)
+				open.append(Vector2(dir))
 		
 		zones[coord].set_open_directions(open)
 

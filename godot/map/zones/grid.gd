@@ -1,13 +1,6 @@
 class_name Grid
 extends Node3D
 
-enum Direction {
-	NORTH,
-	EAST,
-	WEST,
-	SOUTH,
-}
-
 @onready var wall_top: Node3D = $WallTop
 @onready var wall_right: Node3D = $WallRight
 @onready var wall_bot: Node3D = $WallBot
@@ -15,17 +8,23 @@ enum Direction {
 @onready var spawn_point: Marker3D = $SpawnPoint
 
 @onready var direction_map := {
-	Direction.NORTH: wall_top,
-	Direction.EAST: wall_right,
-	Direction.WEST: wall_left,
-	Direction.SOUTH: wall_bot,
+	Vector2.UP: wall_top,
+	Vector2.RIGHT: wall_right,
+	Vector2.LEFT: wall_left,
+	Vector2.DOWN: wall_bot,
 }
+
+func _ready() -> void:
+	for v in direction_map.values():
+		if not v.visible:
+			v.queue_free()
 
 func set_open_directions(dirs: Array):
 	for dir in dirs:
-		var wall = direction_map[dir]
+		var actual_dir = dir.rotated(global_rotation.y)
+		var wall = direction_map[actual_dir]
 		if not is_instance_valid(wall): continue
-		direction_map[dir].queue_free()
+		wall.queue_free()
 	
-	if not Direction.SOUTH in dirs:
-		direction_map[Direction.SOUTH].hide()
+	if not Vector2.DOWN in dirs:
+		direction_map[Vector2.DOWN.rotated(global_rotation.y)].hide()

@@ -12,6 +12,9 @@ extends Interactable3D
 func _ready() -> void:
 	if PotionItem.is_potion(type):
 		decal.modulate = PotionItem.get_color(type)
+	else:
+		decal.modulate = Color.WHITE
+		decal.texture_albedo = PotionItem.get_texture(type)
 	
 	_update_text()
 

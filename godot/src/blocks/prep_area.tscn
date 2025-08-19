@@ -1,15 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqqnmayb2s48f"]
+[gd_scene load_steps=11 format=3 uid="uid://bqqnmayb2s48f"]
 
 [ext_resource type="Script" uid="uid://cg70qtxbrq1ox" path="res://src/blocks/prep_area_3d.gd" id="1_8qb4v"]
 [ext_resource type="PackedScene" uid="uid://bgngthdrxeblg" path="res://assets/KayKit_Dungeon/table_medium.gltf" id="2_72ykd"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="2_d3olx"]
+[ext_resource type="Texture2D" uid="uid://ufci3cchrnpq" path="res://assets/Prototype Textures/PNG/Purple/texture_05.png" id="4_05jqj"]
+[ext_resource type="Texture2D" uid="uid://73dc10bjottv" path="res://assets/Prototype Textures/PNG/Light/texture_01.png" id="5_72ykd"]
 [ext_resource type="PackedScene" uid="uid://bh085bw7niar2" path="res://src/coop/item_nodes.tscn" id="5_cp404"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05jqj"]
+albedo_texture = ExtResource("5_72ykd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c842h"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.37)
+albedo_texture = ExtResource("4_05jqj")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_2jmb1"]
-size = Vector3(2.36719, 1.5, 2.39355)
+size = Vector3(1.5, 1, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e53ie"]
-size = Vector3(2, 1.01123, 2)
+size = Vector3(1, 0.5, 1)
 
 [node name="PrepArea" type="Area3D" node_paths=PackedStringArray("type_label", "item_node", "icon", "label_3d") groups=["moveable"]]
 collision_layer = 4
@@ -20,31 +30,47 @@ item_node = NodePath("ItemNodes")
 icon = NodePath("ActionIcon")
 label_3d = NodePath("Label3D")
 
-[node name="table_medium2" parent="." instance=ExtResource("2_72ykd")]
+[node name="Cutting" parent="." instance=ExtResource("2_72ykd")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+
+[node name="Cutting" type="CSGBox3D" parent="Cutting"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.02916, 0)
+material_override = SubResource("StandardMaterial3D_05jqj")
+size = Vector3(0.7, 0.02, 0.5)
+
+[node name="None" parent="." instance=ExtResource("2_72ykd")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+
+[node name="Combust" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Combust"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_c842h")
 
 [node name="ItemNodes" parent="." instance=ExtResource("5_cp404")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53185, 0)
 
 [node name="ActionIcon" parent="." instance=ExtResource("2_d3olx")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493516, 0)
 shape = SubResource("BoxShape3D_2jmb1")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66298, 0)
 billboard = 1
 text = "Test"
-font_size = 64
 
 [node name="TypeLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51782, 0)
+visible = false
 billboard = 1
 text = "Test"
-font_size = 64
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.494385, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.256167, 0)
 shape = SubResource("BoxShape3D_e53ie")

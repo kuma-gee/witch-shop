@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtysqsseit3yw"]
+[gd_scene load_steps=6 format=3 uid="uid://dtysqsseit3yw"]
 
 [ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_q64ky"]
-[ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="3_ds2tk"]
 [ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/order.tscn" id="4_j58on"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="6_mwbhi"]
 [ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="7_k6cdt"]
@@ -19,15 +18,11 @@ order_scene = ExtResource("4_j58on")
 [node name="TakeOrderTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="NewOrderTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-script = ExtResource("3_ds2tk")
-min_time = 2.0
-max_time = 5.0
+[node name="OrderTimer" type="Timer" parent="."]
 
 [node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4767, 0)
+visible = false
 render_priority = 10
 chargeable = NodePath("../Chargeable")
 hide_on_stopped = false

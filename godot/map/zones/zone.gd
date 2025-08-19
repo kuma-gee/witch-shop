@@ -32,6 +32,3 @@ func is_moving():
 
 func get_spawn_point():
 	return grid.spawn_point.global_position
-
-func get_traps():
-	pass

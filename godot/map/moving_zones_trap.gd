@@ -29,6 +29,10 @@ func _to_vector3(coord: Vector2):
 
 func start():
 	var coords = map.zones.keys()
+	if coords.is_empty():
+		finished.emit()
+		return
+	
 	var max_coord = map.get_max_coord()
 	var valid_coords = coords.filter(func(c): return c.x < max_coord.x and c.y < max_coord.y)
 

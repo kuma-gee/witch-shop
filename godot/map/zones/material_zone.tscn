@@ -1,31 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://btlnhcw80c5c6"]
+[gd_scene load_steps=5 format=3 uid="uid://btlnhcw80c5c6"]
 
 [ext_resource type="Script" uid="uid://ctxw14d30wfln" path="res://map/zones/material_zone.gd" id="1_007fv"]
 [ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_tydof"]
 [ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="2_u3i8v"]
 [ext_resource type="PackedScene" uid="uid://om8crst2odmf" path="res://map/torch.tscn" id="3_grdu3"]
-[ext_resource type="PackedScene" uid="uid://hne88dktobly" path="res://src/blocks/trash.tscn" id="5_007fv"]
 
 [node name="MaterialZone" type="Node3D" node_paths=PackedStringArray("ingredients")]
 script = ExtResource("1_007fv")
-ingredients = [NodePath("Material2"), NodePath("Material3"), NodePath("Material4"), NodePath("Material5")]
+ingredients = [NodePath("Material2"), null, null, null]
 
 [node name="Grid" parent="." instance=ExtResource("1_tydof")]
 
 [node name="Material2" parent="." instance=ExtResource("2_u3i8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
-
-[node name="Material3" parent="." instance=ExtResource("2_u3i8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
-
-[node name="Material4" parent="." instance=ExtResource("2_u3i8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
-
-[node name="Material5" parent="." instance=ExtResource("2_u3i8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -3.5)
 
 [node name="Torch" parent="." instance=ExtResource("3_grdu3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-
-[node name="Trash" parent="." instance=ExtResource("5_007fv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)

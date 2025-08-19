@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://m6dlgd44drfk"]
+[gd_scene load_steps=23 format=3 uid="uid://m6dlgd44drfk"]
 
 [ext_resource type="Script" uid="uid://boxwoyc338x1h" path="res://src/blocks/cauldron.gd" id="1_5gmnb"]
 [ext_resource type="Texture2D" uid="uid://dfjg2p4ux0dcq" path="res://assets/Prototype Textures/PNG/Green/texture_13.png" id="2_jypdl"]
-[ext_resource type="PackedScene" uid="uid://cdreamq710dew" path="res://assets/KayKit_Dungeon/barrel_small.gltf" id="2_kt4ek"]
+[ext_resource type="Texture2D" uid="uid://bl4kvkhqj0t76" path="res://assets/Prototype Textures/PNG/Orange/texture_03.png" id="2_kt4ek"]
 [ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="3_lwpye"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="4_n6xpv"]
 [ext_resource type="Theme" uid="uid://dsxq24xebl0ij" path="res://src/coop_theme.tres" id="5_4c38v"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2jmb1"]
 size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mv77a"]
+albedo_texture = ExtResource("2_kt4ek")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt4ek"]
 albedo_texture = ExtResource("2_jypdl")
@@ -79,15 +82,21 @@ label_3d = NodePath("Label3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("BoxShape3D_2jmb1")
 
-[node name="barrel_small2" parent="." instance=ExtResource("2_kt4ek")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
-
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_kt4ek")
+material_override = SubResource("StandardMaterial3D_mv77a")
 use_collision = true
+radius = 0.7
 height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0257297, 0)
+material_override = SubResource("StandardMaterial3D_kt4ek")
+operation = 2
+use_collision = true
+radius = 0.6
+height = 0.98584
 sides = 16
 
 [node name="MixChargeable" type="Node" parent="."]

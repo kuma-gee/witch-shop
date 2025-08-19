@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://csiavq076wjrx"]
 
-[ext_resource type="Material" uid="uid://cmmi0nr3vhk52" path="res://magic/explosion_material.tres" id="1_sugrv"]
+[ext_resource type="Material" uid="uid://cmmi0nr3vhk52" path="res://src/vfx/explosion_material.tres" id="1_sugrv"]
 [ext_resource type="Shader" uid="uid://dpqsia4sjvs85" path="res://magic/streak_vfx.tres" id="2_dqbw7"]
 [ext_resource type="Texture2D" uid="uid://dpy74naxllt47" path="res://assets/particles/flare_01.png" id="3_at50x"]
 [ext_resource type="Texture2D" uid="uid://ciespxrctvqsp" path="res://assets/particles/explosion_decal.png" id="4_erun6"]
@@ -320,6 +320,7 @@ collision_mask = 34
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0510707, 0, 0)
+visible = false
 mesh = SubResource("PlaneMesh_c57t4")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]

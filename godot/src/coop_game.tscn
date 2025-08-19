@@ -1,6 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://dn00n221yqw2p"]
+[gd_scene load_steps=42 format=3 uid="uid://dn00n221yqw2p"]
 
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_1ssp0"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
 [ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
 [ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
@@ -29,6 +30,12 @@
 [ext_resource type="Script" uid="uid://c664orftl82f2" path="res://map/moving_zones_trap.gd" id="29_7hmlr"]
 [ext_resource type="Script" uid="uid://821u1a62kdny" path="res://src/free_zone.gd" id="30_0rtmg"]
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="30_deeh8"]
+[ext_resource type="PackedScene" uid="uid://bonjbb7wwwmud" path="res://map/zones/order_zone.tscn" id="30_hcrk0"]
+[ext_resource type="PackedScene" uid="uid://dpxe4ig0fbs8f" path="res://map/zones/cauldron_zone.tscn" id="32_hcrk0"]
+[ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="33_hmubx"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="34_1ssp0"]
+[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="34_30eib"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="35_hmubx"]
 [ext_resource type="Script" uid="uid://dj37nxxnycrpq" path="res://map/modular_map.gd" id="42_3s5ca"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xkkuv"]
@@ -113,6 +120,12 @@ volumetric_fog_density = 0.01
 [sub_resource type="BoxShape3D" id="BoxShape3D_7hmlr"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="Resource" id="Resource_30eib"]
+script = ExtResource("35_hmubx")
+duration = 1.0
+transition = 0
+ease = 2
+
 [node name="CoopGame" type="Node3D" node_paths=PackedStringArray("shop_open_time", "money_label", "shop", "player_spawner")]
 script = ExtResource("1_t8gqi")
 shop_open_time = NodePath("CanvasLayer/Control/ShopOpenTime")
@@ -140,11 +153,17 @@ wait_time = 60.0
 one_shot = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, -0.162, 28.6334, 22.9128)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 27.1892, 12.6785)
 current = true
 fov = 30.0
 size = 7.27389
 far = 600.0
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("4_1ssp0")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PlayerSpawner" parent="." node_paths=PackedStringArray("spawn_root", "ready_container") instance=ExtResource("7_iyq4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.2531, 0)
@@ -308,6 +327,53 @@ min_time = 20.0
 max_time = 30.0
 metadata/_custom_type_script = "uid://0gkypwrq3sew"
 
+[node name="OrderZone" parent="ModularMap" instance=ExtResource("30_hcrk0")]
+
+[node name="WallRight" parent="ModularMap/OrderZone/Grid" index="2"]
+visible = false
+
+[node name="WallBot" parent="ModularMap/OrderZone/Grid" index="3"]
+visible = false
+
+[node name="Trash" parent="ModularMap/OrderZone" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 1.5)
+
+[node name="CauldronZone" parent="ModularMap" instance=ExtResource("32_hcrk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="WallBot" parent="ModularMap/CauldronZone/Grid" index="3"]
+visible = false
+
+[node name="WallLeft" parent="ModularMap/CauldronZone/Grid" index="4"]
+visible = false
+
+[node name="PrepArea" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, -3.5)
+
+[node name="PrepArea2" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -3.5)
+type = 1
+
+[node name="PrepArea3" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -3.5)
+
+[node name="PrepArea4" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -3.5)
+
+[node name="PrepArea5" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -3.5)
+type = 1
+
+[node name="PrepArea6" parent="ModularMap/CauldronZone" instance=ExtResource("33_hmubx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -3.5)
+
+[node name="Material" parent="ModularMap/CauldronZone" instance=ExtResource("34_30eib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -3.5)
+type = 1
+
+[node name="Material2" parent="ModularMap/CauldronZone" instance=ExtResource("34_30eib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -2.5)
+
 [node name="FreeZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 collision_layer = 0
@@ -316,3 +382,19 @@ script = ExtResource("30_0rtmg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FreeZone"]
 shape = SubResource("BoxShape3D_7hmlr")
+
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_targets")]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 27.1892, 12.6785)
+top_level = true
+script = ExtResource("34_1ssp0")
+follow_mode = 3
+follow_targets = [NodePath("../ModularMap/OrderZone"), NodePath("../ModularMap/CauldronZone")]
+tween_resource = SubResource("Resource_30eib")
+follow_distance = 30.0
+spring_length = 30.0
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[editable path="ModularMap/OrderZone"]
+[editable path="ModularMap/OrderZone/Grid"]
+[editable path="ModularMap/CauldronZone"]
+[editable path="ModularMap/CauldronZone/Grid"]

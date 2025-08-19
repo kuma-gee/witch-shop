@@ -1,5 +1,10 @@
 class_name PotionItem
 
+const ITEM_FEATHER = preload("res://assets/sprites/Item_Feather.png")
+const ITEM_HERB = preload("res://assets/sprites/Item_Herb.png")
+const ITEM_STARLIGHT_DUST = preload("res://assets/sprites/Item_StarlightDust.png")
+const ITEM_TEARS = preload("res://assets/sprites/Item_Tears.png")
+
 const PROCESSES = {
 	Process.CUTTING: {
 		Type.HERB: Type.HERB_CUTTING,
@@ -13,10 +18,11 @@ const PROCESSES = {
 }
 
 const RECIPIES = {
-	Type.POTION_RED: [Type.FEATHER, Type.HERB_CUTTING],
-	Type.POTION_WHITE: [Type.FEATHER, Type.FEATHER],
-	Type.POTION_BLUE: [Type.FEATHER, Type.FEATHER, Type.TEARS_DISTILL],
-	Type.POTION_GREEN: [Type.HERB_CUTTING, Type.HERB_CUTTING, Type.FEATHER],
+	Type.POTION_RED: [Type.HERB, Type.HERB], # Heal
+	Type.POTION_WHITE: [Type.FEATHER, Type.FEATHER, Type.HERB_CUTTING], # Levitation
+	Type.POTION_YELLOW: [Type.STARLIGHT_DUST_COMBUST], # Explosion
+	Type.POTION_BLUE: [Type.TEARS_DISTILL], # Freeze
+	Type.POTION_GREEN: [Type.HERB_CUTTING, Type.HERB_CUTTING, Type.FEATHER], # Goo
 	Type.TEARS_DISTILL: [Type.TEARS, Type.STARLIGHT_DUST],
 }
 
@@ -55,9 +61,16 @@ enum Type {
 	POTION_RED, # Explosion - Destroy
 	POTION_BLUE, # Freeze - Fire Trap
 	POTION_GREEN, # Goo - Tornado
-	POTION_YELLOW, # Booze
+	POTION_YELLOW, # Explosion
 	POTION_PURPLE, # Invisibility?
 	POTION_WHITE, # Levitation - Trapdoor
+}
+
+const TEXTURE_MAP = {
+	Type.FEATHER: ITEM_FEATHER,
+	Type.HERB: ITEM_HERB,
+	Type.TEARS: ITEM_TEARS,
+	Type.STARLIGHT_DUST: ITEM_STARLIGHT_DUST,
 }
 
 var type: Type
@@ -107,3 +120,6 @@ static func is_potion(type: Type):
 
 static func get_color(type: Type):
 	return COLOR[type] if type in COLOR else Color.WHITE
+
+static func get_texture(type: Type):
+	return TEXTURE_MAP[type] if type in TEXTURE_MAP else null

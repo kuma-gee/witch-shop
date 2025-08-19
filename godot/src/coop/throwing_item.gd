@@ -6,10 +6,12 @@ const POTION_EFFECT = preload("res://src/coop/potion_effect.tscn")
 const EXPLOSION_VFX = preload("res://src/vfx/explosion_vfx.tscn")
 const ICE_VFX = preload("res://src/vfx/ice_vfx.tscn")
 const LEVITATION_VFX = preload("res://magic/levitation_vfx.tscn")
+const HEAL_VFX = preload("res://magic/heal_vfx.tscn")
 
 const EFFECT = {
 	PotionItem.Type.POTION_BLUE: ICE_VFX,
-	PotionItem.Type.POTION_RED: EXPLOSION_VFX,
+	PotionItem.Type.POTION_RED: HEAL_VFX,
+	PotionItem.Type.POTION_YELLOW: EXPLOSION_VFX,
 	PotionItem.Type.POTION_WHITE: LEVITATION_VFX,
 }
 
@@ -23,9 +25,7 @@ var collided := false
 
 func _ready() -> void:
 	interactable_3d.interacted.connect(func(hand: Hand3D): pick_up(hand))
-	hit_area.body_entered.connect(func(_b):
-		_on_collision()
-	)
+	hit_area.body_entered.connect(func(_b): _on_collision())
 
 func pick_up(hand: Hand3D):
 	hand.hold_item(item)

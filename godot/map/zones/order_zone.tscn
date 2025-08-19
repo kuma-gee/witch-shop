@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dhhtiypjng3c6" path="res://map/zones/zone.gd" id="1_uhhvu"]
 [ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="2_16am4"]
 [ext_resource type="PackedScene" uid="uid://be4ur3al8q3gp" path="res://map/wall_counter.tscn" id="2_ffgwk"]
-[ext_resource type="PackedScene" uid="uid://om8crst2odmf" path="res://map/torch.tscn" id="4_2cajj"]
+[ext_resource type="PackedScene" uid="uid://hne88dktobly" path="res://src/blocks/trash.tscn" id="5_uhhvu"]
 
 [node name="OrderZone" type="Node3D"]
 script = ExtResource("1_uhhvu")
@@ -20,7 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 [node name="CustomerSpawner" parent="." instance=ExtResource("2_16am4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -4)
 
-[node name="Torch" parent="." instance=ExtResource("4_2cajj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="Trash" parent="." instance=ExtResource("5_uhhvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 3.5)
 
 [editable path="Grid"]

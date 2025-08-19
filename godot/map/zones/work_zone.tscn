@@ -1,36 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://b20vl3nw07jst"]
+[gd_scene load_steps=7 format=3 uid="uid://b20vl3nw07jst"]
 
 [ext_resource type="Script" uid="uid://ilkerkfcj4ep" path="res://map/zones/work_zone.gd" id="1_6kql3"]
 [ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_if1bu"]
 [ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="2_d5h2j"]
-[ext_resource type="PackedScene" uid="uid://om8crst2odmf" path="res://map/torch.tscn" id="3_d5h2j"]
+[ext_resource type="PackedScene" uid="uid://2vk5frj8ga1a" path="res://map/grate.tscn" id="5_icono"]
+[ext_resource type="PackedScene" uid="uid://bmkmfsmjmv388" path="res://map/spikes.tscn" id="5_qbuhe"]
+[ext_resource type="PackedScene" uid="uid://cyrvrgf562u6o" path="res://map/grate_long.tscn" id="6_5v3ms"]
 
 [node name="WorkZone" type="Node3D" node_paths=PackedStringArray("work_stations")]
 script = ExtResource("1_6kql3")
-work_stations = [NodePath("Grid/PrepArea"), NodePath("Grid/PrepArea4"), NodePath("Grid/PrepArea5"), NodePath("Grid/PrepArea6"), NodePath("Grid/PrepArea2"), NodePath("Grid/PrepArea3"), NodePath("Grid/PrepArea7")]
+work_stations = [NodePath("Grid/PrepArea"), NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath("")]
 
 [node name="Grid" parent="." instance=ExtResource("1_if1bu")]
 
 [node name="PrepArea" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
-
-[node name="PrepArea4" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
-
-[node name="PrepArea5" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
-
-[node name="PrepArea6" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 3.5)
 
 [node name="PrepArea2" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 3.5)
 
 [node name="PrepArea3" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 3.5)
 
-[node name="PrepArea7" parent="Grid" instance=ExtResource("2_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+[node name="PrepArea4" parent="Grid" instance=ExtResource("2_d5h2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 3.5)
 
-[node name="Torch" parent="." instance=ExtResource("3_d5h2j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="Spikes" parent="." instance=ExtResource("5_qbuhe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="Grate" parent="." instance=ExtResource("5_icono")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="grate_long" parent="." instance=ExtResource("6_5v3ms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="grate_long2" parent="." instance=ExtResource("6_5v3ms")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -2)

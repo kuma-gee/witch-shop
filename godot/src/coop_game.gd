@@ -16,13 +16,13 @@ var shop_open := false:
 			shop_time_effect.do_show()
 			ready_effect.do_hide()
 		else:
-			if day == 1:
-				GameManager.increase_menu()
+			#if day == 1:
+				#GameManager.increase_menu()
 			
 			shop_time_effect.do_hide()
 			ready_effect.do_show()
 			player_spawner.shop_closed()
-			_update_zones()
+			#_update_zones()
 			
 			if was_open:
 				was_open = false
@@ -37,6 +37,7 @@ var shop_open := false:
 @onready var ready_effect: SlideEffect = $ReadyEffect
 @onready var modular_map: ModularMap = $ModularMap
 @onready var obstacle_timer: RandomTimer = $ObstacleTimer
+@onready var phantom_camera_3d: PhantomCamera3D = $PhantomCamera3D
 
 var failed_orders := 0
 var difficulty := 1.0
@@ -57,8 +58,11 @@ func _ready() -> void:
 	shop_open = false
 	GameManager.money_changed.connect(func(m): money_label.text = "%s" % m)
 	
-	var customer_spawn = _get_customer_spawner()
 	player_spawner.start_game.connect(func(): start_game())
+	#player_spawner.player_created.connect(func(player): phantom_camera_3d.append_follow_targets(player))
+	#player_spawner.player_deleted.connect(func(player): phantom_camera_3d.erase_follow_targets(player))
+	
+	var customer_spawn = _get_customer_spawner()
 	shop_open_timer.timeout.connect(func():
 		if not customer_spawn.has_order():
 			shop_open = false
@@ -102,8 +106,6 @@ func _update_zones():
 	var processes = data[1]
 	modular_map.setup(ingredients, processes)
 	
-	print(ingredients, processes)
-
 	if not modular_map.material_zone.has_all_ingredients(ingredients):
 		modular_map.material_zone = modular_map.add_zone(modular_map.MATERIAL_ZONE, modular_map.material_zone.coord)
 

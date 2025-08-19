@@ -15,7 +15,7 @@ size = Vector3(1.5, 1.5, 1.5)
 albedo_texture = ExtResource("2_5r6qj")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_va3at"]
-size = Vector3(2, 1.01123, 2)
+size = Vector3(1, 1.011, 1)
 
 [node name="Trash" type="Area3D" groups=["moveable"]]
 collision_layer = 4

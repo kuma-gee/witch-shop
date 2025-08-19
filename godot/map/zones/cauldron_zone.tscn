@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpxe4ig0fbs8f"]
+[gd_scene load_steps=4 format=3 uid="uid://dpxe4ig0fbs8f"]
 
 [ext_resource type="Script" uid="uid://dhhtiypjng3c6" path="res://map/zones/zone.gd" id="1_mu6uc"]
 [ext_resource type="PackedScene" uid="uid://cc0q2osqijafd" path="res://map/cauldron_base.tscn" id="2_eu52b"]
 [ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="2_mu6uc"]
-[ext_resource type="PackedScene" uid="uid://om8crst2odmf" path="res://map/torch.tscn" id="4_acyul"]
 
 [node name="CauldronZone" type="Node3D"]
 script = ExtResource("1_mu6uc")
@@ -11,6 +10,3 @@ script = ExtResource("1_mu6uc")
 [node name="CauldronBase" parent="." instance=ExtResource("2_eu52b")]
 
 [node name="Grid" parent="." instance=ExtResource("2_mu6uc")]
-
-[node name="Torch" parent="." instance=ExtResource("4_acyul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
