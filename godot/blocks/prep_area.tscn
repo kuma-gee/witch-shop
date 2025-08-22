@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bqqnmayb2s48f"]
 
-[ext_resource type="Script" uid="uid://cg70qtxbrq1ox" path="res://src/blocks/prep_area_3d.gd" id="1_8qb4v"]
+[ext_resource type="Script" uid="uid://cg70qtxbrq1ox" path="res://blocks/prep_area_3d.gd" id="1_8qb4v"]
 [ext_resource type="PackedScene" uid="uid://bgngthdrxeblg" path="res://assets/KayKit_Dungeon/table_medium.gltf" id="2_72ykd"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="2_d3olx"]
 [ext_resource type="Texture2D" uid="uid://ufci3cchrnpq" path="res://assets/Prototype Textures/PNG/Purple/texture_05.png" id="4_05jqj"]

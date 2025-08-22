@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://5yixkaftnqei" path="res://src/coop_game.gd" id="1_t8gqi"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_1ssp0"]
 [ext_resource type="Theme" uid="uid://cimlshnn1i48n" path="res://theme/theme.css" id="5_m6sqb"]
-[ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://src/blocks/player_spawner.tscn" id="7_iyq4s"]
+[ext_resource type="PackedScene" uid="uid://hkst0usgy4ul" path="res://blocks/player_spawner.tscn" id="7_iyq4s"]
 [ext_resource type="PackedScene" uid="uid://cfpgm0g4budde" path="res://src/ui/shop_item.tscn" id="11_arh2m"]
 [ext_resource type="Script" uid="uid://coj14chbxj38d" path="res://src/coop/time_slider.gd" id="15_qjup0"]
 [ext_resource type="Texture2D" uid="uid://b3kjjfw1us5ak" path="res://assets/scroll/Map inventory/Map/Map Close/0.png" id="16_0rtmg"]
@@ -32,9 +32,9 @@
 [ext_resource type="Script" uid="uid://0gkypwrq3sew" path="res://src/util/RandomTimer.gd" id="30_deeh8"]
 [ext_resource type="PackedScene" uid="uid://bonjbb7wwwmud" path="res://map/zones/order_zone.tscn" id="30_hcrk0"]
 [ext_resource type="PackedScene" uid="uid://dpxe4ig0fbs8f" path="res://map/zones/cauldron_zone.tscn" id="32_hcrk0"]
-[ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://src/blocks/prep_area.tscn" id="33_hmubx"]
+[ext_resource type="PackedScene" uid="uid://bqqnmayb2s48f" path="res://blocks/prep_area.tscn" id="33_hmubx"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="34_1ssp0"]
-[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="34_30eib"]
+[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://blocks/material_box.tscn" id="34_30eib"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="35_hmubx"]
 [ext_resource type="Script" uid="uid://dj37nxxnycrpq" path="res://map/modular_map.gd" id="42_3s5ca"]
 
@@ -153,7 +153,7 @@ wait_time = 60.0
 one_shot = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 27.1892, 12.6785)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 22.6577, 10.5654)
 current = true
 fov = 30.0
 size = 7.27389
@@ -384,14 +384,14 @@ script = ExtResource("30_0rtmg")
 shape = SubResource("BoxShape3D_7hmlr")
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_targets")]
-transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 27.1892, 12.6785)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 4, 22.6577, 10.5654)
 top_level = true
 script = ExtResource("34_1ssp0")
 follow_mode = 3
 follow_targets = [NodePath("../ModularMap/OrderZone"), NodePath("../ModularMap/CauldronZone")]
 tween_resource = SubResource("Resource_30eib")
-follow_distance = 30.0
-spring_length = 30.0
+follow_distance = 25.0
+spring_length = 25.0
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [editable path="ModularMap/OrderZone"]

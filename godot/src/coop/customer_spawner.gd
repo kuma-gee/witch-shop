@@ -4,7 +4,7 @@ extends Interactable3D
 signal order_failed()
 signal order_success(type: PotionItem)
 
-@export var min_time := 15.0
+@export var min_time := 10.0
 @export var max_time := 100.0
 @export var max_orders := 8.0
 @export var order_container: Control

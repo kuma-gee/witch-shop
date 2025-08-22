@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bthf3mqkvyw2i" path="res://map/wall.tscn" id="1_gikf8"]
 [ext_resource type="PackedScene" uid="uid://vdho66h33o2x" path="res://assets/models/Door.gltf" id="2_6lw2e"]
-[ext_resource type="Script" uid="uid://qabhamdnu2aa" path="res://src/blocks/door_hinge.gd" id="2_qxd2x"]
+[ext_resource type="Script" uid="uid://qabhamdnu2aa" path="res://blocks/door_hinge.gd" id="2_qxd2x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6lw2e"]
 friction = 0.6

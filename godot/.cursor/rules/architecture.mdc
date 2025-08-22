@@ -1,0 +1,19 @@
+---
+description: Game Architecture and folder structure
+globs:
+alwaysApply: false
+---
+
+## Core Components
+
+- The `PotionItem` class contains all recipies, ingredients and their prices in one place for easier adjustments
+- Every ingredient processing type should inherit from `PrepArea3D`
+- The map is divided into zones which is managed by the `ModularMap` class and should inherit from the `Zone` class
+- The `Trap` class should be inherited by all traps
+- Each potion effect is implemented as their own scene and spawned by the `ThrowableItem` class after a collision
+
+## Folder Structure
+
+- Every potion effect should reside inside the `magic` folder
+- Every zone should reside inside the `map/zone` folder
+- Every block that can be placed on the map should be inside the `blocks` folder

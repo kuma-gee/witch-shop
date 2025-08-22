@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_uhdgm"]
 [ext_resource type="Script" uid="uid://dhhtiypjng3c6" path="res://map/zones/zone.gd" id="1_uhhvu"]
-[ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://src/blocks/customer_spawner.tscn" id="2_16am4"]
+[ext_resource type="PackedScene" uid="uid://dtysqsseit3yw" path="res://blocks/customer_spawner.tscn" id="2_16am4"]
 [ext_resource type="PackedScene" uid="uid://be4ur3al8q3gp" path="res://map/wall_counter.tscn" id="2_ffgwk"]
-[ext_resource type="PackedScene" uid="uid://hne88dktobly" path="res://src/blocks/trash.tscn" id="5_uhhvu"]
+[ext_resource type="PackedScene" uid="uid://hne88dktobly" path="res://blocks/trash.tscn" id="5_uhhvu"]
 
 [node name="OrderZone" type="Node3D"]
 script = ExtResource("1_uhhvu")

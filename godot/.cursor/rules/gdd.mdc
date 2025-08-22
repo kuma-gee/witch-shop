@@ -1,0 +1,15 @@
+---
+description: Game Design Document
+globs:
+alwaysApply: false
+---
+
+## Game Summary
+
+- A chaotic, cooperative potion-shop simulator set inside a living, trap-filled dungeon.
+- The target audience is casual players. Prioritize fun and chaos over complex mechanics. All generated mechanics must be simple to learn but allow for emergent, funny failures.
+
+## Core Mechanics
+
+- Throwable potions that causes some effects to the players or the environment. The players can use them to their advantage.
+- The dungeon map are shifting after each day, becoming deadlier and more difficult over time.

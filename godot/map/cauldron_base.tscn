@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cpqmhro35gqen" path="res://assets/Prototype Textures/PNG/Red/texture_13.png" id="1_aqngx"]
 [ext_resource type="Script" uid="uid://1pe8gc0nds60" path="res://map/cauldron_base.gd" id="2_snm1p"]
-[ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://src/blocks/cauldron.tscn" id="2_yd82t"]
+[ext_resource type="PackedScene" uid="uid://m6dlgd44drfk" path="res://blocks/cauldron.tscn" id="2_yd82t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mv77a"]
 size = Vector3(1.76953, 1.10986, 1.82617)

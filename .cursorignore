@@ -1,0 +1,9 @@
+_sprites
+godot/assets
+godot/addons
+.github
+i18n
+scripts
+/package*
+
+godot/src/shaders

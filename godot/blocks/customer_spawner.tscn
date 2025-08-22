@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtysqsseit3yw"]
 
-[ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_q64ky"]
-[ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/order.tscn" id="4_j58on"]
-[ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="6_mwbhi"]
-[ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="7_k6cdt"]
+[ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_6pm1u"]
+[ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/order.tscn" id="2_g30hc"]
+[ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="3_1jnmu"]
+[ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="4_v477c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cklce"]
 size = Vector3(1.73535, 1.69434, 1.53809)
@@ -11,16 +11,17 @@ size = Vector3(1.73535, 1.69434, 1.53809)
 [node name="CustomerSpawner" type="Area3D" node_paths=PackedStringArray("order_container") groups=["customer_spawn", "moveable"]]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("1_q64ky")
+script = ExtResource("1_6pm1u")
 order_container = NodePath("CanvasLayer/Control/HBoxContainer")
-order_scene = ExtResource("4_j58on")
+order_scene = ExtResource("2_g30hc")
 
 [node name="TakeOrderTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="OrderTimer" type="Timer" parent="."]
+wait_time = 5.0
 
-[node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("6_mwbhi")]
+[node name="ActionIcon" parent="." node_paths=PackedStringArray("chargeable") instance=ExtResource("3_1jnmu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4767, 0)
 visible = false
 render_priority = 10
@@ -28,7 +29,7 @@ chargeable = NodePath("../Chargeable")
 hide_on_stopped = false
 
 [node name="Chargeable" type="Node" parent="."]
-script = ExtResource("7_k6cdt")
+script = ExtResource("4_v477c")
 activate_on_charged = true
 metadata/_custom_type_script = "uid://cr7pk0toishak"
 

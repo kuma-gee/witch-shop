@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://hne88dktobly"]
 
-[ext_resource type="Script" uid="uid://cl8pk4i66lar" path="res://src/blocks/trash.gd" id="1_4yguj"]
+[ext_resource type="Script" uid="uid://cl8pk4i66lar" path="res://blocks/trash.gd" id="1_4yguj"]
 [ext_resource type="Texture2D" uid="uid://bk1f5f376j8xg" path="res://assets/Prototype Textures/PNG/Red/texture_03.png" id="2_5r6qj"]
 [ext_resource type="PackedScene" uid="uid://cdreamq710dew" path="res://assets/KayKit_Dungeon/barrel_small.gltf" id="2_va3at"]
 [ext_resource type="Texture2D" uid="uid://tk0aihs7yft6" path="res://assets/Prototype Textures/PNG/Red/texture_10.png" id="3_8jtc4"]

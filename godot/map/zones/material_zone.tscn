@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ctxw14d30wfln" path="res://map/zones/material_zone.gd" id="1_007fv"]
 [ext_resource type="PackedScene" uid="uid://dhvbv4hrvsmos" path="res://map/zones/grid.tscn" id="1_tydof"]
-[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://src/blocks/material_box.tscn" id="2_u3i8v"]
+[ext_resource type="PackedScene" uid="uid://cbwmqa8y5klj3" path="res://blocks/material_box.tscn" id="2_u3i8v"]
 [ext_resource type="PackedScene" uid="uid://om8crst2odmf" path="res://map/torch.tscn" id="3_grdu3"]
 
 [node name="MaterialZone" type="Node3D" node_paths=PackedStringArray("ingredients")]

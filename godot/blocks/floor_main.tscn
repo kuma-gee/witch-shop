@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6fclo2fkt43q"]
 
-[ext_resource type="Script" uid="uid://c58tavrrgllwd" path="res://src/blocks/floor_main.gd" id="1_4uy47"]
+[ext_resource type="Script" uid="uid://c58tavrrgllwd" path="res://blocks/floor_main.gd" id="1_4uy47"]
 [ext_resource type="Texture2D" uid="uid://l4woixo6lw71" path="res://assets/Prototype Textures/PNG/Light/texture_12.png" id="1_v3nf4"]
 [ext_resource type="PackedScene" uid="uid://xbe32de22rww" path="res://assets/KayKit_Dungeon/floor_tile_small.gltf" id="2_alyuy"]
 
