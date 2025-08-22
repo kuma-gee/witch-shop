@@ -1,10 +1,8 @@
 class_name ThrowableItem
 extends CharacterBody3D
 
-const POTION_EFFECT = preload("res://src/coop/potion_effect.tscn")
-
-const EXPLOSION_VFX = preload("res://src/vfx/explosion_vfx.tscn")
-const ICE_VFX = preload("res://src/vfx/ice_vfx.tscn")
+const EXPLOSION_VFX = preload("res://magic/explosion_vfx.tscn")
+const ICE_VFX = preload("res://magic/ice_vfx.tscn")
 const LEVITATION_VFX = preload("res://magic/levitation_vfx.tscn")
 const HEAL_VFX = preload("res://magic/heal_vfx.tscn")
 

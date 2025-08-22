@@ -21,12 +21,12 @@ linked_parent_graph_frame = 16
 operator = 2
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_7twa0"]
-size = Vector2(824, 362)
+size = Vector2(852, 562)
 title = "SmokeColor"
 attached_nodes = PackedInt32Array(3, 4, 5, 2)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_tk2ub"]
-size = Vector2(1404, 882)
+size = Vector2(1404, 1125)
 title = "Flare"
 attached_nodes = PackedInt32Array(7, 14, 10, 12, 13, 11, 8, 9, 26)
 
@@ -57,7 +57,7 @@ texture = SubResource("GradientTexture1D_pwxth")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_oyvcv"]
-size = Vector2(1524, 682)
+size = Vector2(1524, 765)
 title = "Dissolve"
 attached_nodes = PackedInt32Array(18, 23, 19, 17, 30, 24, 25, 28, 22, 29)
 
@@ -308,6 +308,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-213.699, -29.8773)
 nodes/vertex/0/position = Vector2(1520, 220)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_le77e")
 nodes/vertex/2/position = Vector2(220, 80)

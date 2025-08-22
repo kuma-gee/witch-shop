@@ -1,8 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6fclo2fkt43q"]
+[gd_scene load_steps=6 format=3 uid="uid://dawkeeqbawenu"]
 
-[ext_resource type="Script" uid="uid://c58tavrrgllwd" path="res://blocks/floor_main.gd" id="1_4uy47"]
 [ext_resource type="Texture2D" uid="uid://l4woixo6lw71" path="res://assets/Prototype Textures/PNG/Light/texture_12.png" id="1_v3nf4"]
 [ext_resource type="PackedScene" uid="uid://xbe32de22rww" path="res://assets/KayKit_Dungeon/floor_tile_small.gltf" id="2_alyuy"]
+
+[sub_resource type="GDScript" id="GDScript_cb4my"]
+script/source = "class_name FloorMain
+extends Node3D
+
+@onready var original_position = global_position
+
+func move_tile(offset: Vector3, duration: float = 3.0):
+	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	var target = original_position + offset
+	tween.tween_property(self, \"global_position\", target, duration)
+
+func reset_tile():
+	move_tile(Vector3.ZERO)
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4uy47"]
 albedo_texture = ExtResource("1_v3nf4")
@@ -11,7 +25,7 @@ albedo_texture = ExtResource("1_v3nf4")
 size = Vector3(1, 0.15, 1)
 
 [node name="FloorMain" type="Node3D"]
-script = ExtResource("1_4uy47")
+script = SubResource("GDScript_cb4my")
 
 [node name="floor_tile_small2" parent="." instance=ExtResource("2_alyuy")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0322645, 0)

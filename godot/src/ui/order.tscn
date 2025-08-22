@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgfc7gq1abtay"]
 
 [ext_resource type="Texture2D" uid="uid://bsgxxrg8pquhk" path="res://assets/sprites/potion.svg" id="1_5251l"]
-[ext_resource type="Script" uid="uid://m7ustg60tjim" path="res://src/order.gd" id="2_nmvgh"]
+[ext_resource type="Script" uid="uid://m7ustg60tjim" path="res://src/ui/order.gd" id="2_nmvgh"]
 
 [node name="Order" type="MarginContainer" node_paths=PackedStringArray("texture", "timer", "progress_bar")]
 offset_right = 40.0

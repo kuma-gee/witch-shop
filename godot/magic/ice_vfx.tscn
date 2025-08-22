@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://dpryhci7cb4sn"]
 
-[ext_resource type="Shader" uid="uid://dg53kkr3au48b" path="res://src/vfx/ice_vfx.tres" id="1_3dh1j"]
-[ext_resource type="Script" uid="uid://cjsptt6a05eko" path="res://src/vfx/ice_vfx.gd" id="1_5o81f"]
-[ext_resource type="Shader" uid="uid://c5fqyui0lci4g" path="res://src/vfx/blackhole_sphere.tres" id="2_5bosj"]
-[ext_resource type="Script" uid="uid://pjkfeu3v5q7p" path="res://src/vfx/particle_rotate.gd" id="3_5jlvb"]
+[ext_resource type="Shader" uid="uid://dg53kkr3au48b" path="res://magic/ice_vfx.tres" id="1_3dh1j"]
+[ext_resource type="Script" uid="uid://cjsptt6a05eko" path="res://magic/ice_vfx.gd" id="1_5o81f"]
+[ext_resource type="Shader" uid="uid://c5fqyui0lci4g" path="res://magic/blackhole_sphere.tres" id="2_5bosj"]
+[ext_resource type="Script" uid="uid://pjkfeu3v5q7p" path="res://magic/particle_rotate.gd" id="3_5jlvb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_i3p6j"]
 noise_type = 2
@@ -171,7 +171,6 @@ material_override = SubResource("ShaderMaterial_44lvr")
 mesh = SubResource("SphereMesh_o1qju")
 
 [node name="BlackHoleCore" type="MeshInstance3D" parent="."]
-visible = false
 material_override = SubResource("ShaderMaterial_tt1lu")
 mesh = SubResource("SphereMesh_o1qju")
 

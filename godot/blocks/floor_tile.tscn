@@ -1,21 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://c460lw5wwy6fv"]
+[gd_scene load_steps=6 format=3 uid="uid://c6fclo2fkt43q"]
 
-[ext_resource type="PackedScene" uid="uid://c6fclo2fkt43q" path="res://blocks/floor_main.tscn" id="1_rfyo8"]
-[ext_resource type="Texture2D" uid="uid://u0l07jqmesco" path="res://assets/Prototype Textures/PNG/Dark/texture_13.png" id="2_ec86l"]
-[ext_resource type="Script" uid="uid://cqnl5griuqq8l" path="res://blocks/floor_tile.gd" id="2_jibiy"]
-[ext_resource type="PackedScene" uid="uid://udnoum1ts7gy" path="res://assets/KayKit_Dungeon/floor_dirt_small_B.gltf" id="3_bwv8a"]
+[ext_resource type="Script" uid="uid://c58tavrrgllwd" path="res://blocks/floor_tile.gd" id="1_42rgx"]
+[ext_resource type="PackedScene" uid="uid://xbe32de22rww" path="res://assets/KayKit_Dungeon/floor_tile_small.gltf" id="2_f7neh"]
+[ext_resource type="Texture2D" uid="uid://l4woixo6lw71" path="res://assets/Prototype Textures/PNG/Light/texture_12.png" id="3_mryhf"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jibiy"]
-albedo_texture = ExtResource("2_ec86l")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sa62b"]
+albedo_texture = ExtResource("3_mryhf")
 
-[node name="FloorTile" instance=ExtResource("1_rfyo8")]
-script = ExtResource("2_jibiy")
+[sub_resource type="BoxShape3D" id="BoxShape3D_fgpp4"]
+size = Vector3(1, 0.15, 1)
 
-[node name="floor_dirt_small_B2" parent="." index="0" instance=ExtResource("3_bwv8a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0147636, 0)
+[node name="FloorTile" type="Node3D"]
+script = ExtResource("1_42rgx")
 
-[node name="floor_tile_small2" parent="." index="1"]
+[node name="floor_tile_small2" parent="." instance=ExtResource("2_f7neh")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0322645, 0)
+
+[node name="FloorWhite" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.107391, 0)
 visible = false
+material_override = SubResource("StandardMaterial3D_sa62b")
+use_collision = true
+size = Vector3(1, 0.2, 1)
 
-[node name="FloorWhite" parent="." index="2"]
-material_override = SubResource("StandardMaterial3D_jibiy")
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0816759, 0)
+shape = SubResource("BoxShape3D_fgpp4")

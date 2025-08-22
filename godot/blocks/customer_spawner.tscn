@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtysqsseit3yw"]
 
 [ext_resource type="Script" uid="uid://bh5gtlnk6jqvf" path="res://src/coop/customer_spawner.gd" id="1_6pm1u"]
-[ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/order.tscn" id="2_g30hc"]
+[ext_resource type="PackedScene" uid="uid://cgfc7gq1abtay" path="res://src/ui/order.tscn" id="2_g30hc"]
 [ext_resource type="PackedScene" uid="uid://ctoanxjg4nxn3" path="res://src/coop/action_icon.tscn" id="3_1jnmu"]
 [ext_resource type="Script" uid="uid://cr7pk0toishak" path="res://src/coop/chargeable.gd" id="4_v477c"]
 

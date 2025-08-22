@@ -13,7 +13,6 @@ signal accepted()
 	set(v):
 		color = v
 		color_ring.modulate = color
-@onready var grid: ShopGridMap = get_tree().get_first_node_in_group("grid")
 
 @export_category("Items")
 @export var throw_charge: Chargeable
@@ -165,14 +164,14 @@ func _hand_interact():
 
 	hand_3d.interact()
 
-func can_place_at(coord: Vector3i) -> bool:
-	var pos = grid.map_to_local(coord)
-	var mask = 1
-
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 0.5, pos + Vector3.DOWN * 0.5, mask)
-	var result = space_state.intersect_ray(query)
-	return result.is_empty()
+#func can_place_at(coord: Vector3i) -> bool:
+	#var pos = grid.map_to_local(coord)
+	#var mask = 1
+#
+	#var space_state = get_world_3d().direct_space_state
+	#var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 0.5, pos + Vector3.DOWN * 0.5, mask)
+	#var result = space_state.intersect_ray(query)
+	#return result.is_empty()
 
 func _hand_action():
 	var obj = hand_3d.action(true)

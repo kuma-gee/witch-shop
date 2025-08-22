@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://hkst0usgy4ul"]
 
-[ext_resource type="Script" path="res://src/coop/player_spawner.gd" id="1_wrtvk"]
+[ext_resource type="Script" uid="uid://dcvggb0c5f6ud" path="res://src/player/player_spawner.gd" id="1_wrtvk"]
 [ext_resource type="PackedScene" uid="uid://cw0gbib56g3he" path="res://src/coop/top_down_player_3d.tscn" id="2_3km40"]
 
 [node name="PlayerSpawner" type="Marker3D" groups=["player_spawn"]]
